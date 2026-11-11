@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CV — Tohir Mamurov | Creative Developer & Python Architect</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050505' stroke='%238BFF5A' stroke-width='3'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='28' fill='%238BFF5A'%3ETD%3C/text%3E%3C/svg%3E">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <style>
+    @media print {
+      body { background: #ffffff !important; color: #111827 !important; }
+      .no-print { display: none !important; }
+      .cv-sheet { box-shadow: none !important; border: none !important; background: #ffffff !important; color: #111827 !important; padding: 0 !important; }
+      .cv-muted { color: #4b5563 !important; }
+      .cv-accent { color: #047857 !important; }
+      .cv-card { background: #f9fafb !important; border-color: #e5e7eb !important; }
+    }
+  </style>
+</head>
+<body class="bg-[#050505] text-white min-h-screen py-8 px-4 font-sans antialiased">
+  <div class="max-w-4xl mx-auto">
+    <!-- Top Actions -->
+    <div class="no-print flex flex-wrap items-center justify-between gap-3 mb-6">
+      <a href="./index.html" class="px-4 py-2 rounded-full bg-[#111115] border border-white/15 text-sm text-gray-300 hover:text-[#8BFF5A] hover:border-[#8BFF5A]/50 transition-all">
+        ← Back to Portfolio
+      </a>
+      <button onclick="window.print()" class="px-5 py-2 rounded-full bg-[#8BFF5A] text-[#050505] font-bold text-sm hover:bg-[#A4FF78] transition-all cursor-pointer">
+        🖨 Print / Save as PDF
+      </button>
+    </div>
+
+    <!-- Resume Sheet -->
+    <article class="cv-sheet bg-[#0D0D12] border border-white/10 rounded-3xl p-8 sm:p-12 shadow-2xl">
+      <header class="border-b border-white/10 pb-6 mb-8 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div>
+          <p class="cv-accent text-xs font-mono uppercase tracking-widest text-[#8BFF5A] mb-1">TOHIR.DEV // RESUME</p>
+          <h1 class="text-3xl sm:text-4xl font-bold tracking-tight">Tohir Mamurov</h1>
+          <p class="cv-muted text-gray-300 mt-1 text-base">Creative Developer • Python Architect • AI &amp; 3D Web Specialist</p>
+        </div>
+        <div class="text-xs font-mono space-y-1 cv-muted text-gray-300">
+          <div>📍 Tashkent, Uzbekistan</div>
+          <div>✉ mamurovtohir571@gmail.com</div>
+          <div>✈ Telegram: @MTX_2477</div>
+          <div>💻 github.com/Xusanovich-MTX</div>
+        </div>
+      </header>
+
+      <section class="mb-8">
+        <h2 class="cv-accent text-xs font-mono uppercase tracking-widest text-[#8BFF5A] mb-2">Profile</h2>
+        <p class="cv-muted text-sm text-gray-300 leading-relaxed">
+          Software developer with 5+ years of coding experience focused on intelligent digital products, asynchronous Python automation, computer vision systems, and interactive 3D web applications. Passionate about turning abstract ideas into reliable, high-performance software.
+        </p>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="cv-accent text-xs font-mono uppercase tracking-widest text-[#8BFF5A] mb-3">Technical Skills</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+          <div class="cv-card bg-white/5 border border-white/10 rounded-xl p-4">
+            <div class="font-semibold mb-1">Languages &amp; Backend</div>
+            <div class="cv-muted text-gray-300 text-xs leading-relaxed">Python (Asyncio, Aiogram 3.x, FastAPI), C++, Java, JavaScript (ES6+, Node.js), PostgreSQL, Firebase</div>
+          </div>
+          <div class="cv-card bg-white/5 border border-white/10 rounded-xl p-4">
+            <div class="font-semibold mb-1">AI, Computer Vision &amp; Frontend</div>
+            <div class="cv-muted text-gray-300 text-xs leading-relaxed">OpenCV, MediaPipe Face Mesh, PyTorch, React.js, Three.js (WebGL), Tailwind CSS, Android (Kotlin/Java), UI/UX</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-8">
+        <h2 class="cv-accent text-xs font-mono uppercase tracking-widest text-[#8BFF5A] mb-3">Featured Projects</h2>
+        <div class="space-y-4">
+          <div class="cv-card bg-white/5 border border-white/10 rounded-xl p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+              <h3 class="font-bold text-base">HEMIS Telegram Bot</h3>
+              <span class="text-xs font-mono cv-accent text-[#8BFF5A]">Python • Aiogram 3.x • PostgreSQL • Docker</span>
+            </div>
+            <p class="cv-muted text-xs text-gray-300 leading-relaxed">
+              Educational assistant integrated with the HEMIS platform, automating schedule queries, grade tracking, attendance monitoring, and notifications for 12,000+ active users.
+            </p>
+          </div>
+          <div class="cv-card bg-white/5 border border-white/10 rounded-xl p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+              <h3 class="font-bold text-base">EyePilot Accessibility System</h3>
+              <span class="text-xs font-mono cv-accent text-[#8BFF5A]">Python • OpenCV • MediaPipe • PyAutoGUI</span>
+            </div>
+            <p class="cv-muted text-xs text-gray-300 leading-relaxed">
+              Touchless camera-based computer control using 468 facial landmarks, real-time iris gaze tracking (~12ms latency at 60 FPS), and blink gesture recognition.
+            </p>
+          </div>
+          <div class="cv-card bg-white/5 border border-white/10 rounded-xl p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+              <h3 class="font-bold text-base">CodeStep Learning Platform</h3>
+              <span class="text-xs font-mono cv-accent text-[#8BFF5A]">React • TypeScript • Tailwind • Node.js • Firebase</span>
+            </div>
+            <p class="cv-muted text-xs text-gray-300 leading-relaxed">
+              Interactive programming education platform featuring an in-browser code playground, automated unit test evaluation, and 50+ gamified skill modules.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="pt-4 border-t border-white/10 flex flex-wrap justify-between text-xs font-mono cv-muted text-gray-400">
+        <span>Portfolio: https://xusanovich-mtx.github.io/portfolio/</span>
+        <span>Updated 2026</span>
+      </footer>
+    </article>
+  </div>
+</body>
+</html>

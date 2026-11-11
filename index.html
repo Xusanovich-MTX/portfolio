@@ -4,6 +4,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TOHIR.DEV — Tohir Mamurov | Creative Developer & 3D Specialist</title>
+  <meta name="description" content="Tohir Mamurov (TOHIR.DEV) — Creative Developer, Python Architect & AI Specialist. Building 3D WebGL experiences, Telegram bots, and computer vision systems.">
+  <meta name="theme-color" content="#050505">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23050505' stroke='%238BFF5A' stroke-width='3'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='700' font-size='28' fill='%238BFF5A'%3ETD%3C/text%3E%3C/svg%3E">
+
+  <!-- Open Graph / Telegram & Social Preview -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://xusanovich-mtx.github.io/portfolio/">
+  <meta property="og:title" content="TOHIR.DEV — Tohir Mamurov | Creative Developer & AI Specialist">
+  <meta property="og:description" content="3D WebGL Portfolio, Python Automation, Telegram Bots (HEMIS), Computer Vision (EyePilot) & Full-Stack Engineering.">
+  <meta property="og:image" content="https://xusanovich-mtx.github.io/portfolio/og-preview.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TOHIR.DEV — Tohir Mamurov | Creative Developer & AI Specialist">
+  <meta name="twitter:description" content="3D WebGL Portfolio, Python Automation, Telegram Bots & Computer Vision Systems.">
+  <meta name="twitter:image" content="https://xusanovich-mtx.github.io/portfolio/og-preview.png">
   
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -227,19 +243,25 @@
 
       <!-- Desktop Nav Links -->
       <nav class="hidden md:flex items-center gap-1 lg:gap-2 px-3 py-1.5 rounded-full bg-[#111116]/80 border border-white/10 backdrop-blur-lg">
-        <a href="#about" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">ABOUT</a>
-        <a href="#skills" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">SKILLS</a>
-        <a href="#projects" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">PROJECTS</a>
-        <a href="#showcase" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">SHOWCASE</a>
-        <a href="#contact" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">CONTACT</a>
+        <a href="#about" data-i18n="nav_about" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">ABOUT</a>
+        <a href="#skills" data-i18n="nav_skills" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">SKILLS</a>
+        <a href="#projects" data-i18n="nav_projects" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">PROJECTS</a>
+        <a href="#showcase" data-i18n="nav_showcase" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">SHOWCASE</a>
+        <a href="#contact" data-i18n="nav_contact" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">CONTACT</a>
       </nav>
 
-      <!-- Utility Actions (Audio Toggle, 3D Mode, CTA, Mobile Menu) -->
+      <!-- Utility Actions (Language Toggle, CTA, Mobile Menu) -->
       <div class="flex items-center gap-2 sm:gap-3">
+
+        <!-- Language Switcher (EN / UZ) -->
+        <button id="lang-toggle-btn" title="Switch Language (EN / UZ)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-card border border-brand-border hover:border-brand-accent/60 text-xs font-mono text-white transition-all cursor-pointer">
+          <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span>
+          <span id="lang-label">UZ</span>
+        </button>
 
         <!-- Let's Connect Header CTA -->
         <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-accent text-brand-black font-sans font-semibold text-xs tracking-wide hover:bg-brand-accentHover transition-all shadow-[0_0_15px_rgba(139,255,90,0.3)] hover:scale-105 active:scale-95">
-          <span>LET'S CONNECT</span>
+          <span data-i18n="header_cta">LET'S CONNECT</span>
           <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
@@ -287,7 +309,7 @@
         <!-- Terminal Status Pill -->
         <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand-card/80 border border-brand-accent/30 backdrop-blur-md mb-6 hover:border-brand-accent transition-all duration-300 shadow-[0_0_15px_rgba(139,255,90,0.15)]">
           <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-          <span class="font-mono text-xs sm:text-sm text-brand-accent font-medium tracking-wide">
+          <span data-i18n="hero_pill" class="font-mono text-xs sm:text-sm text-brand-accent font-medium tracking-wide">
             AVAILABLE FOR HIGH-IMPACT PROJECTS
           </span>
           <span class="hidden sm:inline text-white/20">|</span>
@@ -310,24 +332,29 @@
         </div>
 
         <!-- Subtitle -->
-        <p class="max-w-2xl text-base sm:text-lg md:text-xl font-body text-brand-muted mb-10 leading-relaxed font-light">
-          Building Digital Experiences Through <span class="text-white font-medium">Code</span> & <span class="text-brand-accent font-medium">Creativity</span>. Engineering next-generation web applications, autonomous bots, and computer vision systems.
+        <p data-i18n="hero_subtitle" class="max-w-2xl text-base sm:text-lg md:text-xl font-body text-brand-muted mb-10 leading-relaxed font-light">
+          Building Digital Experiences Through <span class="text-white font-medium">Code</span> &amp; <span class="text-brand-accent font-medium">Creativity</span>. Engineering next-generation web applications, autonomous bots, and computer vision systems.
         </p>
 
         <!-- Action CTAs -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full max-w-md">
-          <a href="#projects" id="hero-btn-explore" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-sm tracking-wider hover:bg-brand-accentHover transition-all duration-300 shadow-[0_0_25px_rgba(139,255,90,0.4)] hover:shadow-[0_0_35px_rgba(139,255,90,0.6)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 group">
-            <span>EXPLORE MY WORK</span>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-2xl">
+          <a href="#projects" id="hero-btn-explore" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-sm tracking-wider hover:bg-brand-accentHover transition-all duration-300 shadow-[0_0_25px_rgba(139,255,90,0.4)] hover:shadow-[0_0_35px_rgba(139,255,90,0.6)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 group">
+            <span data-i18n="hero_explore">EXPLORE MY WORK</span>
             <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
             </svg>
           </a>
 
-          <a href="#contact" id="hero-btn-connect" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-brand-card border border-white/20 hover:border-brand-accent text-white font-sans font-semibold text-sm tracking-wider hover:text-brand-accent transition-all duration-300 backdrop-blur-sm hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group">
-            <span>LET'S CONNECT</span>
+          <a href="#contact" id="hero-btn-connect" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-brand-card border border-white/20 hover:border-brand-accent text-white font-sans font-semibold text-sm tracking-wider hover:text-brand-accent transition-all duration-300 backdrop-blur-sm hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group">
+            <span data-i18n="hero_connect">LET'S CONNECT</span>
             <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
             </svg>
+          </a>
+
+          <a href="./cv.html" id="hero-btn-cv" class="w-full sm:w-auto px-7 py-3.5 rounded-full bg-white/5 border border-brand-accent/30 hover:border-brand-accent hover:bg-brand-accent/10 text-brand-accent font-mono font-semibold text-sm tracking-wider transition-all duration-300 backdrop-blur-sm hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2">
+            <span data-i18n="hero_cv">VIEW / PDF CV</span>
+            <span>↗</span>
           </a>
         </div>
 
@@ -377,10 +404,10 @@
         <!-- Section Header -->
         <div class="flex flex-col mb-16">
           <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
-            <span>01 // PROFILE & PHILOSOPHY</span>
+            <span data-i18n="about_eyebrow">01 // PROFILE &amp; PHILOSOPHY</span>
             <div class="h-px w-12 bg-brand-accent/40"></div>
           </div>
-          <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
+          <h2 data-i18n="about_title" class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
             ABOUT <span class="text-brand-accent">ME</span>
           </h2>
         </div>
@@ -405,20 +432,25 @@
               </div>
 
               <!-- Quote / Statement -->
-              <blockquote class="font-body text-lg sm:text-xl text-white/90 leading-relaxed font-light mb-6 border-l-2 border-brand-accent pl-4 italic">
+              <blockquote data-i18n="about_quote" class="font-body text-lg sm:text-xl text-white/90 leading-relaxed font-light mb-6 border-l-2 border-brand-accent pl-4 italic">
                 "I am passionate about building intelligent digital products, creative technologies, and innovative software solutions."
               </blockquote>
 
-              <p class="text-sm sm:text-base text-brand-muted leading-relaxed font-normal mb-6">
+              <p data-i18n="about_bio" class="text-sm sm:text-base text-brand-muted leading-relaxed font-normal mb-6">
                 Bridging the frontier between software architecture and expressive digital artistry. With deep expertise in Python ecosystems, algorithmic design, and 3D web development, I build systems that are not just technically robust, but memorable to experience.
               </p>
 
               <!-- Interactive System Badges -->
-              <div class="flex flex-wrap gap-2 pt-2 border-t border-white/5">
-                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">📍 Tashkent, Uzbekistan</span>
-                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">⚡ Full-Stack & AI</span>
-                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">🚀 High-Performance Code</span>
-                <span class="px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-xs font-mono text-brand-accent">✓ Available For Hire</span>
+              <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/5">
+                <div class="flex flex-wrap gap-2">
+                  <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">📍 Tashkent, Uzbekistan</span>
+                  <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">⚡ Full-Stack &amp; AI</span>
+                  <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">🚀 High-Performance Code</span>
+                  <span data-i18n="about_hire_badge" class="px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-xs font-mono text-brand-accent">✓ Available For Hire</span>
+                </div>
+                <a href="./cv.html" class="px-4 py-1.5 rounded-full bg-brand-accent text-brand-black font-mono text-xs font-bold hover:bg-brand-accentHover transition-all">
+                  <span data-i18n="about_cv_btn">📄 Open CV / PDF</span>
+                </a>
               </div>
             </div>
 
@@ -526,6 +558,38 @@ print(dev.get_vision())
 
         </div>
 
+        <!-- Engineering Journey / Focus Timeline -->
+        <div class="mt-12 glass-card rounded-3xl p-6 sm:p-8 border border-white/10">
+          <div class="flex items-center justify-between flex-wrap gap-2 mb-6">
+            <h3 data-i18n="journey_title" class="font-sans font-bold text-lg sm:text-xl text-white tracking-wide">
+              ENGINEERING <span class="text-brand-accent">TIMELINE &amp; FOCUS</span>
+            </h3>
+            <span class="font-mono text-xs text-brand-muted">5+ YEARS OF BUILDING</span>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div class="p-4 rounded-2xl bg-[#08080C] border border-white/10 hover:border-brand-accent/40 transition-all">
+              <div class="font-mono text-xs text-brand-accent mb-1">PHASE 01 // CORE</div>
+              <h4 data-i18n="j1_title" class="font-sans font-bold text-white text-sm mb-1.5">Algorithms &amp; Python</h4>
+              <p data-i18n="j1_desc" class="text-xs text-brand-muted leading-relaxed">C++, Java, data structures and high-concurrency Python async backends.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#08080C] border border-white/10 hover:border-brand-accent/40 transition-all">
+              <div class="font-mono text-xs text-brand-accent mb-1">PHASE 02 // AUTOMATION</div>
+              <h4 data-i18n="j2_title" class="font-sans font-bold text-white text-sm mb-1.5">HEMIS &amp; Telegram Systems</h4>
+              <p data-i18n="j2_desc" class="text-xs text-brand-muted leading-relaxed">Scalable Aiogram 3.x bots serving 12,000+ university students via REST APIs.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#08080C] border border-white/10 hover:border-brand-accent/40 transition-all">
+              <div class="font-mono text-xs text-brand-accent mb-1">PHASE 03 // VISION AI</div>
+              <h4 data-i18n="j3_title" class="font-sans font-bold text-white text-sm mb-1.5">EyePilot Computer Vision</h4>
+              <p data-i18n="j3_desc" class="text-xs text-brand-muted leading-relaxed">60 FPS touchless gaze control built with OpenCV and 468-point MediaPipe mesh.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-[#08080C] border border-white/10 hover:border-brand-accent/40 transition-all">
+              <div class="font-mono text-xs text-brand-accent mb-1">PHASE 04 // WEB &amp; 3D</div>
+              <h4 data-i18n="j4_title" class="font-sans font-bold text-white text-sm mb-1.5">CodeStep &amp; Creative 3D</h4>
+              <p data-i18n="j4_desc" class="text-xs text-brand-muted leading-relaxed">React, TypeScript, Firebase platforms and interactive Three.js WebGL experiences.</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
@@ -537,14 +601,14 @@ print(dev.get_vision())
         <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-4">
           <div>
             <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
-              <span>02 // CAPABILITIES MATRIX</span>
+              <span data-i18n="skills_eyebrow">02 // CAPABILITIES MATRIX</span>
               <div class="h-px w-12 bg-brand-accent/40"></div>
             </div>
-            <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
+            <h2 data-i18n="skills_title" class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
               TECHNICAL <span class="text-brand-accent">SKILLS</span>
             </h2>
           </div>
-          <p class="font-mono text-xs text-brand-muted max-w-sm">
+          <p data-i18n="skills_subtitle" class="font-mono text-xs text-brand-muted max-w-sm">
             Interactive 3D tilt cards. Move your cursor or touch cards to inspect depth and technical proficiencies.
           </p>
         </div>
@@ -732,13 +796,13 @@ print(dev.get_vision())
         <!-- Section Header -->
         <div class="flex flex-col mb-16">
           <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
-            <span>03 // PORTFOLIO SHOWCASE</span>
+            <span data-i18n="projects_eyebrow">03 // PORTFOLIO SHOWCASE</span>
             <div class="h-px w-12 bg-brand-accent/40"></div>
           </div>
-          <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
+          <h2 data-i18n="projects_title" class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
             FEATURED <span class="text-brand-accent">PROJECTS</span>
           </h2>
-          <p class="text-brand-muted font-body text-sm sm:text-base max-w-xl mt-3">
+          <p data-i18n="projects_subtitle" class="text-brand-muted font-body text-sm sm:text-base max-w-xl mt-3">
             Real production systems engineered with Python, Computer Vision, and modern web frameworks. Try the interactive live simulators inside each card.
           </p>
         </div>
@@ -1009,14 +1073,14 @@ print(dev.get_vision())
         <div class="flex flex-col items-center text-center mb-16">
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-brand-accent font-mono text-xs mb-4">
             <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
-            <span>EXPERIENCE REALITY IN MOTION</span>
+            <span data-i18n="showcase_eyebrow">EXPERIENCE REALITY IN MOTION</span>
           </div>
 
-          <h2 class="font-sans font-bold text-4xl sm:text-6xl md:text-7xl text-white tracking-tight uppercase leading-tight max-w-4xl">
+          <h2 data-i18n="showcase_title" class="font-sans font-bold text-4xl sm:text-6xl md:text-7xl text-white tracking-tight uppercase leading-tight max-w-4xl">
             TURNING IDEAS INTO <span class="text-brand-accent drop-shadow-[0_0_35px_rgba(139,255,90,0.5)]">REALITY</span>.
           </h2>
 
-          <p class="font-body text-brand-muted text-base sm:text-lg max-w-2xl mt-4 font-light">
+          <p data-i18n="showcase_subtitle" class="font-body text-brand-muted text-base sm:text-lg max-w-2xl mt-4 font-light">
             High-fidelity generative visuals, dynamic particle dynamics, and abstract computational art. Where mathematical precision meets cinematic visual aesthetics.
           </p>
         </div>
@@ -1082,16 +1146,16 @@ print(dev.get_vision())
           <!-- Left Column: Contact Header & Direct Channels -->
           <div class="lg:col-span-5 flex flex-col">
             <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
-              <span>04 // INITIATE TRANSMISSION</span>
+              <span data-i18n="contact_eyebrow">04 // INITIATE TRANSMISSION</span>
               <div class="h-px w-12 bg-brand-accent/40"></div>
             </div>
 
-            <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight leading-tight mb-6">
+            <h2 data-i18n="contact_title" class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight leading-tight mb-6">
               HAVE AN IDEA?<br>
               <span class="text-brand-accent">LET'S BUILD IT.</span>
             </h2>
 
-            <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mb-8">
+            <p data-i18n="contact_subtitle" class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mb-8">
               Whether you need an intelligent Telegram bot system, an advanced computer vision platform, high-performance Python architecture, or an award-winning creative 3D web experience — my digital channel is open.
             </p>
 
@@ -1355,11 +1419,16 @@ print(dev.get_vision())
         </div>
       </div>
 
-      <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+      <div class="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
         <span class="font-mono text-xs text-brand-dim">Author: Tohir Mamurov</span>
-        <a href="#contact" id="modal-contact-cta" class="px-5 py-2 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs hover:bg-brand-accentHover transition-all">
-          Discuss Similar Project
-        </a>
+        <div class="flex items-center gap-2">
+          <a href="https://github.com/Xusanovich-MTX" target="_blank" rel="noopener noreferrer" class="px-4 py-2 rounded-full bg-white/5 border border-white/15 hover:border-brand-accent text-white hover:text-brand-accent font-mono text-xs transition-all">
+            GitHub ↗
+          </a>
+          <a href="#contact" id="modal-contact-cta" class="px-5 py-2 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs hover:bg-brand-accentHover transition-all">
+            Discuss Similar Project
+          </a>
+        </div>
       </div>
     </div>
   </div>
@@ -1780,6 +1849,14 @@ print(dev.get_vision())
     // --- 4. PRELOADER & ENTRANCE ANIMATION ---
     function initPreloader() {
       const preloader = document.getElementById('preloader');
+      if (!preloader) return;
+      try {
+        if (sessionStorage.getItem('tohir_preloader_seen') === '1') {
+          preloader.remove();
+          return;
+        }
+      } catch (e) {}
+
       const bar = document.getElementById('preloader-bar');
       const percentText = document.getElementById('preloader-percent');
       const statusText = document.getElementById('preloader-status');
@@ -1810,6 +1887,7 @@ print(dev.get_vision())
       }, 55);
 
       function finishPreloader() {
+        try { sessionStorage.setItem('tohir_preloader_seen', '1'); } catch (e) {}
         if (!preloader.classList.contains('pointer-events-none')) {
           clearInterval(interval);
           preloader.style.opacity = '0';
@@ -2525,7 +2603,121 @@ print(dev.get_vision())
       }
     }
 
-    // --- 14. INITIALIZE EVERYTHING ON DOM READY ---
+    // --- 14. LANGUAGE SWITCHER (EN / UZ) ---
+    const translations = {
+      en: {
+        nav_about: 'ABOUT',
+        nav_skills: 'SKILLS',
+        nav_projects: 'PROJECTS',
+        nav_showcase: 'SHOWCASE',
+        nav_contact: 'CONTACT',
+        header_cta: "LET'S CONNECT",
+        hero_pill: 'AVAILABLE FOR HIGH-IMPACT PROJECTS',
+        hero_subtitle: 'Building Digital Experiences Through <span class="text-white font-medium">Code</span> &amp; <span class="text-brand-accent font-medium">Creativity</span>. Engineering next-generation web applications, autonomous bots, and computer vision systems.',
+        hero_explore: 'EXPLORE MY WORK',
+        hero_connect: "LET'S CONNECT",
+        hero_cv: 'VIEW / PDF CV',
+        about_eyebrow: '01 // PROFILE &amp; PHILOSOPHY',
+        about_title: 'ABOUT <span class="text-brand-accent">ME</span>',
+        about_quote: '"I am passionate about building intelligent digital products, creative technologies, and innovative software solutions."',
+        about_bio: 'Bridging the frontier between software architecture and expressive digital artistry. With deep expertise in Python ecosystems, algorithmic design, and 3D web development, I build systems that are not just technically robust, but memorable to experience.',
+        about_hire_badge: '✓ Available For Hire',
+        about_cv_btn: '📄 Open CV / PDF',
+        journey_title: 'ENGINEERING <span class="text-brand-accent">TIMELINE &amp; FOCUS</span>',
+        j1_title: 'Algorithms &amp; Python',
+        j1_desc: 'C++, Java, data structures and high-concurrency Python async backends.',
+        j2_title: 'HEMIS &amp; Telegram Systems',
+        j2_desc: 'Scalable Aiogram 3.x bots serving 12,000+ university students via REST APIs.',
+        j3_title: 'EyePilot Computer Vision',
+        j3_desc: '60 FPS touchless gaze control built with OpenCV and 468-point MediaPipe mesh.',
+        j4_title: 'CodeStep &amp; Creative 3D',
+        j4_desc: 'React, TypeScript, Firebase platforms and interactive Three.js WebGL experiences.',
+        skills_eyebrow: '02 // CAPABILITIES MATRIX',
+        skills_title: 'TECHNICAL <span class="text-brand-accent">SKILLS</span>',
+        skills_subtitle: 'Interactive 3D tilt cards. Move your cursor or touch cards to inspect depth and technical proficiencies.',
+        projects_eyebrow: '03 // PORTFOLIO SHOWCASE',
+        projects_title: 'FEATURED <span class="text-brand-accent">PROJECTS</span>',
+        projects_subtitle: 'Real production systems engineered with Python, Computer Vision, and modern web frameworks. Try the interactive live simulators inside each card.',
+        showcase_eyebrow: 'EXPERIENCE REALITY IN MOTION',
+        showcase_title: 'TURNING IDEAS INTO <span class="text-brand-accent drop-shadow-[0_0_35px_rgba(139,255,90,0.5)]">REALITY</span>.',
+        showcase_subtitle: 'High-fidelity generative visuals, dynamic particle dynamics, and abstract computational art. Where mathematical precision meets cinematic visual aesthetics.',
+        contact_eyebrow: '04 // INITIATE TRANSMISSION',
+        contact_title: 'HAVE AN IDEA?<br><span class="text-brand-accent">LET\'S BUILD IT.</span>',
+        contact_subtitle: 'Whether you need an intelligent Telegram bot system, an advanced computer vision platform, high-performance Python architecture, or an award-winning creative 3D web experience — my digital channel is open.'
+      },
+      uz: {
+        nav_about: 'MEN HAQIMDA',
+        nav_skills: 'KO\'NIKMALAR',
+        nav_projects: 'LOYIHALAR',
+        nav_showcase: 'VIZUALIZATSIYA',
+        nav_contact: 'ALOQA',
+        header_cta: 'BOG\'LANISH',
+        hero_pill: 'YIRIK LOYIHALAR UCHUN TAYYOR',
+        hero_subtitle: '<span class="text-white font-medium">Kod</span> va <span class="text-brand-accent font-medium">Kreativlik</span> orqali raqamli mahsulotlar yarataman. Zamonaviy veb-ilovalar, avtonom botlar va kompyuter ko\'rishi (AI) tizimlari muhandisligi.',
+        hero_explore: 'LOYIHALARNI KO\'RISH',
+        hero_connect: 'BOG\'LANISH',
+        hero_cv: 'CV / REZYUME',
+        about_eyebrow: '01 // PROFIL VA FALSAFA',
+        about_title: 'MEN <span class="text-brand-accent">HAQIMDA</span>',
+        about_quote: '"Men intellektual raqamli mahsulotlar, kreativ texnologiyalar va innovatsion dasturiy yechimlar yaratishga ishtiyoqmandman."',
+        about_bio: 'Dasturiy arxitektura va zamonaviy raqamli dizaynni birlashtiraman. Python ekotizimi, algoritmik loyihalash va 3D veb-texnologiyalar yordamida nafaqat barqaror, balki esda qolarli tizimlar quraman.',
+        about_hire_badge: '✓ Ish va loyihalar uchun ochiq',
+        about_cv_btn: '📄 CV / PDF ochish',
+        journey_title: 'MUHANDISLIK <span class="text-brand-accent">YO\'NALISHLARI</span>',
+        j1_title: 'Algoritmlar va Python',
+        j1_desc: 'C++, Java, ma\'lumotlar tuzilmalari hamda yuqori yuklamali Python async backendlar.',
+        j2_title: 'HEMIS va Telegram Tizimlari',
+        j2_desc: 'REST API orqali 12,000+ talabaga xizmat ko\'rsatuvchi Aiogram 3.x botlar.',
+        j3_title: 'EyePilot Kompyuter Ko\'rishi',
+        j3_desc: 'OpenCV va 468 nuqtali MediaPipe yordamida 60 FPS tezlikdagi ko\'z harakati boshqaruvi.',
+        j4_title: 'CodeStep va Kreativ 3D',
+        j4_desc: 'React, TypeScript, Firebase platformalari hamda interaktiv Three.js WebGL yechimlar.',
+        skills_eyebrow: '02 // TEXNOLOGIYALAR MATRITSASI',
+        skills_title: 'TEXNIK <span class="text-brand-accent">KO\'NIKMALAR</span>',
+        skills_subtitle: 'Interaktiv 3D kartochkalar. Batafsil ma\'lumot olish uchun istalgan texnologiya ustiga bosing.',
+        projects_eyebrow: '03 // TANLANGAN ISHLAR',
+        projects_title: 'ASOSIY <span class="text-brand-accent">LOYIHALAR</span>',
+        projects_subtitle: 'Python, Kompyuter Ko\'rishi va zamonaviy veb-freymvorklarda qurilgan real tizimlar. Har bir kartochka ichidagi jonli simulyatorni sinab ko\'ring.',
+        showcase_eyebrow: 'HARAKATDAGI RAQAMLI OLAM',
+        showcase_title: 'G\'OYALARNI <span class="text-brand-accent drop-shadow-[0_0_35px_rgba(139,255,90,0.5)]">REALLIKKA</span> AYLANTIRAMIZ.',
+        showcase_subtitle: 'Yuqori aniqlikdagi generativ vizualizatsiya, zarralar dinamikasi va WebGL shaderlar orqali yaratilgan interaktiv sahna.',
+        contact_eyebrow: '04 // ALOQA KANALI',
+        contact_title: 'G\'OYANGIZ BORMI?<br><span class="text-brand-accent">BIRGA QURAMIZ.</span>',
+        contact_subtitle: 'Aqlli Telegram bot, kompyuter ko\'rishi (AI) tizimi, Python backend arxitekturasi yoki kreativ 3D veb-sayt kerak bo\'lsa — menga bemalol yozing.'
+      }
+    };
+
+    function applyLanguage(lang) {
+      const dict = translations[lang] || translations.en;
+      document.documentElement.lang = lang;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (dict[key]) el.innerHTML = dict[key];
+      });
+      const label = document.getElementById('lang-label');
+      if (label) label.textContent = lang === 'en' ? 'UZ' : 'EN';
+      try { localStorage.setItem('tohir_lang', lang); } catch (e) {}
+    }
+
+    function initLanguageToggle() {
+      const btn = document.getElementById('lang-toggle-btn');
+      let currentLang = 'en';
+      try {
+        const saved = localStorage.getItem('tohir_lang');
+        if (saved === 'uz' || saved === 'en') currentLang = saved;
+      } catch (e) {}
+      if (currentLang !== 'en') applyLanguage(currentLang);
+
+      if (btn) {
+        btn.addEventListener('click', () => {
+          currentLang = currentLang === 'en' ? 'uz' : 'en';
+          applyLanguage(currentLang);
+          showToast(currentLang === 'uz' ? "Til o'zbekchaga o'zgartirildi" : 'Language switched to English');
+        });
+      }
+    }
+
+    // --- 15. INITIALIZE EVERYTHING ON DOM READY ---
     window.addEventListener('DOMContentLoaded', () => {
       initPreloader();
       initThree();
@@ -2541,7 +2733,7 @@ print(dev.get_vision())
       initShowcaseControls();
       initContactForm();
       initNavbarControls();
-      
+      initLanguageToggle();
     });
   </script>
 
