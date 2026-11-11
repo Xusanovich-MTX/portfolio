@@ -253,11 +253,11 @@
       <!-- Utility Actions (Language Toggle, CTA, Mobile Menu) -->
       <div class="flex items-center gap-2 sm:gap-3">
 
-        <!-- Language Switcher (EN / UZ) -->
-        <button id="lang-toggle-btn" title="Switch Language (EN / UZ)" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-card border border-brand-border hover:border-brand-accent/60 text-xs font-mono text-white transition-all cursor-pointer">
-          <span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span>
-          <span id="lang-label">UZ</span>
-        </button>
+        <!-- Language Switcher (EN | UZ) -->
+        <div id="lang-toggle-wrapper" translate="no" class="flex items-center bg-[#070709] p-1 rounded-full border border-white/10 font-mono text-[11px]">
+          <button id="lang-btn-en" type="button" class="px-2.5 py-1 rounded-full bg-brand-accent text-brand-black font-bold transition-all cursor-pointer">EN</button>
+          <button id="lang-btn-uz" type="button" class="px-2.5 py-1 rounded-full text-brand-muted hover:text-white transition-all cursor-pointer">UZ</button>
+        </div>
 
         <!-- Let's Connect Header CTA -->
         <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-accent text-brand-black font-sans font-semibold text-xs tracking-wide hover:bg-brand-accentHover transition-all shadow-[0_0_15px_rgba(139,255,90,0.3)] hover:scale-105 active:scale-95">
@@ -313,7 +313,7 @@
             AVAILABLE FOR HIGH-IMPACT PROJECTS
           </span>
           <span class="hidden sm:inline text-white/20">|</span>
-          <span class="hidden sm:inline font-mono text-xs text-brand-muted">TASHKENT, UZ</span>
+          <span translate="no" class="hidden sm:inline font-mono text-xs text-brand-muted">SAMARKAND, UZ</span>
         </div>
 
         <!-- Hero Primary Typography -->
@@ -443,7 +443,7 @@
               <!-- Interactive System Badges -->
               <div class="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/5">
                 <div class="flex flex-wrap gap-2">
-                  <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">📍 Tashkent, Uzbekistan</span>
+                  <span data-i18n="about_loc" class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">📍 Samarkand, Uzbekistan</span>
                   <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">⚡ Full-Stack &amp; AI</span>
                   <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">🚀 High-Performance Code</span>
                   <span data-i18n="about_hire_badge" class="px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-xs font-mono text-brand-accent">✓ Available For Hire</span>
@@ -457,23 +457,23 @@
             <!-- Animated Key Metrics / Statistics -->
             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
               <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
-                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="5">5+</div>
-                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Years Coding</div>
+                <div translate="no" class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="3">3+</div>
+                <div data-i18n="stat_years" class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Years Coding</div>
               </div>
 
               <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
-                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="25">25+</div>
-                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Completed Projects</div>
+                <div translate="no" class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="22">22</div>
+                <div data-i18n="stat_age" class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Years Old</div>
               </div>
 
               <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
-                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="99">99.9%</div>
-                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Uptime Reliability</div>
+                <div translate="no" class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="99">99.9%</div>
+                <div data-i18n="stat_uptime" class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Uptime Reliability</div>
               </div>
 
               <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
-                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="100">100K+</div>
-                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">API Requests</div>
+                <div translate="no" class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="100">100K+</div>
+                <div data-i18n="stat_api" class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">API Requests</div>
               </div>
             </div>
 
@@ -500,7 +500,7 @@
     <span class="text-brand-accent">def</span> <span class="text-[#60A5FA]">__init__</span>(self):
         self.name = <span class="text-[#FCD34D]">"Tohir Mamurov"</span>
         self.handle = <span class="text-[#FCD34D]">"TOHIR.DEV"</span>
-        self.location = <span class="text-[#FCD34D]">"Tashkent, Uzbekistan"</span>
+        self.location = <span class="text-[#FCD34D]">"Samarkand, Uzbekistan"</span>
         self.specialties = [
             <span class="text-[#FCD34D]">"Python Architecture"</span>,
             <span class="text-[#FCD34D]">"Creative 3D & WebGL"</span>,
@@ -564,7 +564,7 @@ print(dev.get_vision())
             <h3 data-i18n="journey_title" class="font-sans font-bold text-lg sm:text-xl text-white tracking-wide">
               ENGINEERING <span class="text-brand-accent">TIMELINE &amp; FOCUS</span>
             </h3>
-            <span class="font-mono text-xs text-brand-muted">5+ YEARS OF BUILDING</span>
+            <span data-i18n="journey_badge" class="font-mono text-xs text-brand-muted">3+ YEARS OF BUILDING</span>
           </div>
           <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div class="p-4 rounded-2xl bg-[#08080C] border border-white/10 hover:border-brand-accent/40 transition-all">
@@ -1210,7 +1210,7 @@ print(dev.get_vision())
 
             <!-- Location & Timezone info -->
             <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-brand-dim">
-              <span>Timezone: Asia/Tashkent (UTC+5)</span>
+              <span>Location: Samarkand, UZ (UTC+5)</span>
               <span class="text-brand-accent">Response time: &lt; 24h</span>
             </div>
 
@@ -1334,7 +1334,7 @@ print(dev.get_vision())
       <div class="glass-card rounded-2xl p-4 mb-6 border border-white/5">
         <div class="flex items-center justify-between text-xs font-mono mb-2">
           <span class="text-brand-muted">PROFICIENCY & ARCHITECTURAL MASTERY</span>
-          <span id="st-modal-level" class="text-brand-accent font-bold">96% // 5+ YEARS</span>
+          <span id="st-modal-level" class="text-brand-accent font-bold">96% // 3+ YEARS</span>
         </div>
         <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
           <div id="st-modal-meter" class="h-full bg-gradient-to-r from-brand-accent to-[#00F0FF] rounded-full transition-all duration-500 shadow-[0_0_10px_#8BFF5A]" style="width: 96%"></div>
@@ -2169,7 +2169,7 @@ print(dev.get_vision())
         badge: "CORE LANGUAGE // BACKEND & AI",
         title: "Python Architecture",
         icon: "PY",
-        level: "96% // 5+ YEARS EXPERIENCE",
+        level: "96% // 3+ YEARS EXPERIENCE",
         meter: 96,
         desc: "Python is Tohir's primary powerhouse for high-concurrency backend services, asynchronous Telegram bot ecosystems, computer vision automation pipelines, and machine learning models. Master of non-blocking asyncio paradigms, high-throughput microservices, and mathematical data transformations.",
         tags: ["Asyncio", "Aiogram 3.x", "FastAPI", "PyTorch", "OpenCV", "NumPy", "PostgreSQL", "Docker", "PyAutoGUI"],
@@ -2180,7 +2180,7 @@ print(dev.get_vision())
         badge: "LOW-LEVEL SYSTEMS // ALGORITHMS",
         title: "C++ High Performance",
         icon: "C++",
-        level: "88% // 4+ YEARS EXPERIENCE",
+        level: "88% // 3+ YEARS EXPERIENCE",
         meter: 88,
         desc: "Specialized in performance-critical software, custom memory management, and competitive algorithmic problem-solving. Utilized for compute-heavy graphics transformations, hardware-level vision acceleration, and deterministic real-time operations.",
         tags: ["C++17 / C++20", "STL Containers", "Custom Memory Allocators", "Multithreading", "Data Structures", "RAII"],
@@ -2202,18 +2202,18 @@ print(dev.get_vision())
         badge: "FULL-STACK & CREATIVE ENGINE",
         title: "JavaScript / ESNext",
         icon: "JS",
-        level: "92% // 5+ YEARS EXPERIENCE",
+        level: "92% // 3+ YEARS EXPERIENCE",
         meter: 92,
         desc: "The core language of interactive modern web applications, real-time client-server communication, hardware-accelerated WebGL graphics, and Node.js microservices. Deep knowledge of the V8 JavaScript engine, asynchronous event loop, and Web APIs.",
         tags: ["ES6+", "Node.js", "Three.js", "WebSocket", "Web Audio API", "Service Workers", "Canvas 2D/3D"],
-        projects: "TOHIR.DEV 3D Portfolio, CodeStep Interactive IDE, Real-Time Audio Synthesizer",
+        projects: "TOHIR.DEV 3D Portfolio, CodeStep Interactive IDE",
         highlight: "Non-blocking event loop, custom WebGL shader controls, reactive state orchestration, zero dependency modules."
       },
       react: {
         badge: "MODERN FRONTEND // COMPONENT SYSTEMS",
         title: "React & Next.js",
         icon: "RC",
-        level: "94% // 4+ YEARS EXPERIENCE",
+        level: "94% // 3+ YEARS EXPERIENCE",
         meter: 94,
         desc: "Engineering high-performance single page applications and reactive component design systems. Expert in custom hooks, memoization strategies, state management, and seamless Three.js 3D canvas integrations.",
         tags: ["React 18", "Next.js", "React Three Fiber", "Hooks (useMemo, useCallback)", "Tailwind CSS", "Zustand"],
@@ -2224,7 +2224,7 @@ print(dev.get_vision())
         badge: "LAYOUT & VISUAL ARCHITECTURE",
         title: "HTML5 & Advanced CSS",
         icon: "H5",
-        level: "98% // 5+ YEARS EXPERIENCE",
+        level: "98% // 3+ YEARS EXPERIENCE",
         meter: 98,
         desc: "Crafting semantic, accessible HTML5 structures and award-winning responsive visual layouts with Tailwind CSS, custom keyframes, CSS filters, glassmorphic blur effects, and fluid typography.",
         tags: ["HTML5 Semantic", "Tailwind CSS 3.4", "CSS Grid & Flexbox", "Hardware Transforms", "Glassmorphism", "Dark Aesthetics"],
@@ -2621,9 +2621,15 @@ print(dev.get_vision())
         about_title: 'ABOUT <span class="text-brand-accent">ME</span>',
         about_quote: '"I am passionate about building intelligent digital products, creative technologies, and innovative software solutions."',
         about_bio: 'Bridging the frontier between software architecture and expressive digital artistry. With deep expertise in Python ecosystems, algorithmic design, and 3D web development, I build systems that are not just technically robust, but memorable to experience.',
+        about_loc: '📍 Samarkand, Uzbekistan',
         about_hire_badge: '✓ Available For Hire',
         about_cv_btn: '📄 Open CV / PDF',
+        stat_years: 'Years Coding',
+        stat_age: 'Years Old',
+        stat_uptime: 'Uptime Reliability',
+        stat_api: 'API Requests',
         journey_title: 'ENGINEERING <span class="text-brand-accent">TIMELINE &amp; FOCUS</span>',
+        journey_badge: '3+ YEARS OF BUILDING',
         j1_title: 'Algorithms &amp; Python',
         j1_desc: 'C++, Java, data structures and high-concurrency Python async backends.',
         j2_title: 'HEMIS &amp; Telegram Systems',
@@ -2661,9 +2667,15 @@ print(dev.get_vision())
         about_title: 'MEN <span class="text-brand-accent">HAQIMDA</span>',
         about_quote: '"Men intellektual raqamli mahsulotlar, kreativ texnologiyalar va innovatsion dasturiy yechimlar yaratishga ishtiyoqmandman."',
         about_bio: 'Dasturiy arxitektura va zamonaviy raqamli dizaynni birlashtiraman. Python ekotizimi, algoritmik loyihalash va 3D veb-texnologiyalar yordamida nafaqat barqaror, balki esda qolarli tizimlar quraman.',
+        about_loc: '📍 Samarqand, O\'zbekiston',
         about_hire_badge: '✓ Ish va loyihalar uchun ochiq',
         about_cv_btn: '📄 CV / PDF ochish',
+        stat_years: 'Yil Kodlash',
+        stat_age: 'Yosh',
+        stat_uptime: 'Barqarorlik',
+        stat_api: 'API So\'rovlari',
         journey_title: 'MUHANDISLIK <span class="text-brand-accent">YO\'NALISHLARI</span>',
+        journey_badge: '3+ YILLIK TAJRIBA',
         j1_title: 'Algoritmlar va Python',
         j1_desc: 'C++, Java, ma\'lumotlar tuzilmalari hamda yuqori yuklamali Python async backendlar.',
         j2_title: 'HEMIS va Telegram Tizimlari',
@@ -2694,25 +2706,43 @@ print(dev.get_vision())
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.innerHTML = dict[key];
       });
-      const label = document.getElementById('lang-label');
-      if (label) label.textContent = lang === 'en' ? 'UZ' : 'EN';
+      const btnEn = document.getElementById('lang-btn-en');
+      const btnUz = document.getElementById('lang-btn-uz');
+      if (btnEn && btnUz) {
+        const activeCls = 'px-2.5 py-1 rounded-full bg-brand-accent text-brand-black font-bold transition-all cursor-pointer';
+        const idleCls = 'px-2.5 py-1 rounded-full text-brand-muted hover:text-white transition-all cursor-pointer';
+        btnEn.className = lang === 'en' ? activeCls : idleCls;
+        btnUz.className = lang === 'uz' ? activeCls : idleCls;
+      }
       try { localStorage.setItem('tohir_lang', lang); } catch (e) {}
     }
 
     function initLanguageToggle() {
-      const btn = document.getElementById('lang-toggle-btn');
+      const btnEn = document.getElementById('lang-btn-en');
+      const btnUz = document.getElementById('lang-btn-uz');
       let currentLang = 'en';
       try {
         const saved = localStorage.getItem('tohir_lang');
         if (saved === 'uz' || saved === 'en') currentLang = saved;
       } catch (e) {}
-      if (currentLang !== 'en') applyLanguage(currentLang);
+      applyLanguage(currentLang);
 
-      if (btn) {
-        btn.addEventListener('click', () => {
-          currentLang = currentLang === 'en' ? 'uz' : 'en';
-          applyLanguage(currentLang);
-          showToast(currentLang === 'uz' ? "Til o'zbekchaga o'zgartirildi" : 'Language switched to English');
+      if (btnEn) {
+        btnEn.addEventListener('click', () => {
+          if (currentLang !== 'en') {
+            currentLang = 'en';
+            applyLanguage('en');
+            showToast('Language switched to English');
+          }
+        });
+      }
+      if (btnUz) {
+        btnUz.addEventListener('click', () => {
+          if (currentLang !== 'uz') {
+            currentLang = 'uz';
+            applyLanguage('uz');
+            showToast("Til o'zbekchaga o'zgartirildi");
+          }
         });
       }
     }
