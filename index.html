@@ -1,0 +1,2524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOHIR.DEV — Tohir Mamurov | Creative Developer & 3D Specialist</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              black: '#050505',
+              dark: '#0A0A0C',
+              card: '#111115',
+              cardHover: '#18181E',
+              border: 'rgba(255, 255, 255, 0.08)',
+              borderActive: 'rgba(139, 255, 90, 0.4)',
+              accent: '#8BFF5A',
+              accentHover: '#A4FF78',
+              accentMuted: 'rgba(139, 255, 90, 0.15)',
+              accentGlow: 'rgba(139, 255, 90, 0.35)',
+              text: '#FFFFFF',
+              muted: '#9CA3AF',
+              dim: '#6B7280'
+            }
+          },
+          fontFamily: {
+            sans: ['Space Grotesk', 'sans-serif'],
+            body: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          },
+          animation: {
+            'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'glow-spin': 'glowSpin 10s linear infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-12px)' },
+            },
+            glowSpin: {
+              '0%': { transform: 'rotate(0deg)' },
+              '100%': { transform: 'rotate(360deg)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- External Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <style>
+    /* Custom Scrollbar & Selection */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #050505;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #222228;
+      border-radius: 3px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #8BFF5A;
+    }
+    ::selection {
+      background: #8BFF5A;
+      color: #050505;
+    }
+
+    /* Custom utilities */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    .neon-glow {
+      box-shadow: 0 0 25px rgba(139, 255, 90, 0.35);
+    }
+    .neon-text-glow {
+      text-shadow: 0 0 16px rgba(139, 255, 90, 0.6);
+    }
+    .neon-border-glow {
+      border-color: #8BFF5A;
+      box-shadow: 0 0 15px rgba(139, 255, 90, 0.25);
+    }
+    .glass-card {
+      background: rgba(17, 17, 21, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card-hover:hover {
+      background: rgba(24, 24, 30, 0.85);
+      border-color: rgba(139, 255, 90, 0.35);
+      box-shadow: 0 10px 30px -10px rgba(139, 255, 90, 0.2);
+    }
+
+    /* Noise Texture Overlay */
+    .noise-bg {
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+    }
+
+    /* 3D Tilt perspective parent */
+    .tilt-card-wrapper {
+      perspective: 1200px;
+    }
+    .tilt-card {
+      transform-style: preserve-3d;
+      transition: transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Custom cursor (desktop only) */
+    @media (hover: hover) and (pointer: fine) {
+      .cursor-dot {
+        position: fixed;
+        top: 0; left: 0;
+        width: 8px; height: 8px;
+        background-color: #8BFF5A;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease;
+      }
+      .cursor-ring {
+        position: fixed;
+        top: 0; left: 0;
+        width: 36px; height: 36px;
+        border: 1.5px solid rgba(139, 255, 90, 0.5);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        transform: translate(-50%, -50%);
+        transition: transform 0.18s ease-out, width 0.25s ease, height 0.25s ease, border-color 0.25s ease;
+      }
+      .cursor-active .cursor-ring {
+        width: 56px;
+        height: 56px;
+        border-color: #8BFF5A;
+        background: rgba(139, 255, 90, 0.08);
+      }
+    }
+  </style>
+</head>
+<body class="bg-brand-black text-brand-text font-body antialiased overflow-x-hidden selection:bg-brand-accent selection:text-brand-black">
+
+  <!-- Custom Cursor Elements -->
+  <div id="cursor-dot" class="cursor-dot hidden md:block"></div>
+  <div id="cursor-ring" class="cursor-ring hidden md:block"></div>
+
+  <!-- Noise Overlay -->
+  <div class="fixed inset-0 noise-bg pointer-events-none z-40"></div>
+
+  <!-- 3D Three.js Background Canvas -->
+  <div id="canvas-container" class="fixed inset-0 z-0 pointer-events-none">
+    <canvas id="webgl-canvas" class="w-full h-full block"></canvas>
+  </div>
+
+  <!-- Fullscreen Cinematic Preloader -->
+  <div id="preloader" class="fixed inset-0 z-50 bg-[#050505] flex flex-col items-center justify-center p-6 transition-opacity duration-700">
+    <div class="w-full max-w-md flex flex-col items-center text-center">
+      <!-- Cyber Logo Pulse -->
+      <div class="relative w-20 h-20 mb-8 flex items-center justify-center">
+        <div class="absolute inset-0 rounded-2xl border border-brand-accent/30 animate-spin" style="animation-duration: 8s;"></div>
+        <div class="absolute inset-2 rounded-xl border border-brand-accent/60 rotate-45 animate-pulse"></div>
+        <span class="font-sans font-bold text-2xl tracking-tighter text-brand-accent">T<span class="text-white">.</span>D</span>
+      </div>
+      
+      <div class="font-mono text-xs uppercase tracking-widest text-brand-accent mb-3 flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+        <span>INITIALIZING DIGITAL MATRIX // TOHIR.DEV</span>
+      </div>
+      
+      <h2 class="font-sans font-bold text-xl md:text-2xl text-white tracking-wider mb-6">TOHIR MAMUROV</h2>
+
+      <!-- Progress bar -->
+      <div class="w-full bg-[#121217] h-1.5 rounded-full overflow-hidden border border-white/10 mb-4 p-0.5">
+        <div id="preloader-bar" class="h-full bg-brand-accent rounded-full transition-all duration-300 w-0 shadow-[0_0_12px_#8BFF5A]"></div>
+      </div>
+      
+      <div class="flex justify-between w-full font-mono text-[11px] text-brand-muted">
+        <span id="preloader-status">Loading Shaders & 3D Core...</span>
+        <span id="preloader-percent" class="text-brand-accent font-semibold">0%</span>
+      </div>
+
+      <button id="skip-preloader-btn" class="mt-8 font-mono text-xs text-brand-dim hover:text-brand-accent border border-brand-dim/30 hover:border-brand-accent/50 px-4 py-1.5 rounded-full transition-all">
+        Skip Intro [Esc]
+      </button>
+    </div>
+  </div>
+
+  <!-- Top Global Navigation Header -->
+  <header id="main-header" class="fixed top-0 left-0 right-0 z-40 transition-all duration-300 py-4 px-4 sm:px-8 bg-brand-black/40 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#hero" class="group flex items-center gap-3">
+        <div class="w-8 h-8 rounded-lg bg-brand-card border border-brand-border group-hover:border-brand-accent flex items-center justify-center transition-all duration-300 shadow-sm group-hover:shadow-[0_0_12px_rgba(139,255,90,0.3)]">
+          <span class="font-sans font-bold text-sm tracking-tight text-brand-accent">T<span class="text-white">D</span></span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-sans font-bold text-base tracking-wider text-white group-hover:text-brand-accent transition-colors">TOHIR.DEV</span>
+          <span class="font-mono text-[9px] text-brand-muted flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-accent animate-pulse"></span>
+            SYS: ACTIVE • UZ
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Nav Links -->
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2 px-3 py-1.5 rounded-full bg-[#111116]/80 border border-white/10 backdrop-blur-lg">
+        <a href="#about" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">ABOUT</a>
+        <a href="#skills" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">SKILLS</a>
+        <a href="#projects" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">PROJECTS</a>
+        <a href="#showcase" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">SHOWCASE</a>
+        <a href="#contact" class="px-4 py-1.5 text-xs font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-full transition-all">CONTACT</a>
+      </nav>
+
+      <!-- Utility Actions (Audio Toggle, 3D Mode, CTA, Mobile Menu) -->
+      <div class="flex items-center gap-2 sm:gap-3">
+
+        <!-- Let's Connect Header CTA -->
+        <a href="#contact" class="hidden sm:inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-accent text-brand-black font-sans font-semibold text-xs tracking-wide hover:bg-brand-accentHover transition-all shadow-[0_0_15px_rgba(139,255,90,0.3)] hover:scale-105 active:scale-95">
+          <span>LET'S CONNECT</span>
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button id="mobile-menu-btn" class="md:hidden w-9 h-9 rounded-lg bg-brand-card border border-brand-border flex items-center justify-center text-white hover:text-brand-accent transition-colors" aria-label="Toggle navigation">
+          <svg id="menu-icon-bars" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+          </svg>
+          <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Dropdown Navigation -->
+    <div id="mobile-menu" class="hidden md:hidden px-4 pt-4 pb-6 mt-3 bg-brand-dark/95 border-b border-brand-border rounded-2xl backdrop-blur-xl animate-fadeIn">
+      <div class="flex flex-col gap-2">
+        <a href="#about" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">01 // ABOUT</a>
+        <a href="#skills" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">02 // SKILLS</a>
+        <a href="#projects" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">03 // FEATURED PROJECTS</a>
+        <a href="#showcase" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">04 // CINEMATIC SHOWCASE</a>
+        <a href="#contact" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">05 // CONTACT</a>
+        <div class="pt-2 mt-2 border-t border-white/10 flex items-center justify-between">
+          <span class="text-xs font-mono text-brand-muted">Status: Available for hire</span>
+          <a href="#contact" class="px-4 py-1.5 bg-brand-accent text-brand-black text-xs font-sans font-bold rounded-full">LET'S TALK</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SCROLL CONTAINER -->
+  <main class="relative z-10">
+
+    <!-- 01. CINEMATIC HERO SECTION -->
+    <section id="hero" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 sm:px-8 overflow-hidden">
+      
+      <!-- Subtle Radial Glow in Center -->
+      <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[350px] sm:w-[600px] h-[350px] sm:h-[600px] bg-brand-accent/10 rounded-full blur-[140px] pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto w-full flex flex-col items-center text-center relative z-10">
+        
+        <!-- Terminal Status Pill -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-brand-card/80 border border-brand-accent/30 backdrop-blur-md mb-6 hover:border-brand-accent transition-all duration-300 shadow-[0_0_15px_rgba(139,255,90,0.15)]">
+          <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+          <span class="font-mono text-xs sm:text-sm text-brand-accent font-medium tracking-wide">
+            AVAILABLE FOR HIGH-IMPACT PROJECTS
+          </span>
+          <span class="hidden sm:inline text-white/20">|</span>
+          <span class="hidden sm:inline font-mono text-xs text-brand-muted">TASHKENT, UZ</span>
+        </div>
+
+        <!-- Hero Primary Typography -->
+        <div class="relative mb-6">
+          <h1 class="font-sans font-bold text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tight leading-[1.05] text-white">
+            <span class="block text-white hover:text-brand-accent transition-colors duration-500 cursor-default">TOHIR</span>
+            <span class="block bg-gradient-to-r from-white via-white to-brand-accent/80 bg-clip-text text-transparent">MAMUROV</span>
+          </h1>
+          <div class="mt-2 text-xs sm:text-sm md:text-base font-mono text-brand-accent tracking-widest uppercase flex items-center justify-center gap-2">
+            <span>[ CREATIVE DEVELOPER</span>
+            <span class="text-white/40">•</span>
+            <span>PYTHON ARCHITECT</span>
+            <span class="text-white/40">•</span>
+            <span>AI ENTHUSIAST ]</span>
+          </div>
+        </div>
+
+        <!-- Subtitle -->
+        <p class="max-w-2xl text-base sm:text-lg md:text-xl font-body text-brand-muted mb-10 leading-relaxed font-light">
+          Building Digital Experiences Through <span class="text-white font-medium">Code</span> & <span class="text-brand-accent font-medium">Creativity</span>. Engineering next-generation web applications, autonomous bots, and computer vision systems.
+        </p>
+
+        <!-- Action CTAs -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full max-w-md">
+          <a href="#projects" id="hero-btn-explore" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-sm tracking-wider hover:bg-brand-accentHover transition-all duration-300 shadow-[0_0_25px_rgba(139,255,90,0.4)] hover:shadow-[0_0_35px_rgba(139,255,90,0.6)] hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-3 group">
+            <span>EXPLORE MY WORK</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+            </svg>
+          </a>
+
+          <a href="#contact" id="hero-btn-connect" class="w-full sm:w-auto px-8 py-3.5 rounded-full bg-brand-card border border-white/20 hover:border-brand-accent text-white font-sans font-semibold text-sm tracking-wider hover:text-brand-accent transition-all duration-300 backdrop-blur-sm hover:-translate-y-0.5 active:translate-y-0 flex items-center justify-center gap-2 group">
+            <span>LET'S CONNECT</span>
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1 text-brand-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- 3D Interactive Controller Panel (Easter Egg / Control HUD) -->
+        <div class="mt-14 p-2 sm:p-2.5 rounded-2xl bg-brand-card/90 border border-white/10 backdrop-blur-xl flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-mono shadow-2xl">
+          <div class="flex items-center gap-2 px-2 text-brand-muted">
+            <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+            <span>3D CORE CONTROLS:</span>
+          </div>
+
+          <!-- Geometry Mode Switcher -->
+          <div class="flex items-center bg-[#070709] p-1 rounded-xl border border-white/5">
+            <button id="geo-btn-poly" class="px-2.5 py-1 rounded-lg text-brand-accent bg-brand-card font-mono text-[11px] transition-all">Polyhedron</button>
+            <button id="geo-btn-torus" class="px-2.5 py-1 rounded-lg text-brand-muted hover:text-white font-mono text-[11px] transition-all">Torus Knot</button>
+            <button id="geo-btn-sphere" class="px-2.5 py-1 rounded-lg text-brand-muted hover:text-white font-mono text-[11px] transition-all">Neural Sphere</button>
+          </div>
+
+          <!-- Color Glow Switcher -->
+          <div class="flex items-center gap-1.5 px-2">
+            <span class="text-brand-muted text-[11px]">THEME:</span>
+            <button id="color-btn-green" title="Neon Green" class="w-5 h-5 rounded-full bg-brand-accent ring-2 ring-brand-accent/50 transition-all"></button>
+            <button id="color-btn-cyan" title="Cyber Cyan" class="w-5 h-5 rounded-full bg-[#00F0FF] opacity-60 hover:opacity-100 transition-all"></button>
+            <button id="color-btn-purple" title="Future Violet" class="w-5 h-5 rounded-full bg-[#B026FF] opacity-60 hover:opacity-100 transition-all"></button>
+          </div>
+
+          <!-- Wireframe Toggle -->
+          <button id="wireframe-toggle-btn" class="px-3 py-1 rounded-lg bg-brand-card hover:bg-white/10 border border-white/10 text-brand-muted hover:text-brand-accent text-[11px] transition-all">
+            Wireframe: <span id="wireframe-status" class="text-brand-accent">ON</span>
+          </button>
+        </div>
+
+        <!-- Scroll Indicator Hint -->
+        <div class="mt-10 flex flex-col items-center gap-2 opacity-70 animate-bounce">
+          <span class="font-mono text-[10px] tracking-widest text-brand-muted uppercase">SCROLL TO EXPLORE</span>
+          <div class="w-4 h-7 rounded-full border border-white/30 flex items-start justify-center p-1">
+            <div class="w-1 h-2 rounded-full bg-brand-accent animate-pulse"></div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 02. ABOUT ME SECTION -->
+    <section id="about" class="relative py-28 px-4 sm:px-8 border-t border-white/5">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col mb-16">
+          <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
+            <span>01 // PROFILE & PHILOSOPHY</span>
+            <div class="h-px w-12 bg-brand-accent/40"></div>
+          </div>
+          <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
+            ABOUT <span class="text-brand-accent">ME</span>
+          </h2>
+        </div>
+
+        <!-- Grid: Bio & Interactive Holographic Identity -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Left Column: Bio & Core Philosophy -->
+          <div class="lg:col-span-7 flex flex-col gap-6">
+            
+            <div class="glass-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+              <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-brand-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+
+              <div class="flex items-center gap-4 mb-6">
+                <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-card to-brand-cardHover border border-brand-accent/40 flex items-center justify-center font-sans font-bold text-2xl text-brand-accent shadow-[0_0_20px_rgba(139,255,90,0.2)]">
+                  TM
+                </div>
+                <div>
+                  <h3 class="font-sans font-bold text-2xl text-white">Tohir Mamurov</h3>
+                  <p class="font-mono text-xs sm:text-sm text-brand-accent font-medium">Creative Developer | Python Developer | AI Enthusiast</p>
+                </div>
+              </div>
+
+              <!-- Quote / Statement -->
+              <blockquote class="font-body text-lg sm:text-xl text-white/90 leading-relaxed font-light mb-6 border-l-2 border-brand-accent pl-4 italic">
+                "I am passionate about building intelligent digital products, creative technologies, and innovative software solutions."
+              </blockquote>
+
+              <p class="text-sm sm:text-base text-brand-muted leading-relaxed font-normal mb-6">
+                Bridging the frontier between software architecture and expressive digital artistry. With deep expertise in Python ecosystems, algorithmic design, and 3D web development, I build systems that are not just technically robust, but memorable to experience.
+              </p>
+
+              <!-- Interactive System Badges -->
+              <div class="flex flex-wrap gap-2 pt-2 border-t border-white/5">
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">📍 Tashkent, Uzbekistan</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">⚡ Full-Stack & AI</span>
+                <span class="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono text-white/80">🚀 High-Performance Code</span>
+                <span class="px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-xs font-mono text-brand-accent">✓ Available For Hire</span>
+              </div>
+            </div>
+
+            <!-- Animated Key Metrics / Statistics -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
+                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="5">5+</div>
+                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Years Coding</div>
+              </div>
+
+              <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
+                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="25">25+</div>
+                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Completed Projects</div>
+              </div>
+
+              <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
+                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="99">99.9%</div>
+                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">Uptime Reliability</div>
+              </div>
+
+              <div class="glass-card rounded-2xl p-4 text-center border-l-2 border-l-brand-accent">
+                <div class="font-sans font-bold text-2xl sm:text-3xl text-white counter" data-target="100">100K+</div>
+                <div class="font-mono text-[10px] sm:text-xs text-brand-muted uppercase mt-1">API Requests</div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Interactive Developer Console / Code Spec -->
+          <div class="lg:col-span-5 flex flex-col gap-4">
+            
+            <div class="glass-card rounded-3xl p-5 border border-white/10 shadow-2xl relative">
+              <!-- Window Header -->
+              <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10 font-mono text-xs text-brand-muted">
+                <div class="flex items-center gap-2">
+                  <span class="w-3 h-3 rounded-full bg-red-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-yellow-500/80 inline-block"></span>
+                  <span class="w-3 h-3 rounded-full bg-green-500/80 inline-block"></span>
+                  <span class="ml-2 text-white/70">tohir_profile.py</span>
+                </div>
+                <span class="text-brand-accent text-[11px]">[READY]</span>
+              </div>
+
+              <!-- Terminal Code Body -->
+              <pre class="font-mono text-xs text-brand-muted leading-relaxed overflow-x-auto p-2 bg-[#08080A] rounded-xl border border-white/5">
+<span class="text-brand-accent">class</span> <span class="text-white font-semibold">TohirMamurov</span>:
+    <span class="text-brand-accent">def</span> <span class="text-[#60A5FA]">__init__</span>(self):
+        self.name = <span class="text-[#FCD34D]">"Tohir Mamurov"</span>
+        self.handle = <span class="text-[#FCD34D]">"TOHIR.DEV"</span>
+        self.location = <span class="text-[#FCD34D]">"Tashkent, Uzbekistan"</span>
+        self.specialties = [
+            <span class="text-[#FCD34D]">"Python Architecture"</span>,
+            <span class="text-[#FCD34D]">"Creative 3D & WebGL"</span>,
+            <span class="text-[#FCD34D]">"Computer Vision (OpenCV)"</span>,
+            <span class="text-[#FCD34D]">"Intelligent Telegram Bots"</span>
+        ]
+        self.status = <span class="text-[#8BFF5A]">"Available for projects"</span>
+
+    <span class="text-brand-accent">def</span> <span class="text-[#60A5FA]">get_vision</span>(self):
+        <span class="text-brand-accent">return</span> <span class="text-[#FCD34D]">"Turning abstract ideas into tangible reality."</span>
+
+dev = TohirMamurov()
+print(dev.get_vision())
+</pre>
+
+              <!-- Interactive Terminal Runner Button -->
+              <div class="mt-4 pt-3 border-t border-white/10 flex items-center justify-between">
+                <div id="terminal-exec-output" class="font-mono text-xs text-brand-accent truncate max-w-[260px]">
+                  Output: "Turning abstract ideas into tangible reality."
+                </div>
+                <button id="btn-run-code" class="px-3 py-1.5 rounded-lg bg-brand-accent/15 border border-brand-accent/40 text-brand-accent font-mono text-xs hover:bg-brand-accent hover:text-brand-black transition-all">
+                  ▶ Re-Run
+                </button>
+              </div>
+            </div>
+
+            <!-- Four Pillars Cards -->
+            <div class="grid grid-cols-2 gap-3">
+              <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
+                <div class="text-brand-accent text-lg mb-1">🤖</div>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">AI Integration</h4>
+                <p class="text-[11px] text-brand-muted mt-1">Computer vision, LLM orchestration, intelligent agents.</p>
+              </div>
+
+              <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
+                <div class="text-brand-accent text-lg mb-1">⚡</div>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">Python Mastery</h4>
+                <p class="text-[11px] text-brand-muted mt-1">High-concurrency async bots, APIs, automated pipelines.</p>
+              </div>
+
+              <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
+                <div class="text-brand-accent text-lg mb-1">🌐</div>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">Creative 3D</h4>
+                <p class="text-[11px] text-brand-muted mt-1">Three.js, interactive shaders, award-winning aesthetics.</p>
+              </div>
+
+              <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
+                <div class="text-brand-accent text-lg mb-1">📱</div>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">Cross-Platform</h4>
+                <p class="text-[11px] text-brand-muted mt-1">Android, modern web, microservices, cloud deployments.</p>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 03. SKILLS SECTION WITH 3D TILT CARDS -->
+    <section id="skills" class="relative py-28 px-4 sm:px-8 border-t border-white/5 bg-[#050505]/70">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-4">
+          <div>
+            <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
+              <span>02 // CAPABILITIES MATRIX</span>
+              <div class="h-px w-12 bg-brand-accent/40"></div>
+            </div>
+            <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
+              TECHNICAL <span class="text-brand-accent">SKILLS</span>
+            </h2>
+          </div>
+          <p class="font-mono text-xs text-brand-muted max-w-sm">
+            Interactive 3D tilt cards. Move your cursor or touch cards to inspect depth and technical proficiencies.
+          </p>
+        </div>
+
+        <!-- Skills Filter Tabs -->
+        <div class="flex flex-wrap gap-2 mb-10">
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-accent text-brand-black font-semibold" data-filter="all">ALL SKILLS (10)</button>
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="core">LANGUAGES</button>
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="ai">AI & ARCHITECTURE</button>
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="web">WEB & UI/UX</button>
+        </div>
+
+        <!-- 10 Skills 3D Tilt Grid -->
+        <div id="skills-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-6">
+          
+          <!-- 1. Python -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="python" data-category="core ai">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center font-mono font-bold text-sm text-brand-accent">PY</span>
+                <span class="font-mono text-xs text-brand-accent font-semibold">96%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Python</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Asyncio, Aiogram, FastAPI, PyTorch, Automation & Web Scraping.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 96%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. C++ -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="cpp" data-category="core">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-mono font-bold text-sm text-white">C++</span>
+                <span class="font-mono text-xs text-brand-muted font-semibold">88%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">C++</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">High performance, memory management, algorithms & data structures.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 88%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Java -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="java" data-category="core">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center font-mono font-bold text-sm text-white">JV</span>
+                <span class="font-mono text-xs text-brand-muted font-semibold">86%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Java</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">OOP patterns, multithreading, backend services, enterprise logic.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 86%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4. JavaScript -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="javascript" data-category="core web">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-yellow-400/10 border border-yellow-400/30 flex items-center justify-center font-mono font-bold text-sm text-yellow-300">JS</span>
+                <span class="font-mono text-xs text-brand-accent font-semibold">92%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">JavaScript</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">ES6+, Node.js runtime, asynchronous event loops, DOM mastery.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 92%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. React -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="react" data-category="web">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center font-mono font-bold text-sm text-blue-400">RC</span>
+                <span class="font-mono text-xs text-brand-accent font-semibold">94%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">React</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Hooks, SPA state architecture, Three.js integration, performance.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 94%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 6. HTML & CSS -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="htmlcss" data-category="web">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-orange-500/10 border border-orange-500/30 flex items-center justify-center font-mono font-bold text-sm text-orange-400">H5</span>
+                <span class="font-mono text-xs text-brand-accent font-semibold">98%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">HTML & CSS</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Tailwind, semantic layouts, responsive grid, keyframe shaders.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 98%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7. Firebase -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="firebase" data-category="web core">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-mono font-bold text-sm text-amber-400">FB</span>
+                <span class="font-mono text-xs text-brand-muted font-semibold">90%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Firebase</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Firestore, Realtime DB, Cloud Authentication, Functions & Hosting.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 90%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 8. AI Integration -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="ai" data-category="ai">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-brand-accent/40 hover:border-brand-accent relative group cursor-pointer overflow-hidden transition-all duration-200 shadow-[0_0_15px_rgba(139,255,90,0.1)]">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-brand-accent/20 border border-brand-accent/40 flex items-center justify-center font-mono font-bold text-sm text-brand-accent">AI</span>
+                <span class="font-mono text-xs text-brand-accent font-semibold">95%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">AI Integration</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">OpenCV vision, MediaPipe tracking, LLM workflows, autonomous agents.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 95%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 9. Android Development -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="android" data-category="core">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center justify-center font-mono font-bold text-sm text-green-400">AD</span>
+                <span class="font-mono text-xs text-brand-muted font-semibold">85%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Android Dev</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Kotlin/Java, Android SDK, Material 3 interfaces, API synchronizers.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 10. UI/UX Design -->
+          <div class="tilt-card-wrapper skill-item cursor-pointer" data-skill="uiux" data-category="web">
+            <div class="tilt-card glass-card rounded-2xl p-5 border border-white/10 hover:border-brand-accent/60 relative group cursor-pointer overflow-hidden transition-all duration-200">
+              <div class="flex items-center justify-between mb-4">
+                <span class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center font-mono font-bold text-sm text-purple-400">UX</span>
+                <span class="font-mono text-xs text-brand-accent font-semibold">91%</span>
+              </div>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">UI/UX Design</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Design systems, Figma micro-interactions, dark aesthetic typography.</p>
+              <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
+                <div class="bg-brand-accent h-full rounded-full" style="width: 91%"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 04. FEATURED PROJECTS SECTION -->
+    <section id="projects" class="relative py-28 px-4 sm:px-8 border-t border-white/5">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Section Header -->
+        <div class="flex flex-col mb-16">
+          <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
+            <span>03 // PORTFOLIO SHOWCASE</span>
+            <div class="h-px w-12 bg-brand-accent/40"></div>
+          </div>
+          <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight">
+            FEATURED <span class="text-brand-accent">PROJECTS</span>
+          </h2>
+          <p class="text-brand-muted font-body text-sm sm:text-base max-w-xl mt-3">
+            Real production systems engineered with Python, Computer Vision, and modern web frameworks. Try the interactive live simulators inside each card.
+          </p>
+        </div>
+
+        <!-- Project Cards Stack -->
+        <div class="flex flex-col gap-12 sm:gap-16">
+
+          <!-- PROJECT 01: HEMIS TELEGRAM BOT -->
+          <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 hover:border-brand-accent/40 transition-all duration-300 relative overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              <!-- Left info -->
+              <div class="lg:col-span-6 flex flex-col">
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold">PROJECT 01</span>
+                  <span class="font-mono text-xs text-brand-muted">AI & EdTech Assistant</span>
+                </div>
+
+                <h3 class="font-sans font-bold text-2xl sm:text-4xl text-white group-hover:text-brand-accent transition-colors">
+                  HEMIS TELEGRAM BOT
+                </h3>
+                
+                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6">
+                  An intelligent educational assistant deeply integrated with the HEMIS higher education management system. Automates academic schedule retrieval, instant grade tracking, attendance monitoring, and university broadcast notifications for thousands of students and faculty.
+                </p>
+
+                <!-- Tech stack tags -->
+                <div class="flex flex-wrap gap-2 mb-8">
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Python</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Aiogram 3.x</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Asyncio</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">HEMIS REST API</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">PostgreSQL</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Docker</span>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center gap-4">
+                  <button class="project-modal-btn px-6 py-3 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs tracking-wider hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(139,255,90,0.3)]" data-project="hemis">
+                    <span>VIEW PROJECT DETAILS</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </button>
+                  <span class="font-mono text-xs text-brand-muted">Active Users: 12,000+</span>
+                </div>
+              </div>
+
+              <!-- Right: Interactive Live Simulation Box -->
+              <div class="lg:col-span-6 bg-[#08080C] rounded-2xl border border-white/10 p-5 shadow-2xl relative">
+                <!-- Telegram Chat Header -->
+                <div class="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+                  <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-full bg-brand-accent/20 border border-brand-accent/40 flex items-center justify-center font-mono font-bold text-xs text-brand-accent">HB</div>
+                    <div>
+                      <div class="text-xs font-sans font-semibold text-white">HEMIS Assistant Bot</div>
+                      <div class="text-[10px] font-mono text-brand-accent">● bot is online</div>
+                    </div>
+                  </div>
+                  <span class="text-[10px] font-mono text-brand-muted">v2.4 Live Demo</span>
+                </div>
+
+                <!-- Chat Feed Simulation -->
+                <div id="hemis-chat-feed" class="flex flex-col gap-2.5 h-56 overflow-y-auto pr-1 text-xs font-mono">
+                  <div class="self-start max-w-[85%] bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm p-3 text-white/90">
+                    👋 Assalomu alaykum! HEMIS tizimi avtomatlashtirilgan assistentiga xush kelibsiz. Quyidagi tugmalardan birini tanlang:
+                  </div>
+                  <div class="self-end max-w-[80%] bg-brand-accent text-brand-black font-semibold rounded-2xl rounded-tr-sm p-2.5">
+                    /dars_jadvali (Today's Schedule)
+                  </div>
+                  <div class="self-start max-w-[85%] bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm p-3 text-white/90">
+                    📅 <span class="text-brand-accent font-semibold">Bugungi darslar:</span><br>
+                    • 08:30 - Sun'iy intellekt asoslari (Aud: 304)<br>
+                    • 10:00 - Python orqali algoritmlash (Aud: 210)<br>
+                    • 11:30 - Kiberxavfsizlik asoslari (Lab: 102)
+                  </div>
+                </div>
+
+                <!-- Interactive Bot Command Buttons -->
+                <div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap gap-1.5">
+                  <button class="hemis-cmd-btn px-2.5 py-1 rounded-lg bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono text-white/80 transition-all" data-cmd="schedule">📅 Dars Jadvali</button>
+                  <button class="hemis-cmd-btn px-2.5 py-1 rounded-lg bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono text-white/80 transition-all" data-cmd="grades">📊 Baholar</button>
+                  <button class="hemis-cmd-btn px-2.5 py-1 rounded-lg bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono text-white/80 transition-all" data-cmd="attendance">⏱ Davomat</button>
+                  <button class="hemis-cmd-btn px-2.5 py-1 rounded-lg bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono text-white/80 transition-all" data-cmd="reset">🔄 Tozalash</button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- PROJECT 02: EYEPILOT -->
+          <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 hover:border-brand-accent/40 transition-all duration-300 relative overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              <!-- Left info -->
+              <div class="lg:col-span-6 flex flex-col">
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold">PROJECT 02</span>
+                  <span class="font-mono text-xs text-brand-muted">Computer Vision & Accessibility</span>
+                </div>
+
+                <h3 class="font-sans font-bold text-2xl sm:text-4xl text-white group-hover:text-brand-accent transition-colors">
+                  EYEPILOT
+                </h3>
+                
+                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6">
+                  A high-precision, camera-based computer control system engineered with computer vision and facial landmark tracking. Enables touchless and hands-free mouse navigation through real-time eye gaze estimation, blink gesture recognition, and ergonomic accessibility algorithms.
+                </p>
+
+                <!-- Tech stack tags -->
+                <div class="flex flex-wrap gap-2 mb-8">
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Python</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">OpenCV</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">MediaPipe Mesh</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">PyAutoGUI</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">NumPy</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Tkinter GUI</span>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center gap-4">
+                  <button class="project-modal-btn px-6 py-3 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs tracking-wider hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(139,255,90,0.3)]" data-project="eyepilot">
+                    <span>VIEW PROJECT DETAILS</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </button>
+                  <span class="font-mono text-xs text-brand-muted">Latency: ~12ms (60 FPS)</span>
+                </div>
+              </div>
+
+              <!-- Right: Interactive Vision HUD Simulator -->
+              <div class="lg:col-span-6 bg-[#08080C] rounded-2xl border border-white/10 p-5 shadow-2xl relative overflow-hidden">
+                <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                  <div class="flex items-center gap-2 font-mono text-xs text-brand-accent">
+                    <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+                    <span>EYEPILOT CAMERA VISION FEED</span>
+                  </div>
+                  <span class="font-mono text-[11px] text-brand-muted" id="eyepilot-fps">FPS: 60.0 • 468 Landmarks</span>
+                </div>
+
+                <!-- Simulated Eye-Tracking Sandbox -->
+                <div id="eyepilot-sandbox" class="relative w-full h-56 rounded-xl bg-black/90 border border-brand-accent/20 flex items-center justify-center cursor-crosshair overflow-hidden">
+                  <!-- Grid overlay -->
+                  <div class="absolute inset-0 bg-grid-pattern opacity-40"></div>
+                  
+                  <!-- Target Center Crosshair -->
+                  <div class="absolute w-12 h-12 rounded-full border border-white/20 flex items-center justify-center pointer-events-none">
+                    <div class="w-1.5 h-1.5 rounded-full bg-white/40"></div>
+                  </div>
+
+                  <!-- Dynamic Eye Tracker Reticle that follows mouse within sandbox -->
+                  <div id="eyepilot-reticle" class="absolute w-14 h-14 rounded-full border-2 border-brand-accent flex items-center justify-center transition-all duration-75 pointer-events-none shadow-[0_0_20px_#8BFF5A]">
+                    <div class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></div>
+                    <span class="absolute -top-5 text-[9px] font-mono text-brand-accent whitespace-nowrap">GAZE TRACKED</span>
+                  </div>
+
+                  <!-- Coordinate HUD -->
+                  <div class="absolute bottom-2 left-3 font-mono text-[10px] text-brand-muted bg-black/60 px-2 py-0.5 rounded border border-white/5">
+                    X: <span id="eye-coord-x" class="text-white">0</span> | Y: <span id="eye-coord-y" class="text-white">0</span> | BLINK: <span id="eye-blink-status" class="text-brand-accent">READY</span>
+                  </div>
+
+                  <div class="absolute top-2 right-3 font-mono text-[9px] text-brand-dim text-right">
+                    Move cursor here to test tracking<br>Click to trigger blink action
+                  </div>
+                </div>
+
+                <!-- Simulation Toggle Bar -->
+                <div class="mt-3 flex items-center justify-between text-xs font-mono">
+                  <span class="text-brand-muted text-[11px]">Mode: Iris Landmark Vectoring</span>
+                  <button id="btn-trigger-blink" class="px-3 py-1 rounded bg-brand-accent/20 border border-brand-accent/40 text-brand-accent hover:bg-brand-accent hover:text-brand-black transition-all text-[11px]">
+                    Simulate Eye Blink
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- PROJECT 03: CODESTEP -->
+          <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 hover:border-brand-accent/40 transition-all duration-300 relative overflow-hidden group">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              <!-- Left info -->
+              <div class="lg:col-span-6 flex flex-col">
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold">PROJECT 03</span>
+                  <span class="font-mono text-xs text-brand-muted">EdTech & Coding Platform</span>
+                </div>
+
+                <h3 class="font-sans font-bold text-2xl sm:text-4xl text-white group-hover:text-brand-accent transition-colors">
+                  CODESTEP
+                </h3>
+                
+                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6">
+                  A modern, interactive programming education platform designed to accelerate computer science learning. Features an in-browser code playground, automated unit test evaluation, step-by-step gamified skill paths, and real-time execution feedback for aspiring developers.
+                </p>
+
+                <!-- Tech stack tags -->
+                <div class="flex flex-wrap gap-2 mb-8">
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">React.js</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">TypeScript</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Tailwind CSS</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Node.js</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Firebase Auth</span>
+                  <span class="px-3 py-1 rounded-lg bg-[#0F0F14] border border-white/10 text-xs font-mono text-white/90">Code Sandbox API</span>
+                </div>
+
+                <!-- Action Button -->
+                <div class="flex items-center gap-4">
+                  <button class="project-modal-btn px-6 py-3 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs tracking-wider hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(139,255,90,0.3)]" data-project="codestep">
+                    <span>VIEW PROJECT DETAILS</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </button>
+                  <span class="font-mono text-xs text-brand-muted">50+ Interactive Modules</span>
+                </div>
+              </div>
+
+              <!-- Right: Interactive Code Playground Demo -->
+              <div class="lg:col-span-6 bg-[#08080C] rounded-2xl border border-white/10 p-5 shadow-2xl relative">
+                <div class="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
+                  <div class="flex items-center gap-2 font-mono text-xs text-white">
+                    <span class="text-brand-accent font-bold">&lt;/&gt;</span>
+                    <span>exercise_01.py — Reverse Array</span>
+                  </div>
+                  <span class="font-mono text-[10px] text-brand-accent bg-brand-accent/10 px-2 py-0.5 rounded border border-brand-accent/30">TEST SUITE ACTIVE</span>
+                </div>
+
+                <!-- Interactive Code Area -->
+                <div class="bg-[#050507] p-3 rounded-xl border border-white/5 font-mono text-xs text-brand-muted leading-relaxed">
+                  <div class="text-white/60 mb-2"># Task: Return the reversed list using Python slicing</div>
+                  <div class="text-brand-accent">def <span class="text-white font-semibold">reverse_elements</span>(arr):</div>
+                  <div class="pl-4 text-white">return arr[::-1]</div>
+                  <div class="mt-3 text-white/50"># Test Call:</div>
+                  <div class="text-brand-muted">result = reverse_elements([<span class="text-[#FCD34D]">"code"</span>, <span class="text-[#FCD34D]">"step"</span>, <span class="text-[#8BFF5A]">2026</span>])</div>
+                </div>
+
+                <!-- Output Terminal box -->
+                <div id="codestep-terminal" class="mt-3 p-3 rounded-xl bg-[#030305] border border-white/10 font-mono text-xs">
+                  <div class="text-brand-dim text-[10px] mb-1">EXECUTION CONSOLE:</div>
+                  <div id="codestep-output" class="text-brand-accent">
+                    ✓ All 3 test cases passed! Output: ['2026', 'step', 'code']
+                  </div>
+                </div>
+
+                <div class="mt-3 flex items-center justify-between">
+                  <span class="font-mono text-[11px] text-brand-dim">Execution Time: 4ms</span>
+                  <button id="btn-run-codestep" class="px-4 py-1.5 rounded-lg bg-brand-accent text-brand-black font-sans font-bold text-xs hover:bg-brand-accentHover transition-all flex items-center gap-1.5">
+                    <span>Run Tests</span>
+                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 05. CINEMATIC VIDEO & VISUAL SHOWCASE SECTION -->
+    <section id="showcase" class="relative py-32 px-4 sm:px-8 border-t border-white/5 bg-[#050505] overflow-hidden">
+      
+      <!-- Ambient Lighting -->
+      <div class="absolute inset-0 bg-gradient-to-b from-brand-black via-[#08080C] to-brand-black pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto relative z-10">
+        
+        <!-- Center Cinematic Header -->
+        <div class="flex flex-col items-center text-center mb-16">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-accent/10 border border-brand-accent/30 text-brand-accent font-mono text-xs mb-4">
+            <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+            <span>EXPERIENCE REALITY IN MOTION</span>
+          </div>
+
+          <h2 class="font-sans font-bold text-4xl sm:text-6xl md:text-7xl text-white tracking-tight uppercase leading-tight max-w-4xl">
+            TURNING IDEAS INTO <span class="text-brand-accent drop-shadow-[0_0_35px_rgba(139,255,90,0.5)]">REALITY</span>.
+          </h2>
+
+          <p class="font-body text-brand-muted text-base sm:text-lg max-w-2xl mt-4 font-light">
+            High-fidelity generative visuals, dynamic particle dynamics, and abstract computational art. Where mathematical precision meets cinematic visual aesthetics.
+          </p>
+        </div>
+
+        <!-- Interactive Cinematic Video / Generative Canvas Showcase Box -->
+        <div class="w-full rounded-3xl bg-[#09090D] border border-white/10 p-3 sm:p-5 shadow-2xl relative overflow-hidden group">
+          
+          <!-- Top Showcase HUD bar -->
+          <div class="flex flex-wrap items-center justify-between gap-3 px-3 py-2 mb-3 border-b border-white/10 font-mono text-xs text-brand-muted">
+            <div class="flex items-center gap-3">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-accent animate-pulse"></span>
+              <span class="text-white font-medium">STREAM: CINEMATIC_SYNTHESIS_4K</span>
+            </div>
+            
+            <div class="flex items-center gap-2">
+              <span class="text-brand-dim text-[11px]">SCENE:</span>
+              <button id="scene-btn-tunnel" class="px-2.5 py-1 rounded bg-brand-accent text-brand-black font-semibold text-[11px] transition-all">Quantum Tunnel</button>
+              <button id="scene-btn-matrix" class="px-2.5 py-1 rounded bg-white/5 text-white hover:text-brand-accent text-[11px] transition-all">Neural Mesh</button>
+              <button id="scene-btn-waves" class="px-2.5 py-1 rounded bg-white/5 text-white hover:text-brand-accent text-[11px] transition-all">Cyber Grid</button>
+            </div>
+          </div>
+
+          <!-- The Generative Canvas Visualizer Frame -->
+          <div class="relative w-full h-[320px] sm:h-[450px] md:h-[550px] rounded-2xl bg-black overflow-hidden flex items-center justify-center">
+            <canvas id="showcase-canvas" class="w-full h-full block"></canvas>
+            
+            <!-- Video Showcase Overlay Typography -->
+            <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pointer-events-none">
+              <div class="bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10">
+                <span class="font-mono text-xs text-brand-accent font-semibold block">RENDER ENGINE: WEBGL // THREE.JS SHADER</span>
+                <span class="font-sans text-sm text-white font-light">Interactive procedural particle choreography</span>
+              </div>
+              
+              <div class="bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 font-mono text-xs text-brand-muted flex items-center gap-3 pointer-events-auto">
+                <button id="showcase-pause-btn" class="hover:text-brand-accent transition-colors flex items-center gap-1.5">
+                  <span id="showcase-play-icon">⏸ PAUSE</span>
+                </button>
+                <span class="text-white/20">|</span>
+                <button id="showcase-warp-btn" class="hover:text-brand-accent transition-colors">
+                  ⚡ HYPERSPEED
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom controls info -->
+          <div class="flex flex-wrap items-center justify-between gap-3 px-3 pt-3 text-[11px] font-mono text-brand-dim">
+            <span>Dynamic Lighting • Procedural Noise • GPU Accelerated • Auto Muted</span>
+            <span class="text-brand-accent">Drag inside canvas to pivot camera in 360° space</span>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 06. CONTACT SECTION -->
+    <section id="contact" class="relative py-28 px-4 sm:px-8 border-t border-white/5 bg-[#070709]">
+      <div class="max-w-7xl mx-auto">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          <!-- Left Column: Contact Header & Direct Channels -->
+          <div class="lg:col-span-5 flex flex-col">
+            <div class="flex items-center gap-2 font-mono text-xs text-brand-accent tracking-widest uppercase mb-2">
+              <span>04 // INITIATE TRANSMISSION</span>
+              <div class="h-px w-12 bg-brand-accent/40"></div>
+            </div>
+
+            <h2 class="font-sans font-bold text-3xl sm:text-5xl text-white tracking-tight leading-tight mb-6">
+              HAVE AN IDEA?<br>
+              <span class="text-brand-accent">LET'S BUILD IT.</span>
+            </h2>
+
+            <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mb-8">
+              Whether you need an intelligent Telegram bot system, an advanced computer vision platform, high-performance Python architecture, or an award-winning creative 3D web experience — my digital channel is open.
+            </p>
+
+            <!-- Channels List -->
+            <div class="flex flex-col gap-3 font-mono text-xs sm:text-sm">
+              
+              <!-- Telegram -->
+              <a href="https://t.me/tohir_dev" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 flex items-center justify-between border border-white/10 hover:border-brand-accent/50 hover:bg-brand-cardHover transition-all group">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">
+                    TG
+                  </div>
+                  <div>
+                    <div class="text-white font-sans font-semibold group-hover:text-brand-accent transition-colors">Telegram</div>
+                    <div class="text-brand-muted text-xs">@tohir_dev</div>
+                  </div>
+                </div>
+                <span class="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+              </a>
+
+              <!-- GitHub -->
+              <a href="https://github.com/tohir-mamurov" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 flex items-center justify-between border border-white/10 hover:border-brand-accent/50 hover:bg-brand-cardHover transition-all group">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-white font-bold text-sm">
+                    GH
+                  </div>
+                  <div>
+                    <div class="text-white font-sans font-semibold group-hover:text-brand-accent transition-colors">GitHub</div>
+                    <div class="text-brand-muted text-xs">github.com/tohir-mamurov</div>
+                  </div>
+                </div>
+                <span class="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
+              </a>
+
+              <!-- Email -->
+              <div class="glass-card rounded-2xl p-4 flex items-center justify-between border border-white/10 hover:border-brand-accent/50 hover:bg-brand-cardHover transition-all group">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-xl bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center text-brand-accent font-bold text-sm">
+                    @
+                  </div>
+                  <div>
+                    <div class="text-white font-sans font-semibold group-hover:text-brand-accent transition-colors">Email Transmission</div>
+                    <div class="text-brand-muted text-xs select-all">tohir.dev@outlook.com</div>
+                  </div>
+                </div>
+                <button id="copy-email-btn" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono transition-all text-brand-muted">
+                  Copy
+                </button>
+              </div>
+
+            </div>
+
+            <!-- Location & Timezone info -->
+            <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-brand-dim">
+              <span>Timezone: Asia/Tashkent (UTC+5)</span>
+              <span class="text-brand-accent">Response time: &lt; 24h</span>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Interactive Cyber Contact Form -->
+          <div class="lg:col-span-7">
+            <div class="glass-card rounded-3xl p-6 sm:p-10 border border-white/10 relative shadow-2xl">
+              <div class="flex items-center justify-between pb-4 mb-6 border-b border-white/10 font-mono text-xs">
+                <span class="text-white font-medium flex items-center gap-2">
+                  <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
+                  DIRECT SECURE MESSAGE TERMINAL
+                </span>
+                <span class="text-brand-dim">ENCRYPTED // TLS 1.3</span>
+              </div>
+
+              <form id="contact-form" class="flex flex-col gap-5">
+                
+                <!-- Name & Email Row -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="flex flex-col gap-1.5">
+                    <label for="form-name" class="font-mono text-xs text-brand-muted">Your Name / Organization *</label>
+                    <input type="text" id="form-name" required placeholder="e.g. Alex Sterling" class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body">
+                  </div>
+
+                  <div class="flex flex-col gap-1.5">
+                    <label for="form-email" class="font-mono text-xs text-brand-muted">Email Address *</label>
+                    <input type="email" id="form-email" required placeholder="alex@domain.com" class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body">
+                  </div>
+                </div>
+
+                <!-- Project Category selector -->
+                <div class="flex flex-col gap-1.5">
+                  <label class="font-mono text-xs text-brand-muted">Project Domain / Scope</label>
+                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-brand-accent/15 border border-brand-accent/40 text-brand-accent text-xs font-mono font-medium text-center transition-all" data-scope="ai">
+                      AI & Vision
+                    </button>
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="bot">
+                      Telegram Bot
+                    </button>
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="web">
+                      3D Web App
+                    </button>
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="custom">
+                      Full-Stack
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Message input -->
+                <div class="flex flex-col gap-1.5">
+                  <label for="form-message" class="font-mono text-xs text-brand-muted">Project Description / Requirements *</label>
+                  <textarea id="form-message" rows="4" required placeholder="Tell me about your project vision, timeline, goals, and technical requirements..." class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body resize-none"></textarea>
+                </div>
+
+                <!-- Form Submit Button -->
+                <button type="submit" id="form-submit-btn" class="w-full py-4 rounded-xl bg-brand-accent text-brand-black font-sans font-bold text-sm tracking-wider hover:bg-brand-accentHover transition-all shadow-[0_0_20px_rgba(139,255,90,0.35)] hover:shadow-[0_0_30px_rgba(139,255,90,0.5)] flex items-center justify-center gap-2 group cursor-pointer">
+                  <span id="submit-text">TRANSMIT MESSAGE // SEND</span>
+                  <svg id="submit-icon" class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </button>
+
+                <!-- Feedback Toast Status (Inline) -->
+                <div id="form-status" class="hidden font-mono text-xs text-center py-2 px-3 rounded-lg"></div>
+
+              </form>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="py-12 px-4 sm:px-8 border-t border-white/5 bg-[#030304] text-brand-muted font-mono text-xs">
+      <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-3">
+          <div class="w-6 h-6 rounded bg-brand-card border border-brand-accent/40 flex items-center justify-center font-sans font-bold text-[10px] text-brand-accent">
+            TD
+          </div>
+          <span class="text-white font-sans font-semibold">TOHIR.DEV</span>
+          <span class="text-brand-dim">•</span>
+          <span>© 2026 Tohir Mamurov</span>
+        </div>
+
+        <div class="flex items-center gap-6">
+          <a href="#hero" class="hover:text-brand-accent transition-colors">BACK TO TOP ↑</a>
+          <a href="https://t.me/tohir_dev" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">TELEGRAM</a>
+          <a href="https://github.com/tohir-mamurov" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">GITHUB</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+
+  
+  <!-- TECHNOLOGY SKILL INSPECTOR MODAL -->
+  <div id="skill-tech-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300">
+    <div class="glass-card bg-[#0A0A0F] max-w-2xl w-full rounded-3xl border border-brand-accent/40 p-6 sm:p-8 relative shadow-2xl max-h-[92vh] overflow-y-auto animate-fadeIn">
+      
+      <!-- Close Button -->
+      <button id="skill-modal-close-btn" class="absolute top-6 right-6 w-9 h-9 rounded-full bg-white/5 hover:bg-brand-accent/20 border border-white/10 hover:border-brand-accent/50 text-white hover:text-brand-accent flex items-center justify-center transition-all text-sm">
+        ✕
+      </button>
+
+      <!-- Badge & Icon Header -->
+      <div class="flex items-center gap-3 mb-4">
+        <div id="st-modal-icon" class="w-12 h-12 rounded-2xl bg-brand-accent/15 border border-brand-accent/40 flex items-center justify-center font-mono font-bold text-lg text-brand-accent shadow-[0_0_15px_rgba(139,255,90,0.25)]">
+          PY
+        </div>
+        <div>
+          <span id="st-modal-badge" class="font-mono text-xs text-brand-accent tracking-widest uppercase block">CORE LANGUAGE // BACKEND & AI</span>
+          <h3 id="st-modal-title" class="font-sans font-bold text-2xl sm:text-3xl text-white">Python Architecture</h3>
+        </div>
+      </div>
+
+      <!-- Experience & Mastery Bar -->
+      <div class="glass-card rounded-2xl p-4 mb-6 border border-white/5">
+        <div class="flex items-center justify-between text-xs font-mono mb-2">
+          <span class="text-brand-muted">PROFICIENCY & ARCHITECTURAL MASTERY</span>
+          <span id="st-modal-level" class="text-brand-accent font-bold">96% // 5+ YEARS</span>
+        </div>
+        <div class="w-full bg-white/5 h-2 rounded-full overflow-hidden">
+          <div id="st-modal-meter" class="h-full bg-gradient-to-r from-brand-accent to-[#00F0FF] rounded-full transition-all duration-500 shadow-[0_0_10px_#8BFF5A]" style="width: 96%"></div>
+        </div>
+      </div>
+
+      <!-- Detailed Description -->
+      <div class="mb-6">
+        <h4 class="font-mono text-xs text-white/50 uppercase tracking-wider mb-2">OVERVIEW & ENGINEERING ROLE</h4>
+        <p id="st-modal-desc" class="text-sm sm:text-base text-brand-muted leading-relaxed font-body">
+          Detailed overview...
+        </p>
+      </div>
+
+      <!-- Key Libraries / Tools -->
+      <div class="mb-6">
+        <h4 class="font-mono text-xs text-white/50 uppercase tracking-wider mb-2">CORE FRAMEWORKS, LIBRARIES & TOOLING</h4>
+        <div id="st-modal-tags" class="flex flex-wrap gap-2">
+          <!-- Tag chips injected here -->
+        </div>
+      </div>
+
+      <!-- Key Production Projects & Architecture Highlights -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 font-mono text-xs">
+        <div class="glass-card p-4 rounded-xl border border-white/5">
+          <div class="text-brand-accent font-bold mb-1">🚀 PRODUCTION USAGE</div>
+          <div id="st-modal-projects" class="text-white/80 leading-relaxed font-body text-xs">
+            HEMIS Bot, EyePilot
+          </div>
+        </div>
+        <div class="glass-card p-4 rounded-xl border border-white/5">
+          <div class="text-brand-accent font-bold mb-1">⚡ CORE ADVANTAGE</div>
+          <div id="st-modal-highlight" class="text-white/80 leading-relaxed font-body text-xs">
+            Asynchronous event loops, high concurrency
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Footer -->
+      <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+        <span class="font-mono text-xs text-brand-dim">Developer: Tohir Mamurov</span>
+        <a href="#contact" id="st-modal-cta-btn" class="px-5 py-2.5 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs tracking-wider hover:bg-brand-accentHover transition-all shadow-[0_0_15px_rgba(139,255,90,0.3)]">
+          START A PROJECT WITH THIS TECH →
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PROJECT CASE STUDY MODAL -->
+  <div id="project-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300">
+    <div class="glass-card bg-[#0A0A0E] max-w-2xl w-full rounded-3xl border border-brand-accent/30 p-6 sm:p-8 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+      
+      <!-- Close Button -->
+      <button id="modal-close-btn" class="absolute top-6 right-6 w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-white hover:text-brand-accent flex items-center justify-center transition-colors">
+        ✕
+      </button>
+
+      <div class="flex items-center gap-2 font-mono text-xs text-brand-accent mb-2">
+        <span id="modal-project-badge">PROJECT CASE STUDY</span>
+      </div>
+
+      <h3 id="modal-project-title" class="font-sans font-bold text-2xl sm:text-3xl text-white mb-4">
+        Project Title
+      </h3>
+
+      <div class="w-full h-44 rounded-2xl bg-black/60 border border-white/10 mb-6 flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-grid-pattern opacity-30"></div>
+        <div id="modal-graphic-icon" class="font-mono text-3xl font-bold text-brand-accent">
+          [SYSTEM ARCHITECTURE]
+        </div>
+      </div>
+
+      <p id="modal-project-desc" class="text-sm sm:text-base text-brand-muted leading-relaxed font-body mb-6">
+        Detailed description...
+      </p>
+
+      <div class="mb-6">
+        <h4 class="font-mono text-xs text-brand-accent uppercase tracking-wider mb-2">Engineered With</h4>
+        <div id="modal-project-tech" class="flex flex-wrap gap-2">
+          <!-- Tech tags injected here -->
+        </div>
+      </div>
+
+      <div class="pt-4 border-t border-white/10 flex items-center justify-between">
+        <span class="font-mono text-xs text-brand-dim">Author: Tohir Mamurov</span>
+        <a href="#contact" id="modal-contact-cta" class="px-5 py-2 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs hover:bg-brand-accentHover transition-all">
+          Discuss Similar Project
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 px-5 py-3 rounded-2xl bg-brand-card/95 border border-brand-accent/50 text-white font-mono text-xs shadow-2xl backdrop-blur-xl translate-y-24 opacity-0 transition-all duration-300 flex items-center gap-3">
+    <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
+    <span id="toast-message">Notification message</span>
+  </div>
+
+  <!-- SCRIPT LOGIC (Three.js 3D Core, Audio Synthesizer, Interactivity, GSAP) -->
+  <script>
+    // --- 1. AUDIO SYNTHESIZER (Removed) ---
+    const audio = { play() {}, pause() {}, toggle() { return false; }, playHover() {}, playClick() {} };
+
+    // --- 2. THREE.JS 3D SCENE & HERO FLOATING OBJECT ---
+    let scene, camera, renderer;
+    let heroMeshGroup, primaryMesh, wireframeMesh, particleSystem;
+    let targetRotationX = 0, targetRotationY = 0;
+    let windowHalfX = window.innerWidth / 2;
+    let windowHalfY = window.innerHeight / 2;
+    let currentThemeColor = 0x8BFF5A;
+    let activeGeometryType = 'poly';
+
+    function initThree() {
+      const canvas = document.getElementById('webgl-canvas');
+      scene = new THREE.Scene();
+      
+      // Camera
+      camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+      camera.position.z = 7;
+
+      // Renderer
+      renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true, powerPreference: "high-performance" });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      renderer.setSize(window.innerWidth, window.innerHeight);
+
+      // Lights
+      const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+      scene.add(ambientLight);
+
+      const directionalLight = new THREE.DirectionalLight(currentThemeColor, 2.2);
+      directionalLight.position.set(5, 5, 5);
+      scene.add(directionalLight);
+
+      const backLight = new THREE.DirectionalLight(0xffffff, 1.0);
+      backLight.position.set(-5, -5, -3);
+      scene.add(backLight);
+
+      // Hero 3D Object Group
+      heroMeshGroup = new THREE.Group();
+      scene.add(heroMeshGroup);
+
+      buildHeroObject(activeGeometryType);
+
+      // Particle Field
+      createParticles();
+
+      // Floating Background Companion Shapes
+      createFloatingCompanions();
+
+      // AUTOMATIC 3D SHAPE MORPHING & TRANSFORMATIONS (Every 7.5 seconds)
+      setInterval(triggerNextGeometryMorph, 7500);
+
+      // Mouse listener for Parallax
+      window.addEventListener('mousemove', onDocumentMouseMove, { passive: true });
+      window.addEventListener('resize', onWindowResize);
+      window.addEventListener('scroll', onScrollMove, { passive: true });
+    }
+
+    const availableGeometries = ['poly', 'torus', 'sphere', 'octa', 'dodeca'];
+    const themeColorPalette = [0x8BFF5A, 0x00F0FF, 0xB026FF, 0xFFB800];
+    let geoCycleIndex = 0;
+    let colorCycleIndex = 0;
+    let floatingCompanions = [];
+
+    function createGeometry(type) {
+      if (type === 'torus') {
+        return new THREE.TorusKnotGeometry(1.35, 0.38, 120, 24);
+      } else if (type === 'sphere') {
+        return new THREE.IcosahedronGeometry(1.7, 4);
+      } else if (type === 'octa') {
+        return new THREE.OctahedronGeometry(1.8, 0);
+      } else if (type === 'dodeca') {
+        return new THREE.DodecahedronGeometry(1.7, 1);
+      } else {
+        // Futuristic Polyhedron Core
+        return new THREE.IcosahedronGeometry(1.8, 1);
+      }
+    }
+
+    // Floating background companion shapes that drift and rotate across the space
+    function createFloatingCompanions() {
+      floatingCompanions = [];
+      const geometries = [
+        new THREE.TetrahedronGeometry(0.5, 0),
+        new THREE.OctahedronGeometry(0.6, 0),
+        new THREE.IcosahedronGeometry(0.55, 0),
+        new THREE.TorusGeometry(0.6, 0.15, 16, 32),
+        new THREE.DodecahedronGeometry(0.5, 0),
+        new THREE.BoxGeometry(0.7, 0.7, 0.7)
+      ];
+
+      for (let i = 0; i < 8; i++) {
+        const geom = geometries[i % geometries.length];
+        const mat = new THREE.MeshBasicMaterial({
+          color: themeColorPalette[i % themeColorPalette.length],
+          wireframe: true,
+          transparent: true,
+          opacity: 0.4
+        });
+        const mesh = new THREE.Mesh(geom, mat);
+        mesh.position.set(
+          (Math.random() - 0.5) * 16,
+          (Math.random() - 0.5) * 12,
+          -4 + (Math.random() - 0.5) * 8
+        );
+        mesh.rotation.set(Math.random() * Math.PI, Math.random() * Math.PI, 0);
+        mesh.userData = {
+          rotSpeedX: 0.005 + Math.random() * 0.012,
+          rotSpeedY: 0.004 + Math.random() * 0.015,
+          floatSpeed: 0.8 + Math.random() * 0.8,
+          floatOffset: Math.random() * Math.PI * 2,
+          initialY: mesh.position.y
+        };
+        scene.add(mesh);
+        floatingCompanions.push(mesh);
+      }
+    }
+
+    // Smooth Auto-Morphing Transition between 3D shapes
+    function triggerNextGeometryMorph() {
+      geoCycleIndex = (geoCycleIndex + 1) % availableGeometries.length;
+      colorCycleIndex = (colorCycleIndex + 1) % themeColorPalette.length;
+      activeGeometryType = availableGeometries[geoCycleIndex];
+      currentThemeColor = themeColorPalette[colorCycleIndex];
+
+      // Smooth scale-down then scale-up morphing animation
+      if (heroMeshGroup) {
+        let morphScale = 1.0;
+        const shrinkInterval = setInterval(() => {
+          morphScale -= 0.08;
+          if (morphScale <= 0.1) {
+            clearInterval(shrinkInterval);
+            buildHeroObject(activeGeometryType);
+            if (particleSystem) {
+              particleSystem.material.color.setHex(currentThemeColor);
+            }
+            const growInterval = setInterval(() => {
+              morphScale += 0.08;
+              if (morphScale >= 1.0) {
+                morphScale = 1.0;
+                clearInterval(growInterval);
+              }
+              heroMeshGroup.scale.set(morphScale, morphScale, morphScale);
+            }, 25);
+          } else {
+            heroMeshGroup.scale.set(morphScale, morphScale, morphScale);
+          }
+        }, 25);
+      }
+    }
+
+    function buildHeroObject(type) {
+      // Clear old meshes in group
+      while (heroMeshGroup.children.length > 0) {
+        const obj = heroMeshGroup.children[0];
+        if (obj.geometry) obj.geometry.dispose();
+        if (obj.material) obj.material.dispose();
+        heroMeshGroup.remove(obj);
+      }
+
+      const geom = createGeometry(type);
+
+      // Inner Core Mesh
+      const innerMaterial = new THREE.MeshStandardMaterial({
+        color: 0x0A0A0E,
+        metalness: 0.9,
+        roughness: 0.15,
+        wireframe: false
+      });
+      primaryMesh = new THREE.Mesh(geom, innerMaterial);
+      heroMeshGroup.add(primaryMesh);
+
+      // Outer Wireframe Cage with Neon Glow
+      const wireframeMat = new THREE.MeshBasicMaterial({
+        color: currentThemeColor,
+        wireframe: true,
+        transparent: true,
+        opacity: 0.85
+      });
+      wireframeMesh = new THREE.Mesh(geom, wireframeMat);
+      wireframeMesh.scale.set(1.03, 1.03, 1.03);
+      heroMeshGroup.add(wireframeMesh);
+
+      // Glowing Quantum Center Core
+      const coreGeom = new THREE.OctahedronGeometry(0.7, 0);
+      const coreMat = new THREE.MeshBasicMaterial({
+        color: currentThemeColor,
+        wireframe: false,
+        transparent: true,
+        opacity: 0.7
+      });
+      const centerCore = new THREE.Mesh(coreGeom, coreMat);
+      centerCore.name = "quantumCenter";
+      heroMeshGroup.add(centerCore);
+    }
+
+    function createParticles() {
+      const particleCount = window.innerWidth < 768 ? 400 : 900;
+      const geometry = new THREE.BufferGeometry();
+      const positions = new Float32Array(particleCount * 3);
+
+      for (let i = 0; i < particleCount * 3; i += 3) {
+        positions[i] = (Math.random() - 0.5) * 35;
+        positions[i + 1] = (Math.random() - 0.5) * 35;
+        positions[i + 2] = (Math.random() - 0.5) * 30;
+      }
+
+      geometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+
+      const material = new THREE.PointsMaterial({
+        color: currentThemeColor,
+        size: 0.05,
+        transparent: true,
+        opacity: 0.55
+      });
+
+      particleSystem = new THREE.Points(geometry, material);
+      scene.add(particleSystem);
+    }
+
+    function onDocumentMouseMove(event) {
+      targetRotationX = (event.clientX - windowHalfX) * 0.0006;
+      targetRotationY = (event.clientY - windowHalfY) * 0.0006;
+    }
+
+    function onWindowResize() {
+      windowHalfX = window.innerWidth / 2;
+      windowHalfY = window.innerHeight / 2;
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    function onScrollMove() {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrollProgress = scrollY / Math.max(docHeight, 1);
+
+      if (heroMeshGroup) {
+        // 3D Scroll Journey: Translate and rotate mesh smoothly based on scroll
+        heroMeshGroup.position.y = -scrollProgress * 4;
+        heroMeshGroup.rotation.y = scrollProgress * Math.PI * 2;
+        heroMeshGroup.position.x = Math.sin(scrollProgress * Math.PI) * 1.5;
+      }
+      if (particleSystem) {
+        particleSystem.rotation.y = scrollProgress * 0.8;
+      }
+    }
+
+    // Animation Loop
+    let clock = new THREE.Clock();
+    function animate() {
+      requestAnimationFrame(animate);
+      const elapsedTime = clock.getElapsedTime();
+
+      if (heroMeshGroup) {
+        // Continuous smooth floating and rotation
+        heroMeshGroup.rotation.y += (targetRotationX - heroMeshGroup.rotation.y * 0.1) * 0.05 + 0.004;
+        heroMeshGroup.rotation.x += (targetRotationY - heroMeshGroup.rotation.x * 0.1) * 0.05 + 0.002;
+        heroMeshGroup.position.y += Math.sin(elapsedTime * 1.2) * 0.002;
+
+        const center = heroMeshGroup.getObjectByName("quantumCenter");
+        if (center) {
+          center.rotation.y -= 0.015;
+          center.rotation.x += 0.01;
+        }
+      }
+
+      if (particleSystem) {
+        particleSystem.rotation.y += 0.0004;
+      }
+
+      // Continuously animate and transform the floating background shapes
+      if (floatingCompanions && floatingCompanions.length > 0) {
+        floatingCompanions.forEach(c => {
+          c.rotation.x += c.userData.rotSpeedX;
+          c.rotation.y += c.userData.rotSpeedY;
+          c.position.y = c.userData.initialY + Math.sin(elapsedTime * c.userData.floatSpeed + c.userData.floatOffset) * 0.6;
+        });
+      }
+
+      renderer.render(scene, camera);
+    }
+
+    // --- 3. CINEMATIC GENERATIVE SHOWCASE VISUALIZER (SECTION 05) ---
+    let scCanvas, scCtx;
+    let scParticles = [];
+    let scMode = 'tunnel';
+    let scPaused = false;
+    let scSpeed = 1;
+    let scAnimId = null;
+
+    function initShowcaseVisualizer() {
+      scCanvas = document.getElementById('showcase-canvas');
+      if (!scCanvas) return;
+      scCtx = scCanvas.getContext('2d');
+      
+      function resizeShowcase() {
+        const rect = scCanvas.parentElement.getBoundingClientRect();
+        scCanvas.width = rect.width;
+        scCanvas.height = rect.height;
+      }
+      resizeShowcase();
+      window.addEventListener('resize', resizeShowcase);
+
+      // Create showcase particles
+      const count = 160;
+      scParticles = [];
+      for (let i = 0; i < count; i++) {
+        scParticles.push({
+          x: (Math.random() - 0.5) * scCanvas.width,
+          y: (Math.random() - 0.5) * scCanvas.height,
+          z: Math.random() * scCanvas.width,
+          vz: 2 + Math.random() * 3,
+          color: Math.random() > 0.3 ? '#8BFF5A' : '#FFFFFF'
+        });
+      }
+
+      renderShowcase();
+    }
+
+    function renderShowcase() {
+      if (!scPaused && scCtx && scCanvas) {
+        const w = scCanvas.width;
+        const h = scCanvas.height;
+        const cx = w / 2;
+        const cy = h / 2;
+
+        scCtx.fillStyle = 'rgba(5, 5, 8, 0.25)';
+        scCtx.fillRect(0, 0, w, h);
+
+        if (scMode === 'tunnel') {
+          // Quantum Tunnel
+          for (let p of scParticles) {
+            p.z -= p.vz * scSpeed;
+            if (p.z <= 0) {
+              p.z = w;
+              p.x = (Math.random() - 0.5) * w;
+              p.y = (Math.random() - 0.5) * h;
+            }
+            const k = 280 / p.z;
+            const px = p.x * k + cx;
+            const py = p.y * k + cy;
+            const size = Math.max(0.5, (1 - p.z / w) * 3.5);
+
+            if (px > 0 && px < w && py > 0 && py < h) {
+              scCtx.fillStyle = p.color;
+              scCtx.beginPath();
+              scCtx.arc(px, py, size, 0, Math.PI * 2);
+              scCtx.fill();
+            }
+          }
+        } else if (scMode === 'matrix') {
+          // Neural Synapse Mesh
+          const time = Date.now() * 0.001 * scSpeed;
+          for (let i = 0; i < 40; i++) {
+            const angle = (i / 40) * Math.PI * 2 + time * 0.2;
+            const radius = 100 + Math.sin(time + i) * 60;
+            const x = cx + Math.cos(angle) * radius;
+            const y = cy + Math.sin(angle) * radius;
+
+            scCtx.fillStyle = '#8BFF5A';
+            scCtx.beginPath();
+            scCtx.arc(x, y, 3, 0, Math.PI * 2);
+            scCtx.fill();
+
+            // Interconnect nearby nodes
+            for (let j = i + 1; j < 40; j++) {
+              if (Math.abs(i - j) < 4) {
+                const angle2 = (j / 40) * Math.PI * 2 + time * 0.2;
+                const radius2 = 100 + Math.sin(time + j) * 60;
+                const x2 = cx + Math.cos(angle2) * radius2;
+                const y2 = cy + Math.sin(angle2) * radius2;
+
+                scCtx.strokeStyle = 'rgba(139, 255, 90, 0.2)';
+                scCtx.lineWidth = 0.8;
+                scCtx.beginPath();
+                scCtx.moveTo(x, y);
+                scCtx.lineTo(x2, y2);
+                scCtx.stroke();
+              }
+            }
+          }
+        } else {
+          // Cyber Grid Waves
+          const time = Date.now() * 0.002 * scSpeed;
+          const lines = 12;
+          for (let l = 0; l < lines; l++) {
+            const yBase = cy + (l - lines / 2) * 22;
+            scCtx.beginPath();
+            scCtx.strokeStyle = l % 2 === 0 ? 'rgba(139, 255, 90, 0.35)' : 'rgba(255, 255, 255, 0.15)';
+            scCtx.lineWidth = 1.2;
+
+            for (let x = 0; x < w; x += 15) {
+              const wave = Math.sin(x * 0.015 + time + l * 0.4) * 25;
+              if (x === 0) scCtx.moveTo(x, yBase + wave);
+              else scCtx.lineTo(x, yBase + wave);
+            }
+            scCtx.stroke();
+          }
+        }
+      }
+      scAnimId = requestAnimationFrame(renderShowcase);
+    }
+
+    // --- 4. PRELOADER & ENTRANCE ANIMATION ---
+    function initPreloader() {
+      const preloader = document.getElementById('preloader');
+      const bar = document.getElementById('preloader-bar');
+      const percentText = document.getElementById('preloader-percent');
+      const statusText = document.getElementById('preloader-status');
+      const skipBtn = document.getElementById('skip-preloader-btn');
+
+      let currentPercent = 0;
+      const interval = setInterval(() => {
+        currentPercent += Math.floor(Math.random() * 12) + 8;
+        if (currentPercent >= 100) {
+          currentPercent = 100;
+          clearInterval(interval);
+          bar.style.width = '100%';
+          percentText.textContent = '100%';
+          statusText.textContent = 'SYSTEMS ONLINE // LAUNCHING...';
+          setTimeout(() => {
+            finishPreloader();
+          
+          }, 350);
+        } else {
+          bar.style.width = currentPercent + '%';
+          percentText.textContent = currentPercent + '%';
+          if (currentPercent > 40 && currentPercent < 75) {
+            statusText.textContent = 'Compiling WebGL Geometries...';
+          } else if (currentPercent >= 75) {
+            statusText.textContent = 'Calibrating Neural Matrix...';
+          }
+        }
+      }, 55);
+
+      function finishPreloader() {
+        if (!preloader.classList.contains('pointer-events-none')) {
+          clearInterval(interval);
+          preloader.style.opacity = '0';
+          preloader.classList.add('pointer-events-none');
+          setTimeout(() => {
+            preloader.remove();
+          }, 700);
+        }
+      }
+
+      skipBtn.addEventListener('click', finishPreloader);
+      window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') finishPreloader();
+      });
+    }
+
+    // --- 5. 3D TILT EFFECT ON CARDS ---
+    function init3DTilt() {
+      const cards = document.querySelectorAll('.tilt-card');
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          const rotateX = ((y - centerY) / centerY) * -12;
+          const rotateY = ((x - centerX) / centerX) * 12;
+
+          card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+        });
+      });
+    }
+
+    // --- 6. CUSTOM CURSOR FOLLOWER ---
+    function initCustomCursor() {
+      const dot = document.getElementById('cursor-dot');
+      const ring = document.getElementById('cursor-ring');
+      if (!dot || !ring) return;
+
+      let mouseX = -100, mouseY = -100;
+      let ringX = -100, ringY = -100;
+
+      window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+      });
+
+      function renderCursor() {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+        ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+        requestAnimationFrame(renderCursor);
+      }
+      renderCursor();
+
+      // Expand cursor on clickable elements
+      const interactives = document.querySelectorAll('a, button, input, textarea, .tilt-card, .project-modal-btn');
+      interactives.forEach(el => {
+        el.addEventListener('mouseenter', () => {
+          document.body.classList.add('cursor-active');
+          audio.playHover();
+        });
+        el.addEventListener('mouseleave', () => {
+          document.body.classList.remove('cursor-active');
+        });
+        el.addEventListener('click', () => {
+          audio.playClick();
+        });
+      });
+    }
+
+    // --- 7. PROJECT DETAILS MODAL DATA ---
+    const projectDatabase = {
+      hemis: {
+        badge: "PROJECT 01 // EDTECH & AUTOMATION",
+        title: "HEMIS TELEGRAM BOT",
+        desc: "An enterprise-grade educational assistant built on Python and Aiogram 3.x, directly interfacing with the higher education ministry's HEMIS platform. Designed with high-concurrency asynchronous task workers to handle simultaneous schedule queries, exam grading alerts, attendance percentage monitoring, and push notification dispatches for thousands of daily active university students.",
+        tech: ["Python 3.11", "Aiogram 3", "Asyncio", "Redis Queue", "PostgreSQL", "REST APIs", "Docker Swarm", "CI/CD"],
+        icon: "🤖 HEMIS // AI ASSISTANT"
+      },
+      eyepilot: {
+        badge: "PROJECT 02 // COMPUTER VISION",
+        title: "EYEPILOT ACCESSIBILITY SYSTEM",
+        desc: "A hands-free, touchless human-computer interface developed using OpenCV and MediaPipe 468-point facial mesh topology. Performs millisecond-latency iris coordinate estimation and blink duration analysis to translate natural ocular gaze into fluid cursor movement and OS clicks. Ideal for hands-free industrial use, assistive accessibility, and futuristic UI navigation.",
+        tech: ["Python", "OpenCV", "MediaPipe Face Mesh", "PyAutoGUI", "NumPy Vectorization", "Custom Tkinter", "Mathematical Kalman Filter"],
+        icon: "👁 EYEPILOT // GAZE CONTROL"
+      },
+      codestep: {
+        badge: "PROJECT 03 // INTERACTIVE EDTECH",
+        title: "CODESTEP LEARNING PLATFORM",
+        desc: "A full-featured programming education platform designed to gamify coding mastery. Incorporates in-browser sandboxed code execution, dynamic unit-testing, automated curriculum progress tracking, and interactive challenges across Python, JavaScript, and algorithmic foundations.",
+        tech: ["React.js", "TypeScript", "Tailwind CSS", "Node.js Sandbox", "Firebase Cloud", "Monaco Code Editor", "REST Microservices"],
+        icon: "💻 CODESTEP // CODING ENGINE"
+      }
+    };
+
+    function initProjectModals() {
+      const modal = document.getElementById('project-modal');
+      const closeBtn = document.getElementById('modal-close-btn');
+      const badge = document.getElementById('modal-project-badge');
+      const title = document.getElementById('modal-project-title');
+      const desc = document.getElementById('modal-project-desc');
+      const techContainer = document.getElementById('modal-project-tech');
+      const graphicIcon = document.getElementById('modal-graphic-icon');
+
+      document.querySelectorAll('.project-modal-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const key = btn.getAttribute('data-project');
+          const data = projectDatabase[key];
+          if (data) {
+            badge.textContent = data.badge;
+            title.textContent = data.title;
+            desc.textContent = data.desc;
+            graphicIcon.textContent = data.icon;
+
+            techContainer.innerHTML = '';
+            data.tech.forEach(t => {
+              const span = document.createElement('span');
+              span.className = 'px-3 py-1 rounded-lg bg-brand-card border border-white/10 font-mono text-xs text-white';
+              span.textContent = t;
+              techContainer.appendChild(span);
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            audio.playClick();
+          }
+        });
+      });
+
+      closeBtn.addEventListener('click', () => {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        audio.playClick();
+      });
+
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+        }
+      });
+    }
+
+    // --- 8. INTERACTIVE SIMULATORS LOGIC ---
+    function initSimulators() {
+      // HEMIS Simulator
+      const hemisFeed = document.getElementById('hemis-chat-feed');
+      document.querySelectorAll('.hemis-cmd-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const cmd = btn.getAttribute('data-cmd');
+          audio.playClick();
+          if (cmd === 'reset') {
+            hemisFeed.innerHTML = `
+              <div class="self-start max-w-[85%] bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm p-3 text-white/90">
+                👋 HEMIS Bot konsoli tozalandi. Buyruq tanlang:
+              </div>`;
+            return;
+          }
+
+          let userMsg = '';
+          let botReply = '';
+
+          if (cmd === 'schedule') {
+            userMsg = '📅 /dars_jadvali';
+            botReply = `📅 <span class="text-brand-accent font-semibold">Ertangi darslar (Chorshanba):</span><br>
+            • 09:00 - Ma'lumotlar bazasi (Aud: 412)<br>
+            • 10:40 - Neyron tarmoqlar (Aud: 301)<br>
+            • 12:20 - Dasturiy ta'minot arxitekturasi`;
+          } else if (cmd === 'grades') {
+            userMsg = '📊 /baholar';
+            botReply = `📊 <span class="text-brand-accent font-semibold">Joriy semestr o'zlashtirish:</span><br>
+            • Sun'iy intellekt: <span class="text-brand-accent">94 (A)</span><br>
+            • Python dasturlash: <span class="text-brand-accent">98 (A+)</span><br>
+            • Algoritmlar: <span class="text-brand-accent">90 (A)</span><br>
+            ⭐ GPA: 3.92 / 4.00`;
+          } else if (cmd === 'attendance') {
+            userMsg = '⏱ /davomat';
+            botReply = `⏱ <span class="text-brand-accent font-semibold">Davomat monitoringi:</span><br>
+            • Jami darslar: 120 soat<br>
+            • Qatnashgan: 118 soat<br>
+            • Qoldirilgan: 2 soat (sababli)<br>
+            ✅ Davomat ko'rsatkichi: <span class="text-brand-accent font-bold">98.3%</span>`;
+          }
+
+          const userEl = document.createElement('div');
+          userEl.className = 'self-end max-w-[80%] bg-brand-accent text-brand-black font-semibold rounded-2xl rounded-tr-sm p-2.5 animate-fadeIn';
+          userEl.innerHTML = userMsg;
+          hemisFeed.appendChild(userEl);
+
+          setTimeout(() => {
+            const botEl = document.createElement('div');
+            botEl.className = 'self-start max-w-[85%] bg-white/5 border border-white/10 rounded-2xl rounded-tl-sm p-3 text-white/90 animate-fadeIn';
+            botEl.innerHTML = botReply;
+            hemisFeed.appendChild(botEl);
+            hemisFeed.scrollTop = hemisFeed.scrollHeight;
+          }, 300);
+
+          hemisFeed.scrollTop = hemisFeed.scrollHeight;
+        });
+      });
+
+      // EyePilot Simulator
+      const eyeSandbox = document.getElementById('eyepilot-sandbox');
+      const eyeReticle = document.getElementById('eyepilot-reticle');
+      const coordX = document.getElementById('eye-coord-x');
+      const coordY = document.getElementById('eye-coord-y');
+      const blinkStatus = document.getElementById('eye-blink-status');
+      const blinkBtn = document.getElementById('btn-trigger-blink');
+
+      if (eyeSandbox && eyeReticle) {
+        eyeSandbox.addEventListener('mousemove', (e) => {
+          const rect = eyeSandbox.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          eyeReticle.style.left = `${x - 28}px`;
+          eyeReticle.style.top = `${y - 28}px`;
+          coordX.textContent = Math.round(x);
+          coordY.textContent = Math.round(y);
+        });
+
+        function triggerBlinkAnim() {
+          blinkStatus.textContent = 'BLINK CLICK!';
+          blinkStatus.classList.remove('text-brand-accent');
+          blinkStatus.classList.add('text-white');
+          eyeReticle.style.transform = 'scale(0.6)';
+          audio.playClick();
+
+          setTimeout(() => {
+            eyeReticle.style.transform = 'scale(1)';
+            blinkStatus.textContent = 'READY';
+            blinkStatus.classList.add('text-brand-accent');
+            blinkStatus.classList.remove('text-white');
+          }, 200);
+        }
+
+        eyeSandbox.addEventListener('click', triggerBlinkAnim);
+        if (blinkBtn) blinkBtn.addEventListener('click', triggerBlinkAnim);
+      }
+
+      // CodeStep Simulator
+      const codeOutput = document.getElementById('codestep-output');
+      const runCodeStepBtn = document.getElementById('btn-run-codestep');
+      if (runCodeStepBtn && codeOutput) {
+        runCodeStepBtn.addEventListener('click', () => {
+          audio.playClick();
+          codeOutput.textContent = '⚡ Compiling and executing test suite...';
+          setTimeout(() => {
+            codeOutput.innerHTML = `<span class="text-brand-accent">✓ All 3 test cases passed!</span> Output: ['2026', 'step', 'code'] (0.004s)`;
+          }, 350);
+        });
+      }
+
+      // About Python Runner
+      const btnRunCode = document.getElementById('btn-run-code');
+      const terminalExecOutput = document.getElementById('terminal-exec-output');
+      if (btnRunCode && terminalExecOutput) {
+        btnRunCode.addEventListener('click', () => {
+          audio.playClick();
+          terminalExecOutput.textContent = 'Executing python tohir_profile.py...';
+          setTimeout(() => {
+            terminalExecOutput.innerHTML = `Output: <span class="text-white font-semibold">"Turning abstract ideas into tangible reality."</span>`;
+          }, 300);
+        });
+      }
+    }
+
+    // --- 9. SKILLS FILTER ---
+    
+    // --- 9B. SKILLS DETAILED DATABASE & MODAL CONTROLLER ---
+    const skillsDatabase = {
+      python: {
+        badge: "CORE LANGUAGE // BACKEND & AI",
+        title: "Python Architecture",
+        icon: "PY",
+        level: "96% // 5+ YEARS EXPERIENCE",
+        meter: 96,
+        desc: "Python is Tohir's primary powerhouse for high-concurrency backend services, asynchronous Telegram bot ecosystems, computer vision automation pipelines, and machine learning models. Master of non-blocking asyncio paradigms, high-throughput microservices, and mathematical data transformations.",
+        tags: ["Asyncio", "Aiogram 3.x", "FastAPI", "PyTorch", "OpenCV", "NumPy", "PostgreSQL", "Docker", "PyAutoGUI"],
+        projects: "HEMIS Telegram Bot (12K+ users), EyePilot Computer Vision, Automated Web Scrapers",
+        highlight: "Asynchronous concurrency, non-blocking I/O event loops, sub-15ms execution latency, clean modular architecture."
+      },
+      cpp: {
+        badge: "LOW-LEVEL SYSTEMS // ALGORITHMS",
+        title: "C++ High Performance",
+        icon: "C++",
+        level: "88% // 4+ YEARS EXPERIENCE",
+        meter: 88,
+        desc: "Specialized in performance-critical software, custom memory management, and competitive algorithmic problem-solving. Utilized for compute-heavy graphics transformations, hardware-level vision acceleration, and deterministic real-time operations.",
+        tags: ["C++17 / C++20", "STL Containers", "Custom Memory Allocators", "Multithreading", "Data Structures", "RAII"],
+        projects: "High-Speed Matrix Math Engine, Hardware Vision Accelerators, Competitive Programming",
+        highlight: "Zero-cost abstractions, direct pointer management, cache-friendly data alignment, low-latency execution."
+      },
+      java: {
+        badge: "ENTERPRISE & OBJECT-ORIENTED",
+        title: "Java Engineering",
+        icon: "JV",
+        level: "86% // 3+ YEARS EXPERIENCE",
+        meter: 86,
+        desc: "Building scalable enterprise architectures, multithreaded backend services, and native mobile Android integrations. Strong adherence to SOLID design principles, design patterns, and robust JVM profiling.",
+        tags: ["Java 17+", "OOP Architecture", "Spring Boot", "Android SDK", "JUnit", "Gradle", "Concurrency API"],
+        projects: "University Student Portal Backend, Multithreaded Processing Engine",
+        highlight: "Strict type safety, robust design patterns, thread-safe memory models, scalable enterprise microservices."
+      },
+      javascript: {
+        badge: "FULL-STACK & CREATIVE ENGINE",
+        title: "JavaScript / ESNext",
+        icon: "JS",
+        level: "92% // 5+ YEARS EXPERIENCE",
+        meter: 92,
+        desc: "The core language of interactive modern web applications, real-time client-server communication, hardware-accelerated WebGL graphics, and Node.js microservices. Deep knowledge of the V8 JavaScript engine, asynchronous event loop, and Web APIs.",
+        tags: ["ES6+", "Node.js", "Three.js", "WebSocket", "Web Audio API", "Service Workers", "Canvas 2D/3D"],
+        projects: "TOHIR.DEV 3D Portfolio, CodeStep Interactive IDE, Real-Time Audio Synthesizer",
+        highlight: "Non-blocking event loop, custom WebGL shader controls, reactive state orchestration, zero dependency modules."
+      },
+      react: {
+        badge: "MODERN FRONTEND // COMPONENT SYSTEMS",
+        title: "React & Next.js",
+        icon: "RC",
+        level: "94% // 4+ YEARS EXPERIENCE",
+        meter: 94,
+        desc: "Engineering high-performance single page applications and reactive component design systems. Expert in custom hooks, memoization strategies, state management, and seamless Three.js 3D canvas integrations.",
+        tags: ["React 18", "Next.js", "React Three Fiber", "Hooks (useMemo, useCallback)", "Tailwind CSS", "Zustand"],
+        projects: "CodeStep Programming Platform, Interactive SaaS Dashboards, 3D Web Apps",
+        highlight: "Zero-render waste, optimized virtual DOM reconciliation, fluid micro-interactions, responsive modular architecture."
+      },
+      htmlcss: {
+        badge: "LAYOUT & VISUAL ARCHITECTURE",
+        title: "HTML5 & Advanced CSS",
+        icon: "H5",
+        level: "98% // 5+ YEARS EXPERIENCE",
+        meter: 98,
+        desc: "Crafting semantic, accessible HTML5 structures and award-winning responsive visual layouts with Tailwind CSS, custom keyframes, CSS filters, glassmorphic blur effects, and fluid typography.",
+        tags: ["HTML5 Semantic", "Tailwind CSS 3.4", "CSS Grid & Flexbox", "Hardware Transforms", "Glassmorphism", "Dark Aesthetics"],
+        projects: "TOHIR.DEV Portfolio, Educational Design Systems, Mobile-First Interfaces",
+        highlight: "100% responsive fluid layouts, zero layout shift (CLS 0.0), hardware-accelerated 60 FPS transitions, dark-mode mastery."
+      },
+      firebase: {
+        badge: "SERVERLESS // CLOUD INFRASTRUCTURE",
+        title: "Google Firebase Cloud",
+        icon: "FB",
+        level: "90% // 3+ YEARS EXPERIENCE",
+        meter: 90,
+        desc: "Accelerating full-stack deployments through Firestore real-time NoSQL databases, secure Cloud Functions, Firebase Authentication, and sub-second data synchronization pipelines.",
+        tags: ["Cloud Firestore", "Realtime Database", "Firebase Auth", "Cloud Functions", "Security Rules", "Cloud Hosting"],
+        projects: "CodeStep User Auth & Progress Storage, Real-Time Collaborative Editors",
+        highlight: "Real-time reactive listeners, granular role-based security rules, seamless offline data synchronization."
+      },
+      ai: {
+        badge: "MACHINE LEARNING // VISION & AGENTS",
+        title: "AI & Computer Vision",
+        icon: "AI",
+        level: "95% // 3+ YEARS EXPERIENCE",
+        meter: 95,
+        desc: "Pioneering intelligent digital systems: from real-time ocular landmark tracking using OpenCV and MediaPipe to autonomous LLM agent pipelines, prompt engineering, and local neural network models.",
+        tags: ["OpenCV", "MediaPipe Face Mesh", "PyTorch", "LLM APIs (OpenAI)", "LangChain", "Kalman Filter Gaze Tracking"],
+        projects: "EyePilot Hands-Free Control System, Intelligent HEMIS University Assistant",
+        highlight: "60 FPS real-time video frame vectorization, 468 facial landmark tracking, intelligent autonomous agents."
+      },
+      android: {
+        badge: "MOBILE APPLICATIONS // NATIVE SDK",
+        title: "Android Native Development",
+        icon: "AD",
+        level: "85% // 3+ YEARS EXPERIENCE",
+        meter: 85,
+        desc: "Engineering fluid, ergonomic Android applications conforming to Google's Material Design 3 guidelines, offline-first Room databases, and modern clean MVVM architectural patterns.",
+        tags: ["Kotlin", "Java Android", "Material 3 UI", "Room Database", "Retrofit2 REST", "WorkManager"],
+        projects: "Student Academic Portal Client, Sensor Accessibility Utility",
+        highlight: "Clean MVVM separation of concerns, reactive LiveData streams, background sync, native sensor integration."
+      },
+      uiux: {
+        badge: "DESIGN SYSTEMS // DIGITAL AESTHETICS",
+        title: "UI/UX & Product Design",
+        icon: "UX",
+        level: "91% // 4+ YEARS EXPERIENCE",
+        meter: 91,
+        desc: "Bridging human psychology and futuristic digital technology. Designing dark-mode cinematic user interfaces, atomic design systems, interactive prototypes in Figma, and tactile micro-interactions.",
+        tags: ["Figma Design", "Design Systems", "Prototyping", "Cinematic Dark Theme", "Micro-interactions", "Typography"],
+        projects: "TOHIR.DEV Brand Identity, CodeStep UI/UX, Educational Mobile Interfaces",
+        highlight: "Awwwards-level minimalism, Apple-inspired clarity, high-contrast neon accents, delightful tactile motion."
+      }
+    };
+
+    function initSkillsModal() {
+      const modal = document.getElementById('skill-tech-modal');
+      const closeBtn = document.getElementById('skill-modal-close-btn');
+      const badge = document.getElementById('st-modal-badge');
+      const title = document.getElementById('st-modal-title');
+      const icon = document.getElementById('st-modal-icon');
+      const level = document.getElementById('st-modal-level');
+      const meter = document.getElementById('st-modal-meter');
+      const desc = document.getElementById('st-modal-desc');
+      const tagsContainer = document.getElementById('st-modal-tags');
+      const projects = document.getElementById('st-modal-projects');
+      const highlight = document.getElementById('st-modal-highlight');
+
+      document.querySelectorAll('.skill-item').forEach(card => {
+        card.addEventListener('click', () => {
+          const key = card.getAttribute('data-skill');
+          const data = skillsDatabase[key];
+          if (data && modal) {
+            badge.textContent = data.badge;
+            title.textContent = data.title;
+            icon.textContent = data.icon;
+            level.textContent = data.level;
+            meter.style.width = data.meter + '%';
+            desc.textContent = data.desc;
+            projects.textContent = data.projects;
+            highlight.textContent = data.highlight;
+
+            tagsContainer.innerHTML = '';
+            data.tags.forEach(t => {
+              const span = document.createElement('span');
+              span.className = 'px-3 py-1 rounded-lg bg-brand-card border border-white/10 font-mono text-xs text-white/90 hover:border-brand-accent/40 transition-colors';
+              span.textContent = t;
+              tagsContainer.appendChild(span);
+            });
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            audio.playClick();
+          }
+        });
+      });
+
+      if (closeBtn && modal) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.add('hidden');
+          modal.classList.remove('flex');
+          audio.playClick();
+        });
+
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+          }
+        });
+      }
+    }
+
+    function initSkillsFilter() {
+      const buttons = document.querySelectorAll('.skill-filter-btn');
+      const cards = document.querySelectorAll('.skill-item');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          audio.playClick();
+          buttons.forEach(b => {
+            b.classList.remove('bg-brand-accent', 'text-brand-black', 'font-semibold');
+            b.classList.add('bg-brand-card', 'text-brand-muted', 'border', 'border-white/10');
+          });
+          btn.classList.add('bg-brand-accent', 'text-brand-black', 'font-semibold');
+          btn.classList.remove('bg-brand-card', 'text-brand-muted', 'border', 'border-white/10');
+
+          const filter = btn.getAttribute('data-filter');
+          cards.forEach(card => {
+            const categories = card.getAttribute('data-category');
+            if (filter === 'all' || categories.includes(filter)) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    }
+
+    // --- 10. 3D HERO CONTROLLER (EASTER EGG CONTROLS) ---
+    function initHeroControls() {
+      const btnPoly = document.getElementById('geo-btn-poly');
+      const btnTorus = document.getElementById('geo-btn-torus');
+      const btnSphere = document.getElementById('geo-btn-sphere');
+
+      function setActiveGeo(btn, type) {
+        [btnPoly, btnTorus, btnSphere].forEach(b => {
+          b.className = 'px-2.5 py-1 rounded-lg text-brand-muted hover:text-white font-mono text-[11px] transition-all';
+        });
+        btn.className = 'px-2.5 py-1 rounded-lg text-brand-accent bg-brand-card font-mono text-[11px] transition-all';
+        activeGeometryType = type;
+        buildHeroObject(type);
+        audio.playClick();
+      }
+
+      if (btnPoly) btnPoly.addEventListener('click', () => setActiveGeo(btnPoly, 'poly'));
+      if (btnTorus) btnTorus.addEventListener('click', () => setActiveGeo(btnTorus, 'torus'));
+      if (btnSphere) btnSphere.addEventListener('click', () => setActiveGeo(btnSphere, 'sphere'));
+
+      // Color themes
+      const colGreen = document.getElementById('color-btn-green');
+      const colCyan = document.getElementById('color-btn-cyan');
+      const colPurple = document.getElementById('color-btn-purple');
+
+      function setThemeColor(hex) {
+        currentThemeColor = hex;
+        buildHeroObject(activeGeometryType);
+        if (particleSystem) {
+          particleSystem.material.color.setHex(hex);
+        }
+        audio.playClick();
+      }
+
+      if (colGreen) colGreen.addEventListener('click', () => setThemeColor(0x8BFF5A));
+      if (colCyan) colCyan.addEventListener('click', () => setThemeColor(0x00F0FF));
+      if (colPurple) colPurple.addEventListener('click', () => setThemeColor(0xB026FF));
+
+      // Wireframe toggle
+      const wireframeBtn = document.getElementById('wireframe-toggle-btn');
+      const wireframeStatus = document.getElementById('wireframe-status');
+      let wfState = true;
+      if (wireframeBtn) {
+        wireframeBtn.addEventListener('click', () => {
+          wfState = !wfState;
+          if (wireframeMesh) wireframeMesh.visible = wfState;
+          wireframeStatus.textContent = wfState ? 'ON' : 'OFF';
+          wireframeStatus.className = wfState ? 'text-brand-accent' : 'text-brand-dim';
+          audio.playClick();
+        });
+      }
+    }
+
+    // --- 11. SHOWCASE SCENE SWITCHERS ---
+    function initShowcaseControls() {
+      const btnTunnel = document.getElementById('scene-btn-tunnel');
+      const btnMatrix = document.getElementById('scene-btn-matrix');
+      const btnWaves = document.getElementById('scene-btn-waves');
+      const btnPause = document.getElementById('showcase-pause-btn');
+      const playIcon = document.getElementById('showcase-play-icon');
+      const btnWarp = document.getElementById('showcase-warp-btn');
+
+      function setScene(btn, mode) {
+        [btnTunnel, btnMatrix, btnWaves].forEach(b => {
+          b.className = 'px-2.5 py-1 rounded bg-white/5 text-white hover:text-brand-accent text-[11px] transition-all';
+        });
+        btn.className = 'px-2.5 py-1 rounded bg-brand-accent text-brand-black font-semibold text-[11px] transition-all';
+        scMode = mode;
+        audio.playClick();
+      }
+
+      if (btnTunnel) btnTunnel.addEventListener('click', () => setScene(btnTunnel, 'tunnel'));
+      if (btnMatrix) btnMatrix.addEventListener('click', () => setScene(btnMatrix, 'matrix'));
+      if (btnWaves) btnWaves.addEventListener('click', () => setScene(btnWaves, 'waves'));
+
+      if (btnPause) {
+        btnPause.addEventListener('click', () => {
+          scPaused = !scPaused;
+          playIcon.textContent = scPaused ? '▶ PLAY' : '⏸ PAUSE';
+          audio.playClick();
+        });
+      }
+
+      let isWarp = false;
+      if (btnWarp) {
+        btnWarp.addEventListener('click', () => {
+          isWarp = !isWarp;
+          scSpeed = isWarp ? 3.5 : 1;
+          btnWarp.className = isWarp ? 'text-brand-accent font-bold' : 'hover:text-brand-accent transition-colors';
+          showToast(isWarp ? 'Hyperspeed Engaged (3.5x)' : 'Standard Warp Speed (1x)');
+          audio.playClick();
+        });
+      }
+    }
+
+    // --- 12. CONTACT FORM & TOAST DISPATCH ---
+    function initContactForm() {
+      const form = document.getElementById('contact-form');
+      const formStatus = document.getElementById('form-status');
+      const submitBtn = document.getElementById('form-submit-btn');
+      const submitText = document.getElementById('submit-text');
+      const scopeBtns = document.querySelectorAll('.form-scope-btn');
+      let activeScope = 'ai';
+
+      scopeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          audio.playClick();
+          scopeBtns.forEach(b => {
+            b.className = 'form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all';
+          });
+          btn.className = 'form-scope-btn px-3 py-2 rounded-xl bg-brand-accent/15 border border-brand-accent/40 text-brand-accent text-xs font-mono font-medium text-center transition-all';
+          activeScope = btn.getAttribute('data-scope');
+        });
+      });
+
+      if (form) {
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          audio.playClick();
+
+          const name = document.getElementById('form-name').value;
+          const email = document.getElementById('form-email').value;
+          const message = document.getElementById('form-message').value;
+
+          if (!name || !email || !message) {
+            showToast('Please fill out all required fields.');
+            return;
+          }
+
+          submitBtn.disabled = true;
+          submitText.textContent = 'ENCRYPTING & TRANSMITTING...';
+
+          setTimeout(() => {
+            submitBtn.disabled = false;
+            submitText.textContent = 'TRANSMIT MESSAGE // SEND';
+            form.reset();
+
+            formStatus.className = 'font-mono text-xs text-center py-2 px-3 rounded-lg bg-brand-accent/20 border border-brand-accent/40 text-brand-accent block';
+            formStatus.textContent = '✓ Message encrypted and successfully dispatched to Tohir Mamurov!';
+            showToast('Message transmitted successfully!');
+
+            setTimeout(() => {
+              formStatus.classList.add('hidden');
+            }, 6000);
+          }, 1200);
+        });
+      }
+
+      // Copy email button
+      const copyBtn = document.getElementById('copy-email-btn');
+      if (copyBtn) {
+        copyBtn.addEventListener('click', () => {
+          try {
+            navigator.clipboard.writeText('tohir.dev@outlook.com');
+            showToast('Email address copied to clipboard!');
+            copyBtn.textContent = 'Copied!';
+            setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
+          } catch(err) {
+            showToast('tohir.dev@outlook.com');
+          }
+          audio.playClick();
+        });
+      }
+    }
+
+    // Toast Utility
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      const toastMsg = document.getElementById('toast-message');
+      if (!toast || !toastMsg) return;
+
+      toastMsg.textContent = msg;
+      toast.classList.remove('translate-y-24', 'opacity-0');
+      toast.classList.add('translate-y-0', 'opacity-100');
+
+      setTimeout(() => {
+        toast.classList.remove('translate-y-0', 'opacity-100');
+        toast.classList.add('translate-y-24', 'opacity-0');
+      }, 3500);
+    }
+
+    // --- 13. AUDIO TOGGLE & MOBILE MENU ---
+    
+    function initNavbarControls() {
+      
+
+      const menuBtn = document.getElementById('mobile-menu-btn');
+      const menuBox = document.getElementById('mobile-menu');
+      const iconBars = document.getElementById('menu-icon-bars');
+      const iconClose = document.getElementById('menu-icon-close');
+
+      if (menuBtn && menuBox) {
+        menuBtn.addEventListener('click', () => {
+          audio.playClick();
+          const isOpen = !menuBox.classList.contains('hidden');
+          if (isOpen) {
+            menuBox.classList.add('hidden');
+            iconBars.classList.remove('hidden');
+            iconClose.classList.add('hidden');
+          } else {
+            menuBox.classList.remove('hidden');
+            iconBars.classList.add('hidden');
+            iconClose.classList.remove('hidden');
+          }
+        });
+
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+          link.addEventListener('click', () => {
+            menuBox.classList.add('hidden');
+            iconBars.classList.remove('hidden');
+            iconClose.classList.add('hidden');
+          });
+        });
+      }
+    }
+
+    // --- 14. INITIALIZE EVERYTHING ON DOM READY ---
+    window.addEventListener('DOMContentLoaded', () => {
+      initPreloader();
+      initThree();
+      animate();
+      initShowcaseVisualizer();
+      init3DTilt();
+      initCustomCursor();
+      initProjectModals();
+      initSimulators();
+      initSkillsFilter();
+      initSkillsModal();
+      initHeroControls();
+      initShowcaseControls();
+      initContactForm();
+      initNavbarControls();
+      
+    });
+  </script>
+
+</body>
+</html>
