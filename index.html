@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth notranslate">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="google" content="notranslate">
   <title>TOHIR.DEV — Tohir Mamurov | Creative Developer & 3D Specialist</title>
   <meta name="description" content="Tohir Mamurov (TOHIR.DEV) — Creative Developer, Python Architect & AI Specialist. Building 3D WebGL experiences, Telegram bots, and computer vision systems.">
   <meta name="theme-color" content="#050505">
@@ -282,14 +283,14 @@
     <!-- Mobile Dropdown Navigation -->
     <div id="mobile-menu" class="hidden md:hidden px-4 pt-4 pb-6 mt-3 bg-brand-dark/95 border-b border-brand-border rounded-2xl backdrop-blur-xl animate-fadeIn">
       <div class="flex flex-col gap-2">
-        <a href="#about" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">01 // ABOUT</a>
-        <a href="#skills" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">02 // SKILLS</a>
-        <a href="#projects" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">03 // FEATURED PROJECTS</a>
-        <a href="#showcase" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">04 // CINEMATIC SHOWCASE</a>
-        <a href="#contact" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all">05 // CONTACT</a>
+        <a href="#about" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all" data-i18n="mnav_about">01 // ABOUT</a>
+        <a href="#skills" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all" data-i18n="mnav_skills">02 // SKILLS</a>
+        <a href="#projects" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all" data-i18n="mnav_projects">03 // FEATURED PROJECTS</a>
+        <a href="#showcase" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all" data-i18n="mnav_showcase">04 // CINEMATIC SHOWCASE</a>
+        <a href="#contact" class="mobile-nav-link px-4 py-2.5 text-sm font-sans tracking-wide text-brand-muted hover:text-brand-accent hover:bg-white/5 rounded-xl transition-all" data-i18n="mnav_contact">05 // CONTACT</a>
         <div class="pt-2 mt-2 border-t border-white/10 flex items-center justify-between">
-          <span class="text-xs font-mono text-brand-muted">Status: Available for hire</span>
-          <a href="#contact" class="px-4 py-1.5 bg-brand-accent text-brand-black text-xs font-sans font-bold rounded-full">LET'S TALK</a>
+          <span class="text-xs font-mono text-brand-muted" data-i18n="mnav_status">Status: Available for hire</span>
+          <a href="#contact" class="px-4 py-1.5 bg-brand-accent text-brand-black text-xs font-sans font-bold rounded-full" data-i18n="mnav_cta">LET'S TALK</a>
         </div>
       </div>
     </div>
@@ -362,19 +363,19 @@
         <div class="mt-14 p-2 sm:p-2.5 rounded-2xl bg-brand-card/90 border border-white/10 backdrop-blur-xl flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-xs font-mono shadow-2xl">
           <div class="flex items-center gap-2 px-2 text-brand-muted">
             <span class="w-2 h-2 rounded-full bg-brand-accent animate-ping"></span>
-            <span>3D CORE CONTROLS:</span>
+            <span data-i18n="hero_3d_label">3D CORE CONTROLS:</span>
           </div>
 
           <!-- Geometry Mode Switcher -->
           <div class="flex items-center bg-[#070709] p-1 rounded-xl border border-white/5">
-            <button id="geo-btn-poly" class="px-2.5 py-1 rounded-lg text-brand-accent bg-brand-card font-mono text-[11px] transition-all">Polyhedron</button>
-            <button id="geo-btn-torus" class="px-2.5 py-1 rounded-lg text-brand-muted hover:text-white font-mono text-[11px] transition-all">Torus Knot</button>
-            <button id="geo-btn-sphere" class="px-2.5 py-1 rounded-lg text-brand-muted hover:text-white font-mono text-[11px] transition-all">Neural Sphere</button>
+            <button id="geo-btn-poly" class="px-2.5 py-1 rounded-lg text-brand-accent bg-brand-card font-mono text-[11px] transition-all" data-i18n="hero_geo_poly">Polyhedron</button>
+            <button id="geo-btn-torus" class="px-2.5 py-1 rounded-lg text-brand-muted hover:text-white font-mono text-[11px] transition-all" data-i18n="hero_geo_torus">Torus Knot</button>
+            <button id="geo-btn-sphere" class="px-2.5 py-1 rounded-lg text-brand-muted hover:text-white font-mono text-[11px] transition-all" data-i18n="hero_geo_sphere">Neural Sphere</button>
           </div>
 
           <!-- Color Glow Switcher -->
           <div class="flex items-center gap-1.5 px-2">
-            <span class="text-brand-muted text-[11px]">THEME:</span>
+            <span class="text-brand-muted text-[11px]" data-i18n="hero_theme_label">THEME:</span>
             <button id="color-btn-green" title="Neon Green" class="w-5 h-5 rounded-full bg-brand-accent ring-2 ring-brand-accent/50 transition-all"></button>
             <button id="color-btn-cyan" title="Cyber Cyan" class="w-5 h-5 rounded-full bg-[#00F0FF] opacity-60 hover:opacity-100 transition-all"></button>
             <button id="color-btn-purple" title="Future Violet" class="w-5 h-5 rounded-full bg-[#B026FF] opacity-60 hover:opacity-100 transition-all"></button>
@@ -382,13 +383,13 @@
 
           <!-- Wireframe Toggle -->
           <button id="wireframe-toggle-btn" class="px-3 py-1 rounded-lg bg-brand-card hover:bg-white/10 border border-white/10 text-brand-muted hover:text-brand-accent text-[11px] transition-all">
-            Wireframe: <span id="wireframe-status" class="text-brand-accent">ON</span>
+            <span data-i18n="hero_wireframe_label">Wireframe:</span> <span id="wireframe-status" class="text-brand-accent">ON</span>
           </button>
         </div>
 
         <!-- Scroll Indicator Hint -->
         <div class="mt-10 flex flex-col items-center gap-2 opacity-70 animate-bounce">
-          <span class="font-mono text-[10px] tracking-widest text-brand-muted uppercase">SCROLL TO EXPLORE</span>
+          <span class="font-mono text-[10px] tracking-widest text-brand-muted uppercase" data-i18n="hero_scroll">SCROLL TO EXPLORE</span>
           <div class="w-4 h-7 rounded-full border border-white/30 flex items-start justify-center p-1">
             <div class="w-1 h-2 rounded-full bg-brand-accent animate-pulse"></div>
           </div>
@@ -531,26 +532,26 @@ print(dev.get_vision())
             <div class="grid grid-cols-2 gap-3">
               <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
                 <div class="text-brand-accent text-lg mb-1">🤖</div>
-                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">AI Integration</h4>
-                <p class="text-[11px] text-brand-muted mt-1">Computer vision, LLM orchestration, intelligent agents.</p>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm" data-i18n="pillar1_title">AI Integration</h4>
+                <p class="text-[11px] text-brand-muted mt-1" data-i18n="pillar1_desc">Computer vision, LLM orchestration, intelligent agents.</p>
               </div>
 
               <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
                 <div class="text-brand-accent text-lg mb-1">⚡</div>
-                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">Python Mastery</h4>
-                <p class="text-[11px] text-brand-muted mt-1">High-concurrency async bots, APIs, automated pipelines.</p>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm" data-i18n="pillar2_title">Python Mastery</h4>
+                <p class="text-[11px] text-brand-muted mt-1" data-i18n="pillar2_desc">High-concurrency async bots, APIs, automated pipelines.</p>
               </div>
 
               <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
                 <div class="text-brand-accent text-lg mb-1">🌐</div>
-                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">Creative 3D</h4>
-                <p class="text-[11px] text-brand-muted mt-1">Three.js, interactive shaders, award-winning aesthetics.</p>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm" data-i18n="pillar3_title">Creative 3D</h4>
+                <p class="text-[11px] text-brand-muted mt-1" data-i18n="pillar3_desc">Three.js, interactive shaders, award-winning aesthetics.</p>
               </div>
 
               <div class="glass-card rounded-2xl p-4 hover:border-brand-accent/40 transition-all">
                 <div class="text-brand-accent text-lg mb-1">📱</div>
-                <h4 class="font-sans font-bold text-white text-xs sm:text-sm">Cross-Platform</h4>
-                <p class="text-[11px] text-brand-muted mt-1">Android, modern web, microservices, cloud deployments.</p>
+                <h4 class="font-sans font-bold text-white text-xs sm:text-sm" data-i18n="pillar4_title">Cross-Platform</h4>
+                <p class="text-[11px] text-brand-muted mt-1" data-i18n="pillar4_desc">Android, modern web, microservices, cloud deployments.</p>
               </div>
             </div>
 
@@ -615,10 +616,10 @@ print(dev.get_vision())
 
         <!-- Skills Filter Tabs -->
         <div class="flex flex-wrap gap-2 mb-10">
-          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-accent text-brand-black font-semibold" data-filter="all">ALL SKILLS (10)</button>
-          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="core">LANGUAGES</button>
-          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="ai">AI & ARCHITECTURE</button>
-          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="web">WEB & UI/UX</button>
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-accent text-brand-black font-semibold" data-filter="all" data-i18n="skills_tab_all">ALL SKILLS (10)</button>
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="core" data-i18n="skills_tab_core">LANGUAGES</button>
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="ai" data-i18n="skills_tab_ai">AI & ARCHITECTURE</button>
+          <button class="skill-filter-btn px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all bg-brand-card text-brand-muted hover:text-white border border-white/10" data-filter="web" data-i18n="skills_tab_web">WEB & UI/UX</button>
         </div>
 
         <!-- 10 Skills 3D Tilt Grid -->
@@ -632,8 +633,8 @@ print(dev.get_vision())
                 <span class="font-mono text-xs text-brand-accent font-semibold">96%</span>
               </div>
               <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Python</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Asyncio, Aiogram, FastAPI, PyTorch, Automation & Web Scraping.</p>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_python_desc">Asyncio, Aiogram, FastAPI, PyTorch, Automation & Web Scraping.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 96%"></div>
               </div>
@@ -648,8 +649,8 @@ print(dev.get_vision())
                 <span class="font-mono text-xs text-brand-muted font-semibold">88%</span>
               </div>
               <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">C++</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">High performance, memory management, algorithms & data structures.</p>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_cpp_desc">High performance, memory management, algorithms & data structures.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 88%"></div>
               </div>
@@ -664,8 +665,8 @@ print(dev.get_vision())
                 <span class="font-mono text-xs text-brand-muted font-semibold">86%</span>
               </div>
               <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Java</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">OOP patterns, multithreading, backend services, enterprise logic.</p>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_java_desc">OOP patterns, multithreading, backend services, enterprise logic.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 86%"></div>
               </div>
@@ -680,8 +681,8 @@ print(dev.get_vision())
                 <span class="font-mono text-xs text-brand-accent font-semibold">92%</span>
               </div>
               <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">JavaScript</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">ES6+, Node.js runtime, asynchronous event loops, DOM mastery.</p>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_js_desc">ES6+, Node.js runtime, asynchronous event loops, DOM mastery.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 92%"></div>
               </div>
@@ -696,8 +697,8 @@ print(dev.get_vision())
                 <span class="font-mono text-xs text-brand-accent font-semibold">94%</span>
               </div>
               <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">React</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Hooks, SPA state architecture, Three.js integration, performance.</p>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_react_desc">Hooks, SPA state architecture, Three.js integration, performance.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 94%"></div>
               </div>
@@ -712,8 +713,8 @@ print(dev.get_vision())
                 <span class="font-mono text-xs text-brand-accent font-semibold">98%</span>
               </div>
               <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">HTML & CSS</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Tailwind, semantic layouts, responsive grid, keyframe shaders.</p>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_htmlcss_desc">Tailwind, semantic layouts, responsive grid, keyframe shaders.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 98%"></div>
               </div>
@@ -728,8 +729,8 @@ print(dev.get_vision())
                 <span class="font-mono text-xs text-brand-muted font-semibold">90%</span>
               </div>
               <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Firebase</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Firestore, Realtime DB, Cloud Authentication, Functions & Hosting.</p>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_firebase_desc">Firestore, Realtime DB, Cloud Authentication, Functions & Hosting.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 90%"></div>
               </div>
@@ -743,9 +744,9 @@ print(dev.get_vision())
                 <span class="w-10 h-10 rounded-xl bg-brand-accent/20 border border-brand-accent/40 flex items-center justify-center font-mono font-bold text-sm text-brand-accent">AI</span>
                 <span class="font-mono text-xs text-brand-accent font-semibold">95%</span>
               </div>
-              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">AI Integration</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">OpenCV vision, MediaPipe tracking, LLM workflows, autonomous agents.</p>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors" data-i18n="skill_ai_title">AI Integration</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_ai_desc">OpenCV vision, MediaPipe tracking, LLM workflows, autonomous agents.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 95%"></div>
               </div>
@@ -759,9 +760,9 @@ print(dev.get_vision())
                 <span class="w-10 h-10 rounded-xl bg-green-500/10 border border-green-500/30 flex items-center justify-center font-mono font-bold text-sm text-green-400">AD</span>
                 <span class="font-mono text-xs text-brand-muted font-semibold">85%</span>
               </div>
-              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">Android Dev</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Kotlin/Java, Android SDK, Material 3 interfaces, API synchronizers.</p>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors" data-i18n="skill_android_title">Android Dev</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_android_desc">Kotlin/Java, Android SDK, Material 3 interfaces, API synchronizers.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 85%"></div>
               </div>
@@ -775,9 +776,9 @@ print(dev.get_vision())
                 <span class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center font-mono font-bold text-sm text-purple-400">UX</span>
                 <span class="font-mono text-xs text-brand-accent font-semibold">91%</span>
               </div>
-              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors">UI/UX Design</h3>
-              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1">Inspect details ↗</span>
-              <p class="text-xs text-brand-muted mt-1 leading-relaxed">Design systems, Figma micro-interactions, dark aesthetic typography.</p>
+              <h3 class="font-sans font-bold text-lg text-white group-hover:text-brand-accent transition-colors" data-i18n="skill_uiux_title">UI/UX Design</h3>
+              <span class="text-[10px] font-mono text-brand-accent/70 group-hover:text-brand-accent flex items-center gap-1 mt-1" data-i18n="skill_inspect">Inspect details ↗</span>
+              <p class="text-xs text-brand-muted mt-1 leading-relaxed" data-i18n="skill_uiux_desc">Design systems, Figma micro-interactions, dark aesthetic typography.</p>
               <div class="w-full bg-white/5 h-1 rounded-full mt-4 overflow-hidden">
                 <div class="bg-brand-accent h-full rounded-full" style="width: 91%"></div>
               </div>
@@ -817,15 +818,15 @@ print(dev.get_vision())
               <!-- Left info -->
               <div class="lg:col-span-6 flex flex-col">
                 <div class="flex items-center gap-3 mb-4">
-                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold">PROJECT 01</span>
-                  <span class="font-mono text-xs text-brand-muted">AI & EdTech Assistant</span>
+                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold" data-i18n="p1_badge">PROJECT 01</span>
+                  <span class="font-mono text-xs text-brand-muted" data-i18n="p1_cat">AI & EdTech Assistant</span>
                 </div>
 
                 <h3 class="font-sans font-bold text-2xl sm:text-4xl text-white group-hover:text-brand-accent transition-colors">
                   HEMIS TELEGRAM BOT
                 </h3>
                 
-                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6">
+                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6" data-i18n="p1_desc">
                   An intelligent educational assistant deeply integrated with the HEMIS higher education management system. Automates academic schedule retrieval, instant grade tracking, attendance monitoring, and university broadcast notifications for thousands of students and faculty.
                 </p>
 
@@ -842,10 +843,10 @@ print(dev.get_vision())
                 <!-- Action Button -->
                 <div class="flex items-center gap-4">
                   <button class="project-modal-btn px-6 py-3 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs tracking-wider hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(139,255,90,0.3)]" data-project="hemis">
-                    <span>VIEW PROJECT DETAILS</span>
+                    <span data-i18n="view_project_btn">VIEW PROJECT DETAILS</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                   </button>
-                  <span class="font-mono text-xs text-brand-muted">Active Users: 12,000+</span>
+                  <span class="font-mono text-xs text-brand-muted" data-i18n="p1_stat">Active Users: 12,000+</span>
                 </div>
               </div>
 
@@ -898,15 +899,15 @@ print(dev.get_vision())
               <!-- Left info -->
               <div class="lg:col-span-6 flex flex-col">
                 <div class="flex items-center gap-3 mb-4">
-                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold">PROJECT 02</span>
-                  <span class="font-mono text-xs text-brand-muted">Computer Vision & Accessibility</span>
+                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold" data-i18n="p2_badge">PROJECT 02</span>
+                  <span class="font-mono text-xs text-brand-muted" data-i18n="p2_cat">Computer Vision & Accessibility</span>
                 </div>
 
                 <h3 class="font-sans font-bold text-2xl sm:text-4xl text-white group-hover:text-brand-accent transition-colors">
                   EYEPILOT
                 </h3>
                 
-                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6">
+                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6" data-i18n="p2_desc">
                   A high-precision, camera-based computer control system engineered with computer vision and facial landmark tracking. Enables touchless and hands-free mouse navigation through real-time eye gaze estimation, blink gesture recognition, and ergonomic accessibility algorithms.
                 </p>
 
@@ -923,10 +924,10 @@ print(dev.get_vision())
                 <!-- Action Button -->
                 <div class="flex items-center gap-4">
                   <button class="project-modal-btn px-6 py-3 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs tracking-wider hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(139,255,90,0.3)]" data-project="eyepilot">
-                    <span>VIEW PROJECT DETAILS</span>
+                    <span data-i18n="view_project_btn">VIEW PROJECT DETAILS</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                   </button>
-                  <span class="font-mono text-xs text-brand-muted">Latency: ~12ms (60 FPS)</span>
+                  <span class="font-mono text-xs text-brand-muted" data-i18n="p2_stat">Latency: ~12ms (60 FPS)</span>
                 </div>
               </div>
 
@@ -985,15 +986,15 @@ print(dev.get_vision())
               <!-- Left info -->
               <div class="lg:col-span-6 flex flex-col">
                 <div class="flex items-center gap-3 mb-4">
-                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold">PROJECT 03</span>
-                  <span class="font-mono text-xs text-brand-muted">EdTech & Coding Platform</span>
+                  <span class="px-3 py-1 rounded-full bg-brand-accent/15 border border-brand-accent/30 text-brand-accent font-mono text-xs font-semibold" data-i18n="p3_badge">PROJECT 03</span>
+                  <span class="font-mono text-xs text-brand-muted" data-i18n="p3_cat">EdTech & Coding Platform</span>
                 </div>
 
                 <h3 class="font-sans font-bold text-2xl sm:text-4xl text-white group-hover:text-brand-accent transition-colors">
                   CODESTEP
                 </h3>
                 
-                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6">
+                <p class="font-body text-brand-muted text-sm sm:text-base leading-relaxed mt-4 mb-6" data-i18n="p3_desc">
                   A modern, interactive programming education platform designed to accelerate computer science learning. Features an in-browser code playground, automated unit test evaluation, step-by-step gamified skill paths, and real-time execution feedback for aspiring developers.
                 </p>
 
@@ -1010,10 +1011,10 @@ print(dev.get_vision())
                 <!-- Action Button -->
                 <div class="flex items-center gap-4">
                   <button class="project-modal-btn px-6 py-3 rounded-full bg-brand-accent text-brand-black font-sans font-bold text-xs tracking-wider hover:bg-brand-accentHover transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(139,255,90,0.3)]" data-project="codestep">
-                    <span>VIEW PROJECT DETAILS</span>
+                    <span data-i18n="view_project_btn">VIEW PROJECT DETAILS</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                   </button>
-                  <span class="font-mono text-xs text-brand-muted">50+ Interactive Modules</span>
+                  <span class="font-mono text-xs text-brand-muted" data-i18n="p3_stat">50+ Interactive Modules</span>
                 </div>
               </div>
 
@@ -1096,10 +1097,10 @@ print(dev.get_vision())
             </div>
             
             <div class="flex items-center gap-2">
-              <span class="text-brand-dim text-[11px]">SCENE:</span>
-              <button id="scene-btn-tunnel" class="px-2.5 py-1 rounded bg-brand-accent text-brand-black font-semibold text-[11px] transition-all">Quantum Tunnel</button>
-              <button id="scene-btn-matrix" class="px-2.5 py-1 rounded bg-white/5 text-white hover:text-brand-accent text-[11px] transition-all">Neural Mesh</button>
-              <button id="scene-btn-waves" class="px-2.5 py-1 rounded bg-white/5 text-white hover:text-brand-accent text-[11px] transition-all">Cyber Grid</button>
+              <span class="text-brand-dim text-[11px]" data-i18n="showcase_scene_label">SCENE:</span>
+              <button id="scene-btn-tunnel" class="px-2.5 py-1 rounded bg-brand-accent text-brand-black font-semibold text-[11px] transition-all" data-i18n="showcase_s1">Quantum Tunnel</button>
+              <button id="scene-btn-matrix" class="px-2.5 py-1 rounded bg-white/5 text-white hover:text-brand-accent text-[11px] transition-all" data-i18n="showcase_s2">Neural Mesh</button>
+              <button id="scene-btn-waves" class="px-2.5 py-1 rounded bg-white/5 text-white hover:text-brand-accent text-[11px] transition-all" data-i18n="showcase_s3">Cyber Grid</button>
             </div>
           </div>
 
@@ -1111,7 +1112,7 @@ print(dev.get_vision())
             <div class="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row items-start sm:items-end justify-between gap-4 pointer-events-none">
               <div class="bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10">
                 <span class="font-mono text-xs text-brand-accent font-semibold block">RENDER ENGINE: WEBGL // THREE.JS SHADER</span>
-                <span class="font-sans text-sm text-white font-light">Interactive procedural particle choreography</span>
+                <span class="font-sans text-sm text-white font-light" data-i18n="showcase_overlay">Interactive procedural particle choreography</span>
               </div>
               
               <div class="bg-black/60 backdrop-blur-md px-4 py-2.5 rounded-xl border border-white/10 font-mono text-xs text-brand-muted flex items-center gap-3 pointer-events-auto">
@@ -1119,7 +1120,7 @@ print(dev.get_vision())
                   <span id="showcase-play-icon">⏸ PAUSE</span>
                 </button>
                 <span class="text-white/20">|</span>
-                <button id="showcase-warp-btn" class="hover:text-brand-accent transition-colors">
+                <button id="showcase-warp-btn" class="hover:text-brand-accent transition-colors" data-i18n="showcase_warp">
                   ⚡ HYPERSPEED
                 </button>
               </div>
@@ -1128,8 +1129,8 @@ print(dev.get_vision())
 
           <!-- Bottom controls info -->
           <div class="flex flex-wrap items-center justify-between gap-3 px-3 pt-3 text-[11px] font-mono text-brand-dim">
-            <span>Dynamic Lighting • Procedural Noise • GPU Accelerated • Auto Muted</span>
-            <span class="text-brand-accent">Drag inside canvas to pivot camera in 360° space</span>
+            <span data-i18n="showcase_specs">Dynamic Lighting • Procedural Noise • GPU Accelerated</span>
+            <span class="text-brand-accent" data-i18n="showcase_drag">Drag inside canvas to pivot camera in 360° space</span>
           </div>
 
         </div>
@@ -1197,11 +1198,11 @@ print(dev.get_vision())
                     @
                   </div>
                   <div class="min-w-0">
-                    <div class="text-white font-sans font-semibold group-hover:text-brand-accent transition-colors">Email Transmission</div>
+                    <div class="text-white font-sans font-semibold group-hover:text-brand-accent transition-colors" data-i18n="contact_email_title">Email Transmission</div>
                     <div class="text-brand-muted text-xs select-all truncate">mamurovtohir571@gmail.com</div>
                   </div>
                 </a>
-                <button id="copy-email-btn" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono transition-all text-brand-muted shrink-0">
+                <button id="copy-email-btn" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono transition-all text-brand-muted shrink-0" data-i18n="contact_copy_btn">
                   Copy
                 </button>
               </div>
@@ -1210,8 +1211,8 @@ print(dev.get_vision())
 
             <!-- Location & Timezone info -->
             <div class="mt-8 pt-6 border-t border-white/10 flex items-center justify-between text-xs font-mono text-brand-dim">
-              <span>Location: Samarkand, UZ (UTC+5)</span>
-              <span class="text-brand-accent">Response time: &lt; 24h</span>
+              <span data-i18n="contact_location">Location: Samarkand, UZ (UTC+5)</span>
+              <span class="text-brand-accent" data-i18n="contact_response">Response time: &lt; 24h</span>
             </div>
 
           </div>
@@ -1222,7 +1223,7 @@ print(dev.get_vision())
               <div class="flex items-center justify-between pb-4 mb-6 border-b border-white/10 font-mono text-xs">
                 <span class="text-white font-medium flex items-center gap-2">
                   <span class="w-2 h-2 rounded-full bg-brand-accent animate-pulse"></span>
-                  DIRECT SECURE MESSAGE TERMINAL
+                  <span data-i18n="form_terminal_title">DIRECT SECURE MESSAGE TERMINAL</span>
                 </span>
                 <span class="text-brand-dim">ENCRYPTED // TLS 1.3</span>
               </div>
@@ -1232,30 +1233,30 @@ print(dev.get_vision())
                 <!-- Name & Email Row -->
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div class="flex flex-col gap-1.5">
-                    <label for="form-name" class="font-mono text-xs text-brand-muted">Your Name / Organization *</label>
-                    <input type="text" id="form-name" required placeholder="e.g. Alex Sterling" class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body">
+                    <label for="form-name" class="font-mono text-xs text-brand-muted" data-i18n="form_name_label">Your Name / Organization *</label>
+                    <input type="text" id="form-name" required placeholder="e.g. Alex Sterling" data-i18n-placeholder="form_name_ph" class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body">
                   </div>
 
                   <div class="flex flex-col gap-1.5">
-                    <label for="form-email" class="font-mono text-xs text-brand-muted">Email Address *</label>
-                    <input type="email" id="form-email" required placeholder="alex@domain.com" class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body">
+                    <label for="form-email" class="font-mono text-xs text-brand-muted" data-i18n="form_email_label">Email Address *</label>
+                    <input type="email" id="form-email" required placeholder="alex@domain.com" data-i18n-placeholder="form_email_ph" class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body">
                   </div>
                 </div>
 
                 <!-- Project Category selector -->
                 <div class="flex flex-col gap-1.5">
-                  <label class="font-mono text-xs text-brand-muted">Project Domain / Scope</label>
+                  <label class="font-mono text-xs text-brand-muted" data-i18n="form_scope_label">Project Domain / Scope</label>
                   <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-brand-accent/15 border border-brand-accent/40 text-brand-accent text-xs font-mono font-medium text-center transition-all" data-scope="ai">
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-brand-accent/15 border border-brand-accent/40 text-brand-accent text-xs font-mono font-medium text-center transition-all" data-scope="ai" data-i18n="form_scope_ai">
                       AI & Vision
                     </button>
-                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="bot">
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="bot" data-i18n="form_scope_bot">
                       Telegram Bot
                     </button>
-                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="web">
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="web" data-i18n="form_scope_web">
                       3D Web App
                     </button>
-                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="custom">
+                    <button type="button" class="form-scope-btn px-3 py-2 rounded-xl bg-[#08080C] border border-white/10 text-brand-muted text-xs font-mono font-medium text-center hover:border-brand-accent/30 transition-all" data-scope="custom" data-i18n="form_scope_custom">
                       Full-Stack
                     </button>
                   </div>
@@ -1263,13 +1264,13 @@ print(dev.get_vision())
 
                 <!-- Message input -->
                 <div class="flex flex-col gap-1.5">
-                  <label for="form-message" class="font-mono text-xs text-brand-muted">Project Description / Requirements *</label>
-                  <textarea id="form-message" rows="4" required placeholder="Tell me about your project vision, timeline, goals, and technical requirements..." class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body resize-none"></textarea>
+                  <label for="form-message" class="font-mono text-xs text-brand-muted" data-i18n="form_msg_label">Project Description / Requirements *</label>
+                  <textarea id="form-message" rows="4" required placeholder="Tell me about your project vision, timeline, goals, and technical requirements..." data-i18n-placeholder="form_msg_ph" class="w-full bg-[#08080C] border border-white/10 focus:border-brand-accent rounded-xl px-4 py-3 text-sm text-white placeholder-brand-dim outline-none transition-all focus:ring-1 focus:ring-brand-accent/50 font-body resize-none"></textarea>
                 </div>
 
                 <!-- Form Submit Button -->
                 <button type="submit" id="form-submit-btn" class="w-full py-4 rounded-xl bg-brand-accent text-brand-black font-sans font-bold text-sm tracking-wider hover:bg-brand-accentHover transition-all shadow-[0_0_20px_rgba(139,255,90,0.35)] hover:shadow-[0_0_30px_rgba(139,255,90,0.5)] flex items-center justify-center gap-2 group cursor-pointer">
-                  <span id="submit-text">TRANSMIT MESSAGE // SEND</span>
+                  <span id="submit-text" data-i18n="form_submit_btn">TRANSMIT MESSAGE // SEND</span>
                   <svg id="submit-icon" class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                   </svg>
@@ -1300,7 +1301,7 @@ print(dev.get_vision())
         </div>
 
         <div class="flex items-center gap-6">
-          <a href="#hero" class="hover:text-brand-accent transition-colors">BACK TO TOP ↑</a>
+          <a href="#hero" class="hover:text-brand-accent transition-colors" data-i18n="footer_top">BACK TO TOP ↑</a>
           <a href="https://t.me/MTX_2477" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">TELEGRAM</a>
           <a href="https://github.com/Xusanovich-MTX" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">GITHUB</a>
         </div>
@@ -2611,12 +2612,26 @@ print(dev.get_vision())
         nav_projects: 'PROJECTS',
         nav_showcase: 'SHOWCASE',
         nav_contact: 'CONTACT',
+        mnav_about: '01 // ABOUT',
+        mnav_skills: '02 // SKILLS',
+        mnav_projects: '03 // FEATURED PROJECTS',
+        mnav_showcase: '04 // CINEMATIC SHOWCASE',
+        mnav_contact: '05 // CONTACT',
+        mnav_status: 'Status: Available for hire',
+        mnav_cta: "LET'S TALK",
         header_cta: "LET'S CONNECT",
         hero_pill: 'AVAILABLE FOR HIGH-IMPACT PROJECTS',
         hero_subtitle: 'Building Digital Experiences Through <span class="text-white font-medium">Code</span> &amp; <span class="text-brand-accent font-medium">Creativity</span>. Engineering next-generation web applications, autonomous bots, and computer vision systems.',
         hero_explore: 'EXPLORE MY WORK',
         hero_connect: "LET'S CONNECT",
         hero_cv: 'VIEW / PDF CV',
+        hero_3d_label: '3D CORE CONTROLS:',
+        hero_geo_poly: 'Polyhedron',
+        hero_geo_torus: 'Torus Knot',
+        hero_geo_sphere: 'Neural Sphere',
+        hero_theme_label: 'THEME:',
+        hero_wireframe_label: 'Wireframe:',
+        hero_scroll: 'SCROLL TO EXPLORE',
         about_eyebrow: '01 // PROFILE &amp; PHILOSOPHY',
         about_title: 'ABOUT <span class="text-brand-accent">ME</span>',
         about_quote: '"I am passionate about building intelligent digital products, creative technologies, and innovative software solutions."',
@@ -2624,6 +2639,14 @@ print(dev.get_vision())
         about_loc: '📍 Samarkand, Uzbekistan',
         about_hire_badge: '✓ Available For Hire',
         about_cv_btn: '📄 Open CV / PDF',
+        pillar1_title: 'AI Integration',
+        pillar1_desc: 'Computer vision, LLM orchestration, intelligent agents.',
+        pillar2_title: 'Python Mastery',
+        pillar2_desc: 'High-concurrency async bots, APIs, automated pipelines.',
+        pillar3_title: 'Creative 3D',
+        pillar3_desc: 'Three.js, interactive shaders, award-winning aesthetics.',
+        pillar4_title: 'Cross-Platform',
+        pillar4_desc: 'Android, modern web, microservices, cloud deployments.',
         stat_years: 'Years Coding',
         stat_age: 'Years Old',
         stat_uptime: 'Uptime Reliability',
@@ -2641,15 +2664,72 @@ print(dev.get_vision())
         skills_eyebrow: '02 // CAPABILITIES MATRIX',
         skills_title: 'TECHNICAL <span class="text-brand-accent">SKILLS</span>',
         skills_subtitle: 'Interactive 3D tilt cards. Move your cursor or touch cards to inspect depth and technical proficiencies.',
+        skills_tab_all: 'ALL SKILLS (10)',
+        skills_tab_core: 'LANGUAGES',
+        skills_tab_ai: 'AI &amp; ARCHITECTURE',
+        skills_tab_web: 'WEB &amp; UI/UX',
+        skill_inspect: 'Inspect details ↗',
+        skill_python_desc: 'Asyncio, Aiogram, FastAPI, PyTorch, Automation &amp; Web Scraping.',
+        skill_cpp_desc: 'High performance, memory management, algorithms &amp; data structures.',
+        skill_java_desc: 'OOP patterns, multithreading, backend services, enterprise logic.',
+        skill_js_desc: 'ES6+, Node.js runtime, asynchronous event loops, DOM mastery.',
+        skill_react_desc: 'Hooks, SPA state architecture, Three.js integration, performance.',
+        skill_htmlcss_desc: 'Tailwind, semantic layouts, responsive grid, keyframe shaders.',
+        skill_firebase_desc: 'Firestore, Realtime DB, Cloud Authentication, Functions &amp; Hosting.',
+        skill_ai_title: 'AI Integration',
+        skill_ai_desc: 'OpenCV vision, MediaPipe tracking, LLM workflows, autonomous agents.',
+        skill_android_title: 'Android Dev',
+        skill_android_desc: 'Kotlin/Java, Android SDK, Material 3 interfaces, API synchronizers.',
+        skill_uiux_title: 'UI/UX Design',
+        skill_uiux_desc: 'Design systems, Figma micro-interactions, dark aesthetic typography.',
         projects_eyebrow: '03 // PORTFOLIO SHOWCASE',
         projects_title: 'FEATURED <span class="text-brand-accent">PROJECTS</span>',
         projects_subtitle: 'Real production systems engineered with Python, Computer Vision, and modern web frameworks. Try the interactive live simulators inside each card.',
+        p1_badge: 'PROJECT 01',
+        p1_cat: 'AI &amp; EdTech Assistant',
+        p1_desc: 'An intelligent educational assistant deeply integrated with the HEMIS higher education management system. Automates academic schedule retrieval, instant grade tracking, attendance monitoring, and university broadcast notifications for thousands of students and faculty.',
+        p1_stat: 'Active Users: 12,000+',
+        p2_badge: 'PROJECT 02',
+        p2_cat: 'Computer Vision &amp; Accessibility',
+        p2_desc: 'A high-precision, camera-based computer control system engineered with computer vision and facial landmark tracking. Enables touchless and hands-free mouse navigation through real-time eye gaze estimation, blink gesture recognition, and ergonomic accessibility algorithms.',
+        p2_stat: 'Latency: ~12ms (60 FPS)',
+        p3_badge: 'PROJECT 03',
+        p3_cat: 'EdTech &amp; Coding Platform',
+        p3_desc: 'A modern, interactive programming education platform designed to accelerate computer science learning. Features an in-browser code playground, automated unit test evaluation, step-by-step gamified skill paths, and real-time execution feedback for aspiring developers.',
+        p3_stat: '50+ Interactive Modules',
+        view_project_btn: 'VIEW PROJECT DETAILS',
         showcase_eyebrow: 'EXPERIENCE REALITY IN MOTION',
         showcase_title: 'TURNING IDEAS INTO <span class="text-brand-accent drop-shadow-[0_0_35px_rgba(139,255,90,0.5)]">REALITY</span>.',
         showcase_subtitle: 'High-fidelity generative visuals, dynamic particle dynamics, and abstract computational art. Where mathematical precision meets cinematic visual aesthetics.',
+        showcase_scene_label: 'SCENE:',
+        showcase_s1: 'Quantum Tunnel',
+        showcase_s2: 'Neural Mesh',
+        showcase_s3: 'Cyber Grid',
+        showcase_overlay: 'Interactive procedural particle choreography',
+        showcase_warp: '⚡ HYPERSPEED',
+        showcase_specs: 'Dynamic Lighting • Procedural Noise • GPU Accelerated',
+        showcase_drag: 'Drag inside canvas to pivot camera in 360° space',
         contact_eyebrow: '04 // INITIATE TRANSMISSION',
         contact_title: 'HAVE AN IDEA?<br><span class="text-brand-accent">LET\'S BUILD IT.</span>',
-        contact_subtitle: 'Whether you need an intelligent Telegram bot system, an advanced computer vision platform, high-performance Python architecture, or an award-winning creative 3D web experience — my digital channel is open.'
+        contact_subtitle: 'Whether you need an intelligent Telegram bot system, an advanced computer vision platform, high-performance Python architecture, or an award-winning creative 3D web experience — my digital channel is open.',
+        contact_email_title: 'Email Transmission',
+        contact_copy_btn: 'Copy',
+        contact_location: 'Location: Samarkand, UZ (UTC+5)',
+        contact_response: 'Response time: &lt; 24h',
+        form_terminal_title: 'DIRECT SECURE MESSAGE TERMINAL',
+        form_name_label: 'Your Name / Organization *',
+        form_name_ph: 'e.g. Alex Sterling',
+        form_email_label: 'Email Address *',
+        form_email_ph: 'alex@domain.com',
+        form_scope_label: 'Project Domain / Scope',
+        form_scope_ai: 'AI &amp; Vision',
+        form_scope_bot: 'Telegram Bot',
+        form_scope_web: '3D Web App',
+        form_scope_custom: 'Full-Stack',
+        form_msg_label: 'Project Description / Requirements *',
+        form_msg_ph: 'Tell me about your project vision, timeline, goals, and technical requirements...',
+        form_submit_btn: 'TRANSMIT MESSAGE // SEND',
+        footer_top: 'BACK TO TOP ↑'
       },
       uz: {
         nav_about: 'MEN HAQIMDA',
@@ -2657,12 +2737,26 @@ print(dev.get_vision())
         nav_projects: 'LOYIHALAR',
         nav_showcase: 'VIZUALIZATSIYA',
         nav_contact: 'ALOQA',
+        mnav_about: '01 // MEN HAQIMDA',
+        mnav_skills: '02 // KO\'NIKMALAR',
+        mnav_projects: '03 // ASOSIY LOYIHALAR',
+        mnav_showcase: '04 // 3D VIZUALIZATSIYA',
+        mnav_contact: '05 // ALOQA',
+        mnav_status: 'Holat: Loyihalar uchun ochiq',
+        mnav_cta: 'BOG\'LANISH',
         header_cta: 'BOG\'LANISH',
         hero_pill: 'YIRIK LOYIHALAR UCHUN TAYYOR',
         hero_subtitle: '<span class="text-white font-medium">Kod</span> va <span class="text-brand-accent font-medium">Kreativlik</span> orqali raqamli mahsulotlar yarataman. Zamonaviy veb-ilovalar, avtonom botlar va kompyuter ko\'rishi (AI) tizimlari muhandisligi.',
         hero_explore: 'LOYIHALARNI KO\'RISH',
         hero_connect: 'BOG\'LANISH',
         hero_cv: 'CV / REZYUME',
+        hero_3d_label: '3D BOSHQARUV:',
+        hero_geo_poly: 'Ko\'pyoqlik',
+        hero_geo_torus: 'Torus tuguni',
+        hero_geo_sphere: 'Neyron sfera',
+        hero_theme_label: 'RANGLAR:',
+        hero_wireframe_label: 'Karkas:',
+        hero_scroll: 'PASTGA AYLANTIRING',
         about_eyebrow: '01 // PROFIL VA FALSAFA',
         about_title: 'MEN <span class="text-brand-accent">HAQIMDA</span>',
         about_quote: '"Men intellektual raqamli mahsulotlar, kreativ texnologiyalar va innovatsion dasturiy yechimlar yaratishga ishtiyoqmandman."',
@@ -2670,6 +2764,14 @@ print(dev.get_vision())
         about_loc: '📍 Samarqand, O\'zbekiston',
         about_hire_badge: '✓ Ish va loyihalar uchun ochiq',
         about_cv_btn: '📄 CV / PDF ochish',
+        pillar1_title: 'AI Integratsiya',
+        pillar1_desc: 'Kompyuter ko\'rishi, LLM tizimlari, intellektual agentlar.',
+        pillar2_title: 'Python Backend',
+        pillar2_desc: 'Yuqori yuklamali asinxron botlar, APIlar va avtomatlashtirish.',
+        pillar3_title: 'Kreativ 3D',
+        pillar3_desc: 'Three.js, interaktiv shaderlar va zamonaviy veb-dizayn.',
+        pillar4_title: 'Kross-Platforma',
+        pillar4_desc: 'Android ilovalar, zamonaviy veb va bulutli mikroservislar.',
         stat_years: 'Yil Kodlash',
         stat_age: 'Yosh',
         stat_uptime: 'Barqarorlik',
@@ -2687,15 +2789,72 @@ print(dev.get_vision())
         skills_eyebrow: '02 // TEXNOLOGIYALAR MATRITSASI',
         skills_title: 'TEXNIK <span class="text-brand-accent">KO\'NIKMALAR</span>',
         skills_subtitle: 'Interaktiv 3D kartochkalar. Batafsil ma\'lumot olish uchun istalgan texnologiya ustiga bosing.',
+        skills_tab_all: 'BARCHASI (10)',
+        skills_tab_core: 'DASTURLASH TILLARI',
+        skills_tab_ai: 'AI VA ARXITEKTURA',
+        skills_tab_web: 'VEB VA UI/UX',
+        skill_inspect: 'Batafsil ko\'rish ↗',
+        skill_python_desc: 'Asyncio, Aiogram, FastAPI, PyTorch, avtomatlashtirish va parsing.',
+        skill_cpp_desc: 'Yuqori tezlik, xotira boshqaruvi, algoritmlar va ma\'lumotlar tuzilmalari.',
+        skill_java_desc: 'OOP tamoyillari, ko\'p oqimlilik, backend xizmatlar va korporativ mantiq.',
+        skill_js_desc: 'ES6+, Node.js muhiti, asinxron hodisalar va DOM boshqaruvi.',
+        skill_react_desc: 'Hooks, SPA holat arxitekturasi, Three.js integratsiyasi va optimizatsiya.',
+        skill_htmlcss_desc: 'Tailwind, semantik tuzilma, moslashuvchan grid va animatsiyalar.',
+        skill_firebase_desc: 'Firestore, Realtime DB, Cloud Auth, Functions va Hosting.',
+        skill_ai_title: 'AI Integratsiya',
+        skill_ai_desc: 'OpenCV ko\'rish, MediaPipe kuzatuvi, LLM jarayonlari va agentlar.',
+        skill_android_title: 'Android Dasturlash',
+        skill_android_desc: 'Kotlin/Java, Android SDK, Material 3 interfeyslar va API sinxronizatsiya.',
+        skill_uiux_title: 'UI/UX Dizayn',
+        skill_uiux_desc: 'Dizayn tizimlari, Figma mikro-animatsiyalar va zamonaviy tipografika.',
         projects_eyebrow: '03 // TANLANGAN ISHLAR',
         projects_title: 'ASOSIY <span class="text-brand-accent">LOYIHALAR</span>',
         projects_subtitle: 'Python, Kompyuter Ko\'rishi va zamonaviy veb-freymvorklarda qurilgan real tizimlar. Har bir kartochka ichidagi jonli simulyatorni sinab ko\'ring.',
+        p1_badge: 'LOYIHA 01',
+        p1_cat: 'AI va Ta\'lim Yordamchisi',
+        p1_desc: 'HEMIS oliy ta\'lim boshqaruv tizimi bilan chuqur integratsiya qilingan intellektual ta\'lim yordamchisi. Minglab talabalar va o\'qituvchilar uchun dars jadvali, baholar nazorati, davomat va tezkor xabarnomalarni avtomatlashtiradi.',
+        p1_stat: 'Foydalanuvchilar: 12,000+',
+        p2_badge: 'LOYIHA 02',
+        p2_cat: 'Kompyuter Ko\'rishi va Qulaylik',
+        p2_desc: 'Kamera orqali yuz va ko\'z nuqtalarini kuzatuvchi yuqori aniqlikdagi boshqaruv tizimi. Real vaqt rejimida nigoh yo\'nalishi va ko\'z yumish imo-ishoralari yordamida sichqonchani qo\'lsiz boshqarish imkonini beradi.',
+        p2_stat: 'Kechikish: ~12ms (60 FPS)',
+        p3_badge: 'LOYIHA 03',
+        p3_cat: 'EdTech va Kodlash Platformasi',
+        p3_desc: 'Dasturlashni o\'rganishni tezlashtiruvchi zamonaviy interaktiv ta\'lim platformasi. Brauzer ichidagi kod muharriri, avtomatik unit-test tekshiruvi, bosqichma-bosqich o\'quv yo\'laklari va tezkor natija tizimiga ega.',
+        p3_stat: '50+ Interaktiv Modullar',
+        view_project_btn: 'BATAFSIL KO\'RISH',
         showcase_eyebrow: 'HARAKATDAGI RAQAMLI OLAM',
         showcase_title: 'G\'OYALARNI <span class="text-brand-accent drop-shadow-[0_0_35px_rgba(139,255,90,0.5)]">REALLIKKA</span> AYLANTIRAMIZ.',
         showcase_subtitle: 'Yuqori aniqlikdagi generativ vizualizatsiya, zarralar dinamikasi va WebGL shaderlar orqali yaratilgan interaktiv sahna.',
+        showcase_scene_label: 'SAHNA:',
+        showcase_s1: 'Kvant Tuneli',
+        showcase_s2: 'Neyron To\'r',
+        showcase_s3: 'Kiber Panjara',
+        showcase_overlay: 'Interaktiv protsedural zarralar xoreografiyasi',
+        showcase_warp: '⚡ TEZLIK REJIMI',
+        showcase_specs: 'Dinamik Yorug\'lik • Protsedural Shovqin • GPU Tezlashtirish',
+        showcase_drag: '360° atrofida aylantirish uchun sahna ichini suring',
         contact_eyebrow: '04 // ALOQA KANALI',
         contact_title: 'G\'OYANGIZ BORMI?<br><span class="text-brand-accent">BIRGA QURAMIZ.</span>',
-        contact_subtitle: 'Aqlli Telegram bot, kompyuter ko\'rishi (AI) tizimi, Python backend arxitekturasi yoki kreativ 3D veb-sayt kerak bo\'lsa — menga bemalol yozing.'
+        contact_subtitle: 'Aqlli Telegram bot, kompyuter ko\'rishi (AI) tizimi, Python backend arxitekturasi yoki kreativ 3D veb-sayt kerak bo\'lsa — menga bemalol yozing.',
+        contact_email_title: 'Elektron Pochta',
+        contact_copy_btn: 'Nusxalash',
+        contact_location: 'Manzil: Samarqand, O\'zbekiston (UTC+5)',
+        contact_response: 'Javob vaqti: &lt; 24 soat',
+        form_terminal_title: 'XAVFSIZ XABAR YUBORISH TERMINALI',
+        form_name_label: 'Ismingiz / Tashkilot *',
+        form_name_ph: 'Masalan: Jasur Karimov',
+        form_email_label: 'Email Manzilingiz *',
+        form_email_ph: 'ism@domain.com',
+        form_scope_label: 'Loyiha Yo\'nalishi',
+        form_scope_ai: 'AI va Ko\'rish',
+        form_scope_bot: 'Telegram Bot',
+        form_scope_web: '3D Veb Ilova',
+        form_scope_custom: 'Full-Stack',
+        form_msg_label: 'Loyiha Tavsifi va Talablar *',
+        form_msg_ph: 'Loyihangiz maqsadi, muddati va texnik talablari haqida qisqacha yozing...',
+        form_submit_btn: 'XABARNI YUBORISH // SEND',
+        footer_top: 'TEPPAGA QAYTISH ↑'
       }
     };
 
@@ -2705,6 +2864,10 @@ print(dev.get_vision())
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
         if (dict[key]) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (dict[key]) el.setAttribute('placeholder', dict[key]);
       });
       const btnEn = document.getElementById('lang-btn-en');
       const btnUz = document.getElementById('lang-btn-uz');
