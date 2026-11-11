@@ -1099,14 +1099,14 @@ print(dev.get_vision())
             <div class="flex flex-col gap-3 font-mono text-xs sm:text-sm">
               
               <!-- Telegram -->
-              <a href="https://t.me/tohir_dev" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 flex items-center justify-between border border-white/10 hover:border-brand-accent/50 hover:bg-brand-cardHover transition-all group">
+              <a href="https://t.me/MTX_2477" target="_blank" rel="noopener noreferrer" class="glass-card rounded-2xl p-4 flex items-center justify-between border border-white/10 hover:border-brand-accent/50 hover:bg-brand-cardHover transition-all group">
                 <div class="flex items-center gap-3">
                   <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">
                     TG
                   </div>
                   <div>
                     <div class="text-white font-sans font-semibold group-hover:text-brand-accent transition-colors">Telegram</div>
-                    <div class="text-brand-muted text-xs">@tohir_dev</div>
+                    <div class="text-brand-muted text-xs">@MTX_2477</div>
                   </div>
                 </div>
                 <span class="text-brand-accent opacity-0 group-hover:opacity-100 transition-opacity">↗</span>
@@ -1128,16 +1128,16 @@ print(dev.get_vision())
 
               <!-- Email -->
               <div class="glass-card rounded-2xl p-4 flex items-center justify-between border border-white/10 hover:border-brand-accent/50 hover:bg-brand-cardHover transition-all group">
-                <div class="flex items-center gap-3">
-                  <div class="w-10 h-10 rounded-xl bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center text-brand-accent font-bold text-sm">
+                <a href="mailto:mamurovtohir571@gmail.com" class="flex items-center gap-3 flex-1 min-w-0">
+                  <div class="w-10 h-10 rounded-xl bg-brand-accent/10 border border-brand-accent/30 flex items-center justify-center text-brand-accent font-bold text-sm shrink-0">
                     @
                   </div>
-                  <div>
+                  <div class="min-w-0">
                     <div class="text-white font-sans font-semibold group-hover:text-brand-accent transition-colors">Email Transmission</div>
-                    <div class="text-brand-muted text-xs select-all">tohir.dev@outlook.com</div>
+                    <div class="text-brand-muted text-xs select-all truncate">mamurovtohir571@gmail.com</div>
                   </div>
-                </div>
-                <button id="copy-email-btn" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono transition-all text-brand-muted">
+                </a>
+                <button id="copy-email-btn" class="px-2.5 py-1 rounded bg-white/5 hover:bg-brand-accent hover:text-brand-black text-[11px] font-mono transition-all text-brand-muted shrink-0">
                   Copy
                 </button>
               </div>
@@ -1237,7 +1237,7 @@ print(dev.get_vision())
 
         <div class="flex items-center gap-6">
           <a href="#hero" class="hover:text-brand-accent transition-colors">BACK TO TOP ↑</a>
-          <a href="https://t.me/tohir_dev" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">TELEGRAM</a>
+          <a href="https://t.me/MTX_2477" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">TELEGRAM</a>
           <a href="https://github.com/tohir-mamurov" target="_blank" rel="noopener noreferrer" class="hover:text-brand-accent transition-colors">GITHUB</a>
         </div>
       </div>
@@ -2400,13 +2400,13 @@ print(dev.get_vision())
       });
 
       if (form) {
-        form.addEventListener('submit', (e) => {
+        form.addEventListener('submit', async (e) => {
           e.preventDefault();
           audio.playClick();
 
-          const name = document.getElementById('form-name').value;
-          const email = document.getElementById('form-email').value;
-          const message = document.getElementById('form-message').value;
+          const name = document.getElementById('form-name').value.trim();
+          const email = document.getElementById('form-email').value.trim();
+          const message = document.getElementById('form-message').value.trim();
 
           if (!name || !email || !message) {
             showToast('Please fill out all required fields.');
@@ -2416,19 +2416,44 @@ print(dev.get_vision())
           submitBtn.disabled = true;
           submitText.textContent = 'ENCRYPTING & TRANSMITTING...';
 
-          setTimeout(() => {
+          try {
+            const response = await fetch('https://formsubmit.co/ajax/mamurovtohir571@gmail.com', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                name,
+                email,
+                scope: activeScope,
+                message,
+                _subject: `TOHIR.DEV Portfolio: New message from ${name}`
+              })
+            });
+
+            if (!response.ok) {
+              throw new Error('Request failed');
+            }
+
+            form.reset();
+            formStatus.className = 'font-mono text-xs text-center py-2 px-3 rounded-lg bg-brand-accent/20 border border-brand-accent/40 text-brand-accent block';
+            formStatus.textContent = '✓ Message successfully dispatched to mamurovtohir571@gmail.com!';
+            showToast('Message transmitted successfully!');
+          } catch (err) {
+            const subject = encodeURIComponent(`Portfolio Inquiry (${activeScope}) from ${name}`);
+            const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\nScope: ${activeScope}\n\n${message}`);
+            window.location.href = `mailto:mamurovtohir571@gmail.com?subject=${subject}&body=${body}`;
+            formStatus.className = 'font-mono text-xs text-center py-2 px-3 rounded-lg bg-brand-accent/20 border border-brand-accent/40 text-brand-accent block';
+            formStatus.textContent = '✓ Opening your email app to send to mamurovtohir571@gmail.com';
+            showToast('Opening email client...');
+          } finally {
             submitBtn.disabled = false;
             submitText.textContent = 'TRANSMIT MESSAGE // SEND';
-            form.reset();
-
-            formStatus.className = 'font-mono text-xs text-center py-2 px-3 rounded-lg bg-brand-accent/20 border border-brand-accent/40 text-brand-accent block';
-            formStatus.textContent = '✓ Message encrypted and successfully dispatched to Tohir Mamurov!';
-            showToast('Message transmitted successfully!');
-
             setTimeout(() => {
               formStatus.classList.add('hidden');
             }, 6000);
-          }, 1200);
+          }
         });
       }
 
@@ -2437,12 +2462,12 @@ print(dev.get_vision())
       if (copyBtn) {
         copyBtn.addEventListener('click', () => {
           try {
-            navigator.clipboard.writeText('tohir.dev@outlook.com');
+            navigator.clipboard.writeText('mamurovtohir571@gmail.com');
             showToast('Email address copied to clipboard!');
             copyBtn.textContent = 'Copied!';
             setTimeout(() => { copyBtn.textContent = 'Copy'; }, 2000);
           } catch(err) {
-            showToast('tohir.dev@outlook.com');
+            showToast('mamurovtohir571@gmail.com');
           }
           audio.playClick();
         });
